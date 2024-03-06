@@ -25,10 +25,14 @@ public class BasicEnemy : MonoBehaviour
     [SerializeField]
     private int experience;
 
+    [SerializeField]
+    private ParticleSystem bloodEffect;
+    
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        bloodEffect = GetComponent<ParticleSystem>();        
     }
 
     // Update is called once per frame
@@ -45,7 +49,7 @@ public class BasicEnemy : MonoBehaviour
     public void InflictDamage(int damage)
     {
         health -= damage;
-
+        bloodEffect.Play();
         if (health <= 0)
         {
             Die();
