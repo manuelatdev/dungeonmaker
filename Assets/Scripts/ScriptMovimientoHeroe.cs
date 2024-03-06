@@ -55,27 +55,33 @@ public class ScriptMovimientoHeroe : MonoBehaviour
         }
     }
 
-    public void EnemigoMuerto()
+    public void AttackToEnemy()
     {
-        if (targetActual.layer == LayerMask.NameToLayer("Enemy"))
-        {
-            colaEnemigos.Dequeue();
-            print("eliminado " + targetActual.name);
-        }
-        else if (targetActual.layer == LayerMask.NameToLayer("Chest"))
-        {
-            colaCofres.Dequeue();
-            print("eliminado " + targetActual.name);
 
 
-        }
-        targetActual.GetComponent<SpriteRenderer>().enabled = false;
-        if (targetActual.TryGetComponent<Collider2D>(out var collider))
+
+        targetActual.GetComponent<BasicEnemy>().InflictDamage(GetComponentInParent<HeroScript>().getDamage());
+
+        if(targetActual.GetComponent<BasicEnemy>().getHeath() <=0)
         {
-            collider.enabled = false;
+            if (targetActual.layer == LayerMask.NameToLayer("Enemy"))
+            {
+                colaEnemigos.Dequeue();
+                print("eliminado " + targetActual.name);
+            }
+            else if (targetActual.layer == LayerMask.NameToLayer("Chest"))
+            {
+                colaCofres.Dequeue();
+                print("eliminado " + targetActual.name);
+
+
+            }
+
+            targetActual = exit;
+            SetNextDestination();
         }
-        targetActual = exit;
-        SetNextDestination();
+
+
     }
 
     public void SetNextDestination()

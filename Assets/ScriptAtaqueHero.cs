@@ -11,6 +11,6 @@ public class ScriptAtaqueHero : MonoBehaviour
     }
     public void Ataque()
     {
-        heroeScript.EnemigoMuerto();
+        heroeScript.AttackToEnemy();
     }
 }
