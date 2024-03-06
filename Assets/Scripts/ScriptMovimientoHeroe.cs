@@ -23,23 +23,7 @@ public class ScriptMovimientoHeroe : MonoBehaviour
         SetNextDestination();
 
     }
-    private void Update()
-    {
-        if (colaEnemigos.Any()) 
-        {
-            foreach (GameObject objeto in colaEnemigos)
-            {
-                print(objeto.name);
-            } 
-        }
-        if (colaEnemigos.Any())
-        {
-            foreach (GameObject objeto in colaCofres)
-            {
-                print(objeto.name);
-            }
-        }
-    }
+   
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -86,6 +70,10 @@ public class ScriptMovimientoHeroe : MonoBehaviour
 
         }
         targetActual.GetComponent<SpriteRenderer>().enabled = false;
+        if (targetActual.TryGetComponent<Collider2D>(out var collider))
+        {
+            collider.enabled = false;
+        }
         targetActual = exit;
         SetNextDestination();
     }
