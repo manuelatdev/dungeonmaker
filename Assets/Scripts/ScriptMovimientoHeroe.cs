@@ -15,6 +15,9 @@ public class ScriptMovimientoHeroe : MonoBehaviour
     [SerializeField]
     private Queue<GameObject> colaCofres = new Queue<GameObject>();
     public GameObject targetActual;
+    [SerializeField]
+    private GameObject spriteGameobject;
+    private bool mirandoIzquierda;
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -23,8 +26,22 @@ public class ScriptMovimientoHeroe : MonoBehaviour
         SetNextDestination();
 
     }
-   
 
+    private void Update()
+    {
+        if (agent.velocity.x > 0&&mirandoIzquierda)
+        {
+            spriteGameobject.transform.rotation = new Quaternion(0, 0, 0, 1);
+            mirandoIzquierda = false;
+
+        }
+        else if (agent.velocity.x < 0&&!mirandoIzquierda)
+        {
+            spriteGameobject.transform.rotation = new Quaternion(0, 1, 0, 0);
+            mirandoIzquierda = true;
+
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     

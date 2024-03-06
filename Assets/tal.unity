@@ -335,7 +335,6 @@ GameObject:
   m_Component:
   - component: {fileID: 257592419}
   - component: {fileID: 257592418}
-  - component: {fileID: 257592417}
   - component: {fileID: 257592420}
   - component: {fileID: 257592421}
   m_Layer: 7
@@ -345,22 +344,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &257592417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 257592416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 1
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: ffffffff
 --- !u!212 &257592418
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1119,6 +1102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   exit: {fileID: 1238453202}
   targetActual: {fileID: 0}
+  spriteGameobject: {fileID: 1577607763}
 --- !u!4 &988655978
 Transform:
   m_ObjectHideFlags: 0
@@ -1330,7 +1314,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1029086299}
   - component: {fileID: 1029086298}
-  - component: {fileID: 1029086297}
   - component: {fileID: 1029086300}
   - component: {fileID: 1029086301}
   m_Layer: 7
@@ -1340,22 +1323,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1029086297
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1029086296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 1
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: ffffffff
 --- !u!212 &1029086298
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2787,7 +2754,7 @@ Transform:
   m_GameObject: {fileID: 1591611704}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.858, y: 1.677, z: 0}
+  m_LocalPosition: {x: -5.79, y: 0.96, z: 0}
   m_LocalScale: {x: 0.7221, y: 0.7221, z: 0.7221}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3013,7 +2980,7 @@ Transform:
   m_GameObject: {fileID: 1781202615}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.05, y: 0.54, z: 0}
+  m_LocalPosition: {x: -5.3, y: 0.35, z: 0}
   m_LocalScale: {x: 0.7221, y: 0.7221, z: 0.7221}
   m_ConstrainProportionsScale: 0
   m_Children: []
