@@ -6,20 +6,51 @@ public class RangoAtaqueScript : MonoBehaviour
 {
     ScriptMovimientoHeroe heroeScript;
     public Animator animatorHero;
+    private bool atacando;
     private void Start()
     {
         heroeScript = GetComponentInParent<ScriptMovimientoHeroe>();
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
 
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (!atacando)
         {
-            animatorHero.SetTrigger("Atack");
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            {
+                animatorHero.SetBool("Atack", true);
+                atacando = true;
+                print("empiezo a atacar");
+
+            }
+            else if (collision.gameObject.layer == LayerMask.NameToLayer("Chest"))
+            {
+                animatorHero.SetBool("Atack", true);
+                atacando = true;
+                print("empiezo a atacar");
+
+
+            }
         }
-        else if (collision.gameObject.layer == LayerMask.NameToLayer("Chest"))
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (atacando)
         {
-            animatorHero.SetTrigger("Atack");
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            {
+                atacando = false;
+                animatorHero.SetBool("Atack", false);
+                print("dejo de tocar"+collision.gameObject.name);
+            }
+            else if (collision.gameObject.layer == LayerMask.NameToLayer("Chest"))
+            {
+                atacando = false;
+
+                animatorHero.SetBool("Atack", false);
+                print("dejo de tocar" + collision.gameObject.name);
+
+            }
         }
     }
 }
