@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BasicEnemy : MonoBehaviour
 {
@@ -27,12 +29,29 @@ public class BasicEnemy : MonoBehaviour
 
     [SerializeField]
     private ParticleSystem bloodEffect;
-    
+
+    [SerializeField]
+    private Image healImage;
+
+    [SerializeField]
+    private bool cofre;
+
+    private TextMeshProUGUI healText;
+
+    private int initialHeal;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        bloodEffect = GetComponent<ParticleSystem>();        
+        bloodEffect = GetComponent<ParticleSystem>();
+        if (!cofre)
+        {
+            healText = GetComponentInChildren<TextMeshProUGUI>();
+            initialHeal = health;
+            healText.text = health + " / " + initialHeal; 
+        }
+        
     }
 
     // Update is called once per frame
@@ -49,6 +68,12 @@ public class BasicEnemy : MonoBehaviour
     public void InflictDamage(int damage)
     {
         health -= damage;
+        if (!cofre)
+        {
+            healImage.fillAmount -= (float)damage / initialHeal;
+            print((float)damage / initialHeal);
+            healText.text = health + " / " + initialHeal; 
+        }
         bloodEffect.Play();
         if (health <= 0)
         {
@@ -60,8 +85,11 @@ public class BasicEnemy : MonoBehaviour
     private void Die()
     {
         GetComponent<SpriteRenderer>().enabled = false;
+        if (!cofre)
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
 
-        if (TryGetComponent<Collider2D>(out var collider))
+        }        if (TryGetComponent<Collider2D>(out var collider))
         {
             collider.enabled = false;
         }
