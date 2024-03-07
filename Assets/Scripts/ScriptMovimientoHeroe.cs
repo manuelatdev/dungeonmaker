@@ -26,6 +26,7 @@ public class ScriptMovimientoHeroe : MonoBehaviour
         SetNextDestination();
 
     }
+   
 
     private void Update()
     {
@@ -46,48 +47,54 @@ public class ScriptMovimientoHeroe : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     
     {
+        BaseEntity objectCollisioned = collision.gameObject.GetComponent<BaseEntity>();
+
+        if(objectCollisioned != null)
+        {
+            
+        }
 
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy")&& !colaEnemigos.Contains(collision.gameObject))
         {
-            collision.gameObject.GetComponent<BasicEnemy>().OnDie += OnEnemyDied;
+            collision.gameObject.GetComponent<BasicEnemy>().OnDie += gameObject.GetComponent<HeroScript>().OnEnemyDied;
 
             colaEnemigos.Enqueue(collision.gameObject);
             if (colaEnemigos.Count + colaCofres.Count < 2)
             {
                 SetNextDestination();
             }
-            print("añadido " + collision.gameObject.name);
             
             
         }
         else if (collision.gameObject.layer == LayerMask.NameToLayer("Chest")&& !colaCofres.Contains(collision.gameObject))
         {
-            collision.gameObject.GetComponent<BasicEnemy>().OnDie += OnEnemyDied;
+            collision.gameObject.GetComponent<BaseEntity>().OnDie += gameObject.GetComponent<HeroScript>().OnEnemyDied;
 
             colaCofres.Enqueue(collision.gameObject);
             if (colaEnemigos.Count + colaCofres.Count < 2)
             {
                 SetNextDestination();
             }
-            print("añadido " + collision.gameObject.name);
 
 
 
         }
     }
 
-    private void OnEnemyDied()
+
+
+
+
+    public void NextTarget()
     {
         if (targetActual.layer == LayerMask.NameToLayer("Enemy"))
         {
             colaEnemigos.Dequeue();
-            print("eliminado " + targetActual.name);
         }
         else if (targetActual.layer == LayerMask.NameToLayer("Chest"))
         {
             colaCofres.Dequeue();
-            print("eliminado " + targetActual.name);
 
 
         }
@@ -99,31 +106,7 @@ public class ScriptMovimientoHeroe : MonoBehaviour
 
     public void AttackToEnemy()
     {
-
-
-
-        targetActual.GetComponent<BasicEnemy>().InflictDamage(GetComponentInParent<HeroScript>().getDamage());
-
-        //if(targetActual.GetComponent<BasicEnemy>().getHeath() <=0)
-        //{
-        //    if (targetActual.layer == LayerMask.NameToLayer("Enemy"))
-        //    {
-        //        colaEnemigos.Dequeue();
-        //        print("eliminado " + targetActual.name);
-        //    }
-        //    else if (targetActual.layer == LayerMask.NameToLayer("Chest"))
-        //    {
-        //        colaCofres.Dequeue();
-        //        print("eliminado " + targetActual.name);
-
-
-        //    }
-
-        //    targetActual = exit;
-        //    SetNextDestination();
-        //}
-
-
+        targetActual.GetComponent<BaseEntity>().TakeAttack(GetComponentInParent<HeroScript>().getDamage());
     }
 
     public void SetNextDestination()

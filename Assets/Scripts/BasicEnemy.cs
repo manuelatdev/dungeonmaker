@@ -1,110 +1,62 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BasicEnemy : MonoBehaviour
+public class BasicEnemy : BaseEntity
 {
-    public event Action OnDie;
 
-    [SerializeField]
-    private int health;
-
-    [SerializeField]
-    private int damage;
-
-    [SerializeField]
-    private int range;
-
-    [SerializeField]
-    private float attackSpeed;
-
-    [SerializeField]
-    private int cost;
-
-    [SerializeField]
-    private int gold;
-
-    [SerializeField]
-    private int experience;
-
-    [SerializeField]
-    private ParticleSystem bloodEffect;
+    private TextMeshProUGUI healText;
 
     [SerializeField]
     private Image healImage;
 
     [SerializeField]
-    private bool cofre;
+    protected int damage;
 
-    private AudioSource dieSound;
+    [SerializeField]
+    protected int range;
 
-    private TextMeshProUGUI healText;
+    [SerializeField]
+    protected float attackSpeed;
 
-    private int initialHeal;
+    [SerializeField]
+    protected int cost;
 
+    [SerializeField]
+    protected int experience;
 
-
-
-    // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
-        dieSound = GetComponent<AudioSource>();
-        bloodEffect = GetComponent<ParticleSystem>();
-        if (!cofre)
-        {
-            healText = GetComponentInChildren<TextMeshProUGUI>();
-            initialHeal = health;
-            healText.text = health + " / " + initialHeal; 
-        }
-        
+        base.Start();
+
+        healText = GetComponentInChildren<TextMeshProUGUI>();
+        initialHealth = health;
+        healText.text = health + " / " + initialHealth;
     }
 
-    // Update is called once per frame
-    void Update()
+    public int getExperience()
     {
-
+        return experience;
     }
 
-    public int getHeath()
+    public override void TakeAttack(int damage)
     {
-        return this.health;
+        base.TakeAttack(damage);
+
+
+        healImage.fillAmount -= (float)damage / initialHealth;
+        healText.text = health + " / " + initialHealth;
     }
 
-    public void InflictDamage(int damage)
+    protected override void Die()
     {
-        health -= damage;
-        if (!cofre)
-        {
-            healImage.fillAmount -= (float)damage / initialHeal;
-            print((float)damage / initialHeal);
-            healText.text = health + " / " + initialHeal; 
-        }
-        bloodEffect.Play();
-        if (health <= 0)
-        {
-            Die();
-        }
+        base.Die();
+
+        transform.GetChild(0).gameObject.SetActive(false);
     }
-
-
-    private void Die()
-    {
-        dieSound.Play();
-        OnDie?.Invoke();
-
-        GetComponent<SpriteRenderer>().enabled = false;
-        if (!cofre)
-        {
-            transform.GetChild(0).gameObject.SetActive(false);
-
-        }        if (TryGetComponent<Collider2D>(out var collider))
-        {
-            collider.enabled = false;
-        }
-    }
-
 
 }

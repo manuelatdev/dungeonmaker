@@ -20,14 +20,12 @@ public class RangoAtaqueScript : MonoBehaviour
             {
                 animatorHero.SetBool("Atack", true);
                 atacando = true;
-                print("empiezo a atacar");
 
             }
             else if (collision.gameObject.layer == LayerMask.NameToLayer("Chest"))
             {
                 animatorHero.SetBool("Atack", true);
                 atacando = true;
-                print("empiezo a atacar");
 
 
             }
@@ -41,14 +39,12 @@ public class RangoAtaqueScript : MonoBehaviour
             {
                 atacando = false;
                 animatorHero.SetBool("Atack", false);
-                print("dejo de tocar"+collision.gameObject.name);
             }
             else if (collision.gameObject.layer == LayerMask.NameToLayer("Chest"))
             {
                 atacando = false;
 
                 animatorHero.SetBool("Atack", false);
-                print("dejo de tocar" + collision.gameObject.name);
 
             }
         }
