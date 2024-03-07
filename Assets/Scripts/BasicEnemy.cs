@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,6 +7,8 @@ using UnityEngine.UI;
 
 public class BasicEnemy : MonoBehaviour
 {
+    public event Action OnDie;
+
     [SerializeField]
     private int health;
 
@@ -84,6 +87,8 @@ public class BasicEnemy : MonoBehaviour
 
     private void Die()
     {
+        OnDie?.Invoke();
+
         GetComponent<SpriteRenderer>().enabled = false;
         if (!cofre)
         {
