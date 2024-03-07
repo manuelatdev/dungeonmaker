@@ -71,7 +71,7 @@ public class ScriptMovimientoHeroe : MonoBehaviour
 
         }
     }
-
+    
     public void AttackToEnemy()
     {
 

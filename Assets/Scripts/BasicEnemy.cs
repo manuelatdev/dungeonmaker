@@ -36,14 +36,19 @@ public class BasicEnemy : MonoBehaviour
     [SerializeField]
     private bool cofre;
 
+    private AudioSource dieSound;
+
     private TextMeshProUGUI healText;
 
     private int initialHeal;
 
 
+
+
     // Start is called before the first frame update
     void Start()
     {
+        dieSound = GetComponent<AudioSource>();
         bloodEffect = GetComponent<ParticleSystem>();
         if (!cofre)
         {
@@ -84,6 +89,7 @@ public class BasicEnemy : MonoBehaviour
 
     private void Die()
     {
+        dieSound.Play();
         GetComponent<SpriteRenderer>().enabled = false;
         if (!cofre)
         {
