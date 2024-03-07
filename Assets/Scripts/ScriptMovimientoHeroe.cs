@@ -78,8 +78,6 @@ public class ScriptMovimientoHeroe : MonoBehaviour
     }
 
     private void OnEnemyDied()
-    
-    public void AttackToEnemy()
     {
         if (targetActual.layer == LayerMask.NameToLayer("Enemy"))
         {
@@ -97,6 +95,7 @@ public class ScriptMovimientoHeroe : MonoBehaviour
         targetActual = exit;
         SetNextDestination();
     }
+    
 
     public void AttackToEnemy()
     {
