@@ -65,13 +65,12 @@ public class HeroScript : MonoBehaviour
 
             experienceBar.fillAmount = (float)((float)heroExperience / (float)experienceLevels[heroLevel]);
 
-            
-            if(heroExperience >= experienceLevels[heroLevel])
+            if (heroExperience >= experienceLevels[heroLevel])
             {
+                heroExperience -= experienceLevels[heroLevel];
                 heroLevel++;
                 levelLabel.text = heroLevel.ToString();
-                experienceBar.fillAmount = 0.0f;
-                heroExperience = 0;
+                experienceBar.fillAmount = (float)((float)heroExperience / (float)experienceLevels[heroLevel]);
             }
         }
 
