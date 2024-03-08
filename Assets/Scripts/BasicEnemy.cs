@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class BasicEnemy : BaseEntity
@@ -12,7 +13,10 @@ public class BasicEnemy : BaseEntity
     private TextMeshProUGUI healText;
 
     [SerializeField]
-    private Image healImage;
+    private Image greenHealthBarImage;
+
+    [SerializeField]
+    private Image redHealthBarImage;
 
     [SerializeField]
     protected int damage;
@@ -48,15 +52,30 @@ public class BasicEnemy : BaseEntity
         base.TakeAttack(damage);
 
 
-        healImage.fillAmount -= (float)damage / initialHealth;
+        greenHealthBarImage.fillAmount -= (float)damage / initialHealth;
         healText.text = health + " / " + initialHealth;
+        StopCoroutine(AnimateHealthBarDecrease());
+        StartCoroutine(AnimateHealthBarDecrease());
     }
-
-    protected override void Die()
+    IEnumerator AnimateHealthBarDecrease()
     {
-        base.Die();
+        float elapsedTime = 0;
+        float startValue = redHealthBarImage.fillAmount;
+        float endValue = greenHealthBarImage.fillAmount;
+        float duration = 0.5f;
 
-        transform.GetChild(0).gameObject.SetActive(false);
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            redHealthBarImage.fillAmount = Mathf.Lerp(startValue, endValue, elapsedTime / duration);
+            yield return null;
+        }
+
+        // Asegurarse de que fillAmount es exactamente 0.5 al final de la animación
+        redHealthBarImage.fillAmount = endValue;
     }
+
+
+    
 
 }

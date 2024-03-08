@@ -15,14 +15,27 @@ public class BaseEntity : MonoBehaviour
 
     [SerializeField]
     protected int gold;
-    [SerializeField]
+
     protected ParticleSystem particleEmitter;
+
+    [SerializeField]
+    protected GameObject[] disabledOnDead;
 
     protected AudioSource dieSound;
 
     protected Collider2D meCollider;
 
     protected int initialHealth;
+   
+
+    public int getGold()
+    {
+        return gold;
+    }
+    public int getHeath()
+    {
+        return this.health;
+    }
     public virtual void TakeAttack(int damage)
     {
         health -= damage;
@@ -34,17 +47,15 @@ public class BaseEntity : MonoBehaviour
         }
     }
 
-    public int getGold()
-    {
-        return gold;
-    }
-
     protected virtual void Die()
     {
         dieSound.Play();
         OnDie?.Invoke(gameObject);
 
-        GetComponent<SpriteRenderer>().enabled = false;
+        foreach (GameObject obj in disabledOnDead)
+        {
+            obj.SetActive(false);
+        }
 
         meCollider.enabled = false;
 
@@ -56,10 +67,7 @@ public class BaseEntity : MonoBehaviour
 
     }
 
-    public int getHeath()
-    {
-        return this.health;
-    }
+    
 
 
 

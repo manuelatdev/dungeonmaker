@@ -11,15 +11,23 @@ public class HeroScript : MonoBehaviour
     [SerializeField]
     private int health;
 
+    private int totalHealth;
+
     [SerializeField]
     private int damage;
 
     [SerializeField]
+    private int def;
+
+    [SerializeField]
     private int range;
 
+   
     [SerializeField]
     private float attackSpeed;
 
+
+    private ScriptMovimientoHeroe movimientoScript;
     private int heroGold;
 
     private int heroExperience;
@@ -31,7 +39,22 @@ public class HeroScript : MonoBehaviour
     private TextMeshProUGUI goldLabel;
 
     [SerializeField]
+    private TextMeshProUGUI attackLabel;
+
+    [SerializeField]
+    private TextMeshProUGUI healthLabel;
+
+    [SerializeField]
+    private TextMeshProUGUI defLabel;
+
+    [SerializeField]
+    private TextMeshProUGUI speedLabel;
+
+    [SerializeField]
     private TextMeshProUGUI levelLabel;
+
+    [SerializeField]
+    private TextMeshProUGUI experienceLabel;
 
     [SerializeField]
     private Image experienceBar;
@@ -43,8 +66,10 @@ public class HeroScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        movimientoScript = GetComponent<ScriptMovimientoHeroe>();
         heroLevel = 1;
         levelLabel.text = heroLevel.ToString();
+        ActualizarMarcador();
     }
 
     // Update is called once per frame
@@ -55,14 +80,22 @@ public class HeroScript : MonoBehaviour
 
     public void OnEnemyDied(GameObject enemyRef)
     {
-        heroGold += enemyRef.GetComponent<BaseEntity>().getGold();
-
         BasicEnemy basicEnemy = enemyRef.GetComponent<BasicEnemy>();
 
+        heroGold += enemyRef.GetComponent<BaseEntity>().getGold();
         if (basicEnemy != null)
         {
-            heroExperience += basicEnemy.getExperience();
+            heroExperience += basicEnemy.getExperience(); 
+        }
+        ActualizarMarcador();
+        movimientoScript.NextTarget();
 
+
+    }
+    private void ActualizarMarcador()
+    {
+        
+            
             experienceBar.fillAmount = (float)((float)heroExperience / (float)experienceLevels[heroLevel]);
 
             if (heroExperience >= experienceLevels[heroLevel])
@@ -74,16 +107,15 @@ public class HeroScript : MonoBehaviour
                 levelLabel.text = heroLevel.ToString();
                 experienceBar.fillAmount = (float)((float)heroExperience / (float)experienceLevels[heroLevel]);
             }
-        }
-
-        GetComponent<ScriptMovimientoHeroe>().NextTarget();
-
+        
         goldLabel.text = heroGold.ToString();
+        attackLabel.text = damage.ToString();
+        healthLabel.text = health.ToString();
+        defLabel.text = def.ToString();
+        speedLabel.text = attackSpeed.ToString();
+        experienceLabel.text = heroExperience + "/" + experienceLevels[heroLevel];
+        
 
-
-
-        Debug.Log(heroGold.ToString());
-        Debug.Log(heroExperience.ToString());
 
     }
 
