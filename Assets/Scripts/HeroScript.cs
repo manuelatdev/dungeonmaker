@@ -87,35 +87,37 @@ public class HeroScript : MonoBehaviour
         {
             heroExperience += basicEnemy.getExperience(); 
         }
+        
+
+        if (heroExperience >= experienceLevels[heroLevel])
+        {
+            LevelUp();
+                 
+        }
+        
         ActualizarMarcador();
         movimientoScript.NextTarget();
 
 
     }
+
+    private void LevelUp()
+    {
+        heroExperience -= experienceLevels[heroLevel];
+        heroLevel++;
+        damage++;
+        health += 5;
+    }
     private void ActualizarMarcador()
     {
-        
-            
-            experienceBar.fillAmount = (float)((float)heroExperience / (float)experienceLevels[heroLevel]);
-
-            if (heroExperience >= experienceLevels[heroLevel])
-            {
-                heroExperience -= experienceLevels[heroLevel];
-                heroLevel++;
-                damage++;
-                health += 5;
-                levelLabel.text = heroLevel.ToString();
-                experienceBar.fillAmount = (float)((float)heroExperience / (float)experienceLevels[heroLevel]);
-            }
-        
+        levelLabel.text = heroLevel.ToString();
+        experienceBar.fillAmount = (float)((float)heroExperience / (float)experienceLevels[heroLevel]);
         goldLabel.text = heroGold.ToString();
         attackLabel.text = damage.ToString();
         healthLabel.text = health.ToString();
         defLabel.text = def.ToString();
         speedLabel.text = attackSpeed.ToString();
         experienceLabel.text = heroExperience + "/" + experienceLevels[heroLevel];
-        
-
 
     }
 

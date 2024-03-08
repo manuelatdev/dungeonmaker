@@ -502,10 +502,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   damage: 1
+  def: 0
   range: 0
   attackSpeed: 1
   goldLabel: {fileID: 0}
+  attackLabel: {fileID: 0}
+  healthLabel: {fileID: 0}
+  defLabel: {fileID: 0}
+  speedLabel: {fileID: 0}
   levelLabel: {fileID: 0}
+  experienceLabel: {fileID: 0}
   experienceBar: {fileID: 0}
 --- !u!1 &8495562996012511349
 GameObject:
@@ -588,7 +594,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.1
+  m_Radius: 0.7
 --- !u!50 &4162519859239304359
 Rigidbody2D:
   serializedVersion: 4

@@ -4151,10 +4151,6 @@ PrefabInstance:
       propertyPath: experienceLabel
       value: 
       objectReference: {fileID: 1915462135}
-    - target: {fileID: 1360364120902686782, guid: d77ec23223aadd341a48e272c7912871, type: 3}
-      propertyPath: m_Radius
-      value: 0.7
-      objectReference: {fileID: 0}
     - target: {fileID: 1529303299628501496, guid: d77ec23223aadd341a48e272c7912871, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.06
@@ -4194,10 +4190,6 @@ PrefabInstance:
     - target: {fileID: 1529303299628501496, guid: d77ec23223aadd341a48e272c7912871, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3523530503471163057, guid: d77ec23223aadd341a48e272c7912871, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4072252906446603896, guid: d77ec23223aadd341a48e272c7912871, type: 3}
       propertyPath: exit
