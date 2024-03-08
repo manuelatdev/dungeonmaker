@@ -18,8 +18,10 @@ public class ScriptMovimientoHeroe : MonoBehaviour
     [SerializeField]
     private GameObject spriteGameobject;
     private bool mirandoIzquierda;
+    private HeroScript scriptHero;
     private void Start()
     {
+        scriptHero = GetComponent<HeroScript>();
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
@@ -49,23 +51,23 @@ public class ScriptMovimientoHeroe : MonoBehaviour
     {
         BaseEntity objectCollisioned = collision.gameObject.GetComponent<BaseEntity>();
 
-        if(objectCollisioned != null)
-        {
-            
-        }
-
-
+        
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy")&& !colaEnemigos.Contains(collision.gameObject))
         {
-            collision.gameObject.GetComponent<BasicEnemy>().OnDie += gameObject.GetComponent<HeroScript>().OnEnemyDied;
+            collision.gameObject.GetComponent<BasicEnemy>().OnDie += scriptHero.OnEnemyDied;
 
             colaEnemigos.Enqueue(collision.gameObject);
             if (colaEnemigos.Count + colaCofres.Count < 2)
             {
                 SetNextDestination();
             }
-            
-            
+            else if (targetActual.layer == LayerMask.NameToLayer("Chest"))
+            {
+                SetNextDestination();
+
+            }
+
+
         }
         else if (collision.gameObject.layer == LayerMask.NameToLayer("Chest")&& !colaCofres.Contains(collision.gameObject))
         {

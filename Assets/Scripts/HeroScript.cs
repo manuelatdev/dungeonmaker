@@ -69,6 +69,8 @@ public class HeroScript : MonoBehaviour
             {
                 heroExperience -= experienceLevels[heroLevel];
                 heroLevel++;
+                damage++;
+                health += 5;
                 levelLabel.text = heroLevel.ToString();
                 experienceBar.fillAmount = (float)((float)heroExperience / (float)experienceLevels[heroLevel]);
             }
