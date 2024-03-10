@@ -19,8 +19,10 @@ public class ScriptMovimientoHeroe : MonoBehaviour
     private GameObject spriteGameobject;
     private bool mirandoIzquierda;
     private HeroScript scriptHero;
+    private RangoAtaqueScript heroAttackScript;
     private void Start()
     {
+        heroAttackScript = GetComponentInChildren<RangoAtaqueScript>();
         scriptHero = GetComponent<HeroScript>();
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
@@ -43,6 +45,14 @@ public class ScriptMovimientoHeroe : MonoBehaviour
             spriteGameobject.transform.rotation = new Quaternion(0, 1, 0, 0);
             mirandoIzquierda = true;
 
+        }
+        if (heroAttackScript.atacando&&!agent.isStopped)
+        {
+            agent.isStopped = true;
+        }
+        else if (!heroAttackScript.atacando&&agent.isStopped&&heroAttackScript.animatorHero.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
+        {
+            agent.isStopped = false;
         }
     }
 
@@ -100,8 +110,8 @@ public class ScriptMovimientoHeroe : MonoBehaviour
 
 
         }
-
-        targetActual = exit;
+        
+       
         SetNextDestination();
     }
     

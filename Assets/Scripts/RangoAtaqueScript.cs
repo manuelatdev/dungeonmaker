@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ public class RangoAtaqueScript : MonoBehaviour
 {
     ScriptMovimientoHeroe heroeScript;
     public Animator animatorHero;
-    private bool atacando;
+    public bool atacando;
     private void Start()
     {
         heroeScript = GetComponentInParent<ScriptMovimientoHeroe>();
