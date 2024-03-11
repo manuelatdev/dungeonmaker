@@ -18,7 +18,8 @@ public class SelectorScript : MonoBehaviour
         {
             Vector3 mousePosition = Input.mousePosition;
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-            objetoInstanciado.transform.position = new Vector3(worldPosition.x, worldPosition.y,0);
+            
+            objetoInstanciado.transform.position = new Vector3(worldPosition.x, worldPosition.y, 0);
         }
     }
 
@@ -53,4 +54,5 @@ public class SelectorScript : MonoBehaviour
 
         }
     }
+   
 }
