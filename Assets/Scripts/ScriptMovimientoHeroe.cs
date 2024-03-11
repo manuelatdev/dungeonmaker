@@ -20,83 +20,112 @@ public class ScriptMovimientoHeroe : MonoBehaviour
     private bool mirandoIzquierda;
     private HeroScript scriptHero;
     private RangoAtaqueScript heroAttackScript;
+    private Vector3 initialPosition;
+
+   
     private void Start()
     {
+        initialPosition = transform.position;
         heroAttackScript = GetComponentInChildren<RangoAtaqueScript>();
         scriptHero = GetComponent<HeroScript>();
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
-        SetNextDestination();
+        agent.isStopped = true;
+
 
     }
-   
+
 
     private void Update()
     {
-        if (agent.velocity.x > 0&&mirandoIzquierda)
+        if (ScriptGameManager.gameMode == ModoJuego.Play)
         {
-            spriteGameobject.transform.rotation = new Quaternion(0, 0, 0, 1);
-            mirandoIzquierda = false;
+            if (agent.velocity.x > 0 && mirandoIzquierda)
+            {
+                spriteGameobject.transform.rotation = new Quaternion(0, 0, 0, 1);
+                mirandoIzquierda = false;
 
-        }
-        else if (agent.velocity.x < 0&&!mirandoIzquierda)
-        {
-            spriteGameobject.transform.rotation = new Quaternion(0, 1, 0, 0);
-            mirandoIzquierda = true;
+            }
+            else if (agent.velocity.x < 0 && !mirandoIzquierda)
+            {
+                spriteGameobject.transform.rotation = new Quaternion(0, 1, 0, 0);
+                mirandoIzquierda = true;
 
-        }
-        if (heroAttackScript.atacando&&!agent.isStopped)
-        {
-            agent.isStopped = true;
-        }
-        else if (!heroAttackScript.atacando&&agent.isStopped&&heroAttackScript.animatorHero.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
-        {
-            agent.isStopped = false;
+            }
+            if (heroAttackScript.atacando && !agent.isStopped)
+            {
+                agent.isStopped = true;
+            }
+            else if (!heroAttackScript.atacando && agent.isStopped && heroAttackScript.animatorHero.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
+            {
+                agent.isStopped = false;
+            } 
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     
     {
-        BaseEntity objectCollisioned = collision.gameObject.GetComponent<BaseEntity>();
-
-        
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy")&& !colaEnemigos.Contains(collision.gameObject))
+        if (ScriptGameManager.gameMode == ModoJuego.Play)
         {
-            collision.gameObject.GetComponent<BasicEnemy>().OnDie += scriptHero.OnEnemyDied;
+            BaseEntity objectCollisioned = collision.gameObject.GetComponent<BaseEntity>();
 
-            colaEnemigos.Enqueue(collision.gameObject);
-            if (colaEnemigos.Count + colaCofres.Count < 2)
+
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") && !colaEnemigos.Contains(collision.gameObject))
             {
-                SetNextDestination();
+                collision.gameObject.GetComponent<BasicEnemy>().OnDie += scriptHero.OnEnemyDied;
+
+                colaEnemigos.Enqueue(collision.gameObject);
+                if (colaEnemigos.Count + colaCofres.Count < 2)
+                {
+                    SetNextDestination();
+                }
+                else if (targetActual.layer == LayerMask.NameToLayer("Chest"))
+                {
+                    SetNextDestination();
+
+                }
+
+
             }
-            else if (targetActual.layer == LayerMask.NameToLayer("Chest"))
+            else if (collision.gameObject.layer == LayerMask.NameToLayer("Chest") && !colaCofres.Contains(collision.gameObject))
             {
-                SetNextDestination();
+                collision.gameObject.GetComponent<BaseEntity>().OnDie += gameObject.GetComponent<HeroScript>().OnEnemyDied;
 
-            }
-
-
-        }
-        else if (collision.gameObject.layer == LayerMask.NameToLayer("Chest")&& !colaCofres.Contains(collision.gameObject))
-        {
-            collision.gameObject.GetComponent<BaseEntity>().OnDie += gameObject.GetComponent<HeroScript>().OnEnemyDied;
-
-            colaCofres.Enqueue(collision.gameObject);
-            if (colaEnemigos.Count + colaCofres.Count < 2)
-            {
-                SetNextDestination();
-            }
+                colaCofres.Enqueue(collision.gameObject);
+                if (colaEnemigos.Count + colaCofres.Count < 2)
+                {
+                    SetNextDestination();
+                }
 
 
 
+            } 
         }
     }
 
 
 
+    public void GoPlayMode()
+    {
+        SetNextDestination();
+        agent.isStopped = false;
+        heroAttackScript.animatorHero.SetBool("Walk", true);
 
+    }
+    public void GoStopMode()
+    {
+        agent.isStopped = true;
+        colaCofres.Clear();
+        colaEnemigos.Clear();
+        spriteGameobject.transform.rotation = new Quaternion(0, 0, 0, 1);
+        transform.position = initialPosition;
+        heroAttackScript.animatorHero.SetTrigger("Stop");
+
+        heroAttackScript.animatorHero.SetBool("Walk",false);
+
+    }
 
     public void NextTarget()
     {

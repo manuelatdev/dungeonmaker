@@ -15,7 +15,7 @@ public class RangoAtaqueScript : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
 
     {
-        if (!atacando)
+        if (!atacando && ScriptGameManager.gameMode == ModoJuego.Play)
         {
             if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {

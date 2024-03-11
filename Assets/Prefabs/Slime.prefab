@@ -20,13 +20,25 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.36470586
       objectReference: {fileID: 0}
+    - target: {fileID: 609546007834145105, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489611049570769732, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2519749785346924610, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2671787704201220808, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.72
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 2671787704201220808, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.57
+      value: 3.48
       objectReference: {fileID: 0}
     - target: {fileID: 2671787704201220808, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -72,9 +84,17 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.16834284
       objectReference: {fileID: 0}
+    - target: {fileID: 3107572010634372082, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3884976532814465655, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: m_Name
       value: Slime
+      objectReference: {fileID: 0}
+    - target: {fileID: 5753803369113266691, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: cost
@@ -124,6 +144,10 @@ PrefabInstance:
       propertyPath: disabledOnDead.Array.data[1]
       value: 
       objectReference: {fileID: 3646761462784794874}
+    - target: {fileID: 5914284406088920747, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7266198450180646820, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: m_Name
       value: GreenBar
