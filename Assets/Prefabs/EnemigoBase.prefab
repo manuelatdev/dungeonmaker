@@ -516,6 +516,8 @@ MonoBehaviour:
   health: 2
   gold: 1
   disabledOnDead: []
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
+  renderers: []
   greenHealthBarImage: {fileID: 0}
   redHealthBarImage: {fileID: 0}
   damage: 0
@@ -5639,7 +5641,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 20
   m_TargetDisplay: 0
 --- !u!114 &8532738928637079011
 MonoBehaviour:

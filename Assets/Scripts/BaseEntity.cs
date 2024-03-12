@@ -29,9 +29,11 @@ public class BaseEntity : MonoBehaviour
 
     private bool creatingSelected;
 
+    [SerializeField]
     private Color originalColor;
 
-    private SpriteRenderer renderer;
+    [SerializeField]
+    private SpriteRenderer[] renderers;
 
     public int getGold()
     {
@@ -54,7 +56,7 @@ public class BaseEntity : MonoBehaviour
 
     public bool IsCreable()
     {
-        if (renderer.color != Color.red)
+        if (renderers[0].color != Color.red)
         {
             return true;
         }
@@ -77,32 +79,49 @@ public class BaseEntity : MonoBehaviour
         Destroy(gameObject, 3f);
     }
 
-    void Update()
+    public void SpriteLayerUp()
     {
-
+        foreach (SpriteRenderer render in renderers)
+        {
+            render.sortingOrder += 10;
+        }
+    }
+    public void SpriteLayerDown()
+    {
+        foreach (SpriteRenderer render in renderers)
+        {
+            render.sortingOrder -= 10;
+        }
     }
 
     public void SetSelected(bool selected)
     {
-        Debug.Log("Selectedchanged to" + selected.ToString());
         creatingSelected = selected;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (creatingSelected && renderer.color != Color.red)
+        if (creatingSelected && renderers[0].color != Color.red&&collision.gameObject.layer != LayerMask.NameToLayer("Hero"))
         {
             
-            originalColor = renderer.color;
-            renderer.color = Color.red;
+            foreach (SpriteRenderer render in renderers)
+            {
+                render.color = Color.red;
+
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(creatingSelected)
+        if(creatingSelected && collision.gameObject.layer != LayerMask.NameToLayer("Hero"))
         {
-            renderer.color = originalColor;
+            foreach (SpriteRenderer render in renderers)
+            {
+                render.color = originalColor;
+
+            }
+
         }
     }
 
@@ -114,12 +133,9 @@ public class BaseEntity : MonoBehaviour
         dieSound = GetComponent<AudioSource>();
         particleEmitter = GetComponent<ParticleSystem>();
         meCollider = GetComponent<Collider2D>();
-    }
-
-    private void Awake()
-    {
-        renderer = GetComponentInChildren<SpriteRenderer>();
 
     }
+
+    
 
 }

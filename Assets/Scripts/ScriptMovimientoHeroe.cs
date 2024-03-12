@@ -78,7 +78,7 @@ public class ScriptMovimientoHeroe : MonoBehaviour
             {
                 SetNextDestination();
             }
-            else if (targetActual.layer == LayerMask.NameToLayer("Chest"))
+            else if (targetActual?.layer == LayerMask.NameToLayer("Chest"))
             {
                 SetNextDestination();
 
