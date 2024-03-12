@@ -26,7 +26,12 @@ public class BaseEntity : MonoBehaviour
     protected Collider2D meCollider;
 
     protected int initialHealth;
-   
+
+    private bool creatingSelected;
+
+    private Color originalColor;
+
+    private SpriteRenderer renderer;
 
     public int getGold()
     {
@@ -45,6 +50,16 @@ public class BaseEntity : MonoBehaviour
         {
             Die();
         }
+    }
+
+    public bool IsCreable()
+    {
+        if (renderer.color != Color.red)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     protected virtual void Die()
@@ -67,16 +82,44 @@ public class BaseEntity : MonoBehaviour
 
     }
 
+    public void SetSelected(bool selected)
+    {
+        Debug.Log("Selectedchanged to" + selected.ToString());
+        creatingSelected = selected;
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (creatingSelected && renderer.color != Color.red)
+        {
+            
+            originalColor = renderer.color;
+            renderer.color = Color.red;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(creatingSelected)
+        {
+            renderer.color = originalColor;
+        }
+    }
+
+
     
-
-
-
     // Start is called before the first frame update
     public virtual void Start()
     {
         dieSound = GetComponent<AudioSource>();
         particleEmitter = GetComponent<ParticleSystem>();
         meCollider = GetComponent<Collider2D>();
+    }
+
+    private void Awake()
+    {
+        renderer = GetComponentInChildren<SpriteRenderer>();
+
     }
 
 }
