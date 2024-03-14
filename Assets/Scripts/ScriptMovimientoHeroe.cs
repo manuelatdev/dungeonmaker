@@ -88,7 +88,7 @@ public class ScriptMovimientoHeroe : MonoBehaviour
         }
         else if (collision.gameObject.layer == LayerMask.NameToLayer("Chest") && !colaCofres.Contains(collision.gameObject))
         {
-            collision.gameObject.GetComponent<BaseEntity>().OnDie += gameObject.GetComponent<HeroScript>().OnEnemyDied;
+            collision.gameObject.GetComponent<BaseEntity>().OnDie += scriptHero.OnEnemyDied;
 
             colaCofres.Enqueue(collision.gameObject);
             if (colaEnemigos.Count + colaCofres.Count < 2)
@@ -165,7 +165,7 @@ public class ScriptMovimientoHeroe : MonoBehaviour
 
     public void AttackToEnemy()
     {
-        targetActual.GetComponent<BaseEntity>().TakeAttack(GetComponentInParent<HeroScript>().getDamage());
+        targetActual.GetComponent<BaseEntity>().TakeAttack(scriptHero.getDamage());
     }
 
     public void SetNextDestination()

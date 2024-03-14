@@ -15,6 +15,19 @@ public class SelectorScript : MonoBehaviour
     [SerializeField]
     private GameObject prefab;
     private GameObject objetoInstanciado;
+    private Animator anim;
+    [SerializeField]
+    private Animator panelAnim;
+
+    [SerializeField]
+    private AudioSource cardSound;
+    private static bool instanciado;
+
+    private void Start()
+    {
+        panelAnim = transform.parent.GetComponent<Animator>();
+        anim = GetComponent<Animator>();
+    }
 
     private void Update()
     {
@@ -39,23 +52,33 @@ public class SelectorScript : MonoBehaviour
     {
         if (ScriptGameManager.gameMode == ModoJuego.Edit)
         {
-            if (!objetoInstanciado.GetComponent<BaseEntity>().IsCreable())
+            if (objetoInstanciado != null)
             {
-                Destroy(objetoInstanciado);
-            }
+                if (!objetoInstanciado.GetComponent<BaseEntity>().IsCreable())
+                {
+                    Destroy(objetoInstanciado);
+                } 
+            
 
             objetoInstanciado.GetComponent<BaseEntity>().SetSelected(false);
             objetoInstanciado.GetComponent<BaseEntity>().SpriteLayerDown();
             objetoInstanciado = null;
+            }
             seleccionado = false;
+            instanciado = false;
+
         }
 
     }
     public void MouseExit()
     {
-        outLine.gameObject.SetActive(false);
+       // outLine.gameObject.SetActive(false);
+        anim.SetBool("MouseIn", false);
+        panelAnim.SetBool("PanelOut", true);
+
         if (seleccionado && !objetoInstanciado && ScriptGameManager.gameMode == ModoJuego.Edit)
         {
+            instanciado = true;
             Vector3 mousePosition = Input.mousePosition;
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
@@ -63,6 +86,8 @@ public class SelectorScript : MonoBehaviour
             objetoInstanciado = Instantiate(prefab, new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity);
             objetoInstanciado.GetComponent<BaseEntity>().SetSelected(true);
             objetoInstanciado.GetComponent<BaseEntity>().SpriteLayerUp();
+            
+
         }
 
     }
@@ -70,8 +95,15 @@ public class SelectorScript : MonoBehaviour
     {
         if (ScriptGameManager.gameMode == ModoJuego.Edit)
         {
-            outLine.gameObject.SetActive(true);
-
+            //outLine.gameObject.SetActive(true);
+            if (!instanciado)
+            {
+                cardSound.pitch = Random.Range(1f, 1.2f);
+                cardSound.Play();
+                anim.SetBool("MouseIn", true);
+                panelAnim.SetBool("PanelOut", false);
+                transform.SetAsLastSibling();
+            } 
         }
     }
 
