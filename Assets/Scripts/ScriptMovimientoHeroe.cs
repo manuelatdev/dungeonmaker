@@ -33,7 +33,6 @@ public class ScriptMovimientoHeroe : MonoBehaviour
         agent.updateUpAxis = false;
         agent.isStopped = true;
 
-
     }
 
 
@@ -111,7 +110,18 @@ public class ScriptMovimientoHeroe : MonoBehaviour
             if (colaEnemigos.Contains(collision.gameObject))
             {
                 collision.gameObject.GetComponent<BasicEnemy>().OnDie -= scriptHero.OnEnemyDied;
-                colaEnemigos.Dequeue();
+
+                Queue<GameObject> newQueue = new Queue<GameObject>();
+                while (colaEnemigos.Count > 0)
+                {
+                    GameObject currentObject = colaEnemigos.Dequeue();
+                    if (currentObject != collision.gameObject)
+                    {
+                        newQueue.Enqueue(currentObject);
+                    }
+                }
+                colaEnemigos = newQueue;
+
                 Debug.Log(colaEnemigos.Count.ToString());
             }
 
@@ -119,7 +129,19 @@ public class ScriptMovimientoHeroe : MonoBehaviour
             if (colaCofres.Contains(collision.gameObject))
             {
                 collision.gameObject.GetComponent<BasicEnemy>().OnDie -= scriptHero.OnEnemyDied;
-                colaCofres.Dequeue();
+
+                Queue<GameObject> newQueue = new Queue<GameObject>();
+                while (colaCofres.Count > 0)
+                {
+                    GameObject currentObject = colaCofres.Dequeue();
+                    if (currentObject != collision.gameObject)
+                    {
+                        newQueue.Enqueue(currentObject);
+                    }
+                }
+                colaCofres = newQueue;
+
+                Debug.Log(colaCofres.Count.ToString());
             }
             targetActual = null;
         }
@@ -165,7 +187,7 @@ public class ScriptMovimientoHeroe : MonoBehaviour
 
     public void AttackToEnemy()
     {
-        targetActual.GetComponent<BaseEntity>().TakeAttack(scriptHero.getDamage());
+        targetActual?.GetComponent<BaseEntity>().TakeAttack(scriptHero.getDamage());
     }
 
     public void SetNextDestination()

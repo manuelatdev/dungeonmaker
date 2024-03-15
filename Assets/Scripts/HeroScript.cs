@@ -9,9 +9,9 @@ public class HeroScript : MonoBehaviour
     private int[] experienceLevels = {0, 5, 15, 30};
 
     [SerializeField]
-    private int health;
-
     private int totalHealth;
+
+    private int actualHealth;
 
     [SerializeField]
     private int damage;
@@ -26,8 +26,20 @@ public class HeroScript : MonoBehaviour
     [SerializeField]
     private float attackSpeed;
 
+    [SerializeField]
+    private Image greenHealthBarImage;
+
+    [SerializeField]
+    private Image redHealthBarImage;
+
+    [SerializeField]
+    private TextMeshProUGUI healText;
+
+    [SerializeField]
+    private ParticleSystem bloodParticles;
 
     private ScriptMovimientoHeroe movimientoScript;
+
     private int heroGold;
 
     private int heroExperience;
@@ -70,6 +82,7 @@ public class HeroScript : MonoBehaviour
         heroLevel = 1;
         levelLabel.text = heroLevel.ToString();
         ActualizarMarcador();
+        actualHealth = totalHealth;
     }
 
     // Update is called once per frame
@@ -106,7 +119,8 @@ public class HeroScript : MonoBehaviour
         heroExperience -= experienceLevels[heroLevel];
         heroLevel++;
         damage++;
-        health += 5;
+        actualHealth += 5;
+        totalHealth += 5;
     }
     private void ActualizarMarcador()
     {
@@ -114,11 +128,37 @@ public class HeroScript : MonoBehaviour
         experienceBar.fillAmount = (float)((float)heroExperience / (float)experienceLevels[heroLevel]);
         goldLabel.text = heroGold.ToString();
         attackLabel.text = damage.ToString();
-        healthLabel.text = health.ToString();
+        healthLabel.text = totalHealth.ToString();
         defLabel.text = def.ToString();
         speedLabel.text = attackSpeed.ToString();
         experienceLabel.text = heroExperience + "/" + experienceLevels[heroLevel];
 
+    }
+    public  void TakeAttack(int damage)
+    {
+        bloodParticles.Play();
+        greenHealthBarImage.fillAmount -= (float)damage / totalHealth;
+        actualHealth -= damage;
+        healText.text = actualHealth + " / " + totalHealth;
+        StopCoroutine(AnimateHealthBarDecrease());
+        StartCoroutine(AnimateHealthBarDecrease());
+    }
+    IEnumerator AnimateHealthBarDecrease()
+    {
+        float elapsedTime = 0;
+        float startValue = redHealthBarImage.fillAmount;
+        float endValue = greenHealthBarImage.fillAmount;
+        float duration = 0.5f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            redHealthBarImage.fillAmount = Mathf.Lerp(startValue, endValue, elapsedTime / duration);
+            yield return null;
+        }
+
+        // Asegurarse de que fillAmount es exactamente 0.5 al final de la animación
+        redHealthBarImage.fillAmount = endValue;
     }
 
 

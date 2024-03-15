@@ -46,6 +46,10 @@ public class BasicEnemy : BaseEntity
     {
         return experience;
     }
+    public int getDamage()
+    {
+        return damage;
+    }
 
     public override void TakeAttack(int damage)
     {

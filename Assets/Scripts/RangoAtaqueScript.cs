@@ -5,31 +5,27 @@ using UnityEngine;
 
 public class RangoAtaqueScript : MonoBehaviour
 {
-    ScriptMovimientoHeroe heroeScript;
     public Animator animatorHero;
+    private ScriptMovimientoHeroe heroScript;
     public bool atacando;
+
     private void Start()
     {
-        heroeScript = GetComponentInParent<ScriptMovimientoHeroe>();
+        heroScript = GetComponentInParent<ScriptMovimientoHeroe>();
     }
+
     private void OnTriggerStay2D(Collider2D collision)
 
     {
         if (!atacando && ScriptGameManager.gameMode == ModoJuego.Play)
         {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            if (collision.gameObject == heroScript.targetActual)
             {
-                animatorHero.SetBool("Atack", true);
+                animatorHero.SetBool("Attack", true);
                 atacando = true;
 
             }
-            else if (collision.gameObject.layer == LayerMask.NameToLayer("Chest"))
-            {
-                animatorHero.SetBool("Atack", true);
-                atacando = true;
-
-
-            }
+            
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -39,13 +35,13 @@ public class RangoAtaqueScript : MonoBehaviour
             if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
                 atacando = false;
-                animatorHero.SetBool("Atack", false);
+                animatorHero.SetBool("Attack", false);
             }
             else if (collision.gameObject.layer == LayerMask.NameToLayer("Chest"))
             {
                 atacando = false;
 
-                animatorHero.SetBool("Atack", false);
+                animatorHero.SetBool("Attack", false);
 
             }
         }
