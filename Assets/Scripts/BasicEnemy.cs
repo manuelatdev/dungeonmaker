@@ -33,6 +33,12 @@ public class BasicEnemy : BaseEntity
     [SerializeField]
     protected int experience;
 
+    private Image descriptionImg;
+
+    private float mouseOverTime = 0;
+
+    private bool descriptionOn=false;
+
     public override void Start()
     {
         base.Start();
@@ -50,6 +56,32 @@ public class BasicEnemy : BaseEntity
     {
         return damage;
     }
+    private void OnMouseOver()
+    {
+        if (!descriptionOn&&!creatingSelected )
+        {
+            mouseOverTime += Time.deltaTime;
+            if (mouseOverTime > 0.5f)
+            {
+                print("tarjetazo");
+                descriptionOn = true;
+            } 
+        }
+    }
+    private void OnMouseExit()
+    {
+        if (descriptionOn)
+        {
+            mouseOverTime = 0;
+            print("destarjetazo");
+            descriptionOn = false; 
+        }
+
+
+    }
+
+
+
 
     public override void TakeAttack(int damage)
     {

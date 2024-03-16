@@ -27,7 +27,7 @@ public class BaseEntity : MonoBehaviour
 
     protected int initialHealth;
 
-    private bool creatingSelected;
+    protected bool creatingSelected;
 
     [SerializeField]
     private Color originalColor;
