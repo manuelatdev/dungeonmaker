@@ -22,6 +22,8 @@ public class SelectorScript : MonoBehaviour
     [SerializeField]
     private AudioSource cardSound;
     private static bool instanciado;
+    private Vector3 initialMousePosition;
+
 
     private void Start()
     {
@@ -39,14 +41,38 @@ public class SelectorScript : MonoBehaviour
             objetoInstanciado.transform.position = new Vector3(worldPosition.x, worldPosition.y, 0);
 
         }
+        if (seleccionado && !instanciado)
+        {
+            Vector3 currentMousePosition = Input.mousePosition;
+            float dragDistance = Vector3.Distance(initialMousePosition, currentMousePosition);
+            if (dragDistance >= 20f)
+            {
+                if (!objetoInstanciado && ScriptGameManager.gameMode == ModoJuego.Edit)
+                {
+                    instanciado = true;
+                    Vector3 mousePosition = Input.mousePosition;
+                    Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+
+                    // Instancia el prefab en la posición del ratón
+                    objetoInstanciado = Instantiate(prefab, new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity);
+                    objetoInstanciado.GetComponent<BaseEntity>().SetSelected(true);
+                    objetoInstanciado.GetComponent<BaseEntity>().SpriteLayerUp();
+                    anim.SetBool("MouseIn", false);
+                    panelAnim.SetBool("PanelOut", true);
+
+                }
+            }
+
+        }
 
 
     }
 
-    
+
     public void ClickIn()
     {
         seleccionado = true;
+        initialMousePosition = Input.mousePosition;
     }
     public void ClickOut()
     {
@@ -57,12 +83,12 @@ public class SelectorScript : MonoBehaviour
                 if (!objetoInstanciado.GetComponent<BaseEntity>().IsCreable())
                 {
                     Destroy(objetoInstanciado);
-                } 
-            
+                }
 
-            objetoInstanciado.GetComponent<BaseEntity>().SetSelected(false);
-            objetoInstanciado.GetComponent<BaseEntity>().SpriteLayerDown();
-            objetoInstanciado = null;
+
+                objetoInstanciado.GetComponent<BaseEntity>().SetSelected(false);
+                objetoInstanciado.GetComponent<BaseEntity>().SpriteLayerDown();
+                objetoInstanciado = null;
             }
             seleccionado = false;
             instanciado = false;
@@ -72,23 +98,14 @@ public class SelectorScript : MonoBehaviour
     }
     public void MouseExit()
     {
-       // outLine.gameObject.SetActive(false);
-        anim.SetBool("MouseIn", false);
-        panelAnim.SetBool("PanelOut", true);
-
-        if (seleccionado && !objetoInstanciado && ScriptGameManager.gameMode == ModoJuego.Edit)
+        // outLine.gameObject.SetActive(false);
+        if (!instanciado)
         {
-            instanciado = true;
-            Vector3 mousePosition = Input.mousePosition;
-            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-
-            // Instancia el prefab en la posición del ratón
-            objetoInstanciado = Instantiate(prefab, new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity);
-            objetoInstanciado.GetComponent<BaseEntity>().SetSelected(true);
-            objetoInstanciado.GetComponent<BaseEntity>().SpriteLayerUp();
-            
-
+            anim.SetBool("MouseIn", false);
+            panelAnim.SetBool("PanelOut", true); 
         }
+
+        
 
     }
     public void MouseEnter()
@@ -103,7 +120,7 @@ public class SelectorScript : MonoBehaviour
                 anim.SetBool("MouseIn", true);
                 panelAnim.SetBool("PanelOut", false);
                 transform.SetAsLastSibling();
-            } 
+            }
         }
     }
 
