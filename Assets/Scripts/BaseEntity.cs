@@ -29,11 +29,9 @@ public class BaseEntity : MonoBehaviour
 
     protected bool creatingSelected;
 
-    [SerializeField]
-    private Color originalColor;
+    
 
-    [SerializeField]
-    private SpriteRenderer[] renderers;
+    
 
     public int getGold()
     {
@@ -54,15 +52,7 @@ public class BaseEntity : MonoBehaviour
         }
     }
 
-    public bool IsCreable()
-    {
-        if (renderers[0].color != Color.red)
-        {
-            return true;
-        }
-
-        return false;
-    }
+    
 
     protected virtual void Die()
     {
@@ -79,51 +69,14 @@ public class BaseEntity : MonoBehaviour
         Destroy(gameObject, 3f);
     }
 
-    public void SpriteLayerUp()
-    {
-        foreach (SpriteRenderer render in renderers)
-        {
-            render.sortingOrder += 10;
-        }
-    }
-    public void SpriteLayerDown()
-    {
-        foreach (SpriteRenderer render in renderers)
-        {
-            render.sortingOrder -= 10;
-        }
-    }
+   
 
     public void SetSelected(bool selected)
     {
         creatingSelected = selected;
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (creatingSelected && renderers[0].color != Color.red&&collision.gameObject.layer != LayerMask.NameToLayer("Hero"))
-        {
-            
-            foreach (SpriteRenderer render in renderers)
-            {
-                render.color = Color.red;
-
-            }
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if(creatingSelected && collision.gameObject.layer != LayerMask.NameToLayer("Hero"))
-        {
-            foreach (SpriteRenderer render in renderers)
-            {
-                render.color = originalColor;
-
-            }
-
-        }
-    }
+    
 
 
     

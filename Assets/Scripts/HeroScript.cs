@@ -53,8 +53,6 @@ public class HeroScript : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI attackLabel;
 
-    [SerializeField]
-    private TextMeshProUGUI healthLabel;
 
     [SerializeField]
     private TextMeshProUGUI defLabel;
@@ -70,6 +68,8 @@ public class HeroScript : MonoBehaviour
 
     [SerializeField]
     private Image experienceBar;
+
+    private ScriptTinteShader tinteScript;
     public int getDamage()
     {
         return damage;
@@ -78,6 +78,8 @@ public class HeroScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        tinteScript = GetComponentInChildren<ScriptTinteShader>();
+
         movimientoScript = GetComponent<ScriptMovimientoHeroe>();
         heroLevel = 1;
         levelLabel.text = heroLevel.ToString();
@@ -126,16 +128,16 @@ public class HeroScript : MonoBehaviour
     {
         levelLabel.text = heroLevel.ToString();
         experienceBar.fillAmount = (float)((float)heroExperience / (float)experienceLevels[heroLevel]);
-        goldLabel.text = heroGold.ToString();
-        attackLabel.text = damage.ToString();
-        healthLabel.text = totalHealth.ToString();
-        defLabel.text = def.ToString();
-        speedLabel.text = attackSpeed.ToString();
+        goldLabel.text = "x"+heroGold.ToString();
+        attackLabel.text = "x" + damage.ToString();
+        defLabel.text = "x" + def.ToString();
+        speedLabel.text = "x" + attackSpeed.ToString();
         experienceLabel.text = heroExperience + "/" + experienceLevels[heroLevel];
 
     }
     public  void TakeAttack(int damage)
     {
+        tinteScript.TintColor();
         bloodParticles.Play();
         greenHealthBarImage.fillAmount -= (float)damage / totalHealth;
         actualHealth -= damage;

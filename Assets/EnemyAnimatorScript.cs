@@ -6,7 +6,6 @@ public class EnemyAnimatorScript : MonoBehaviour
 {
     private Animator anim;
     private AudioSource attackSound;
-    [SerializeField]
     private BasicEnemy enemyScript;
     private HeroScript scriptHero;
 

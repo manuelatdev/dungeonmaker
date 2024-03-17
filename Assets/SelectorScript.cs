@@ -56,7 +56,8 @@ public class SelectorScript : MonoBehaviour
                     // Instancia el prefab en la posición del ratón
                     objetoInstanciado = Instantiate(prefab, new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity);
                     objetoInstanciado.GetComponent<BaseEntity>().SetSelected(true);
-                    objetoInstanciado.GetComponent<BaseEntity>().SpriteLayerUp();
+                    objetoInstanciado.GetComponent<BasicEnemy>().SpriteLayerUp();
+                    print("layerlevantada");
                     anim.SetBool("MouseIn", false);
                     panelAnim.SetBool("PanelOut", true);
 
@@ -71,8 +72,11 @@ public class SelectorScript : MonoBehaviour
 
     public void ClickIn()
     {
-        seleccionado = true;
-        initialMousePosition = Input.mousePosition;
+        if (ScriptGameManager.gameMode == ModoJuego.Edit)
+        {
+            seleccionado = true;
+            initialMousePosition = Input.mousePosition;
+        }
     }
     public void ClickOut()
     {
@@ -80,14 +84,16 @@ public class SelectorScript : MonoBehaviour
         {
             if (objetoInstanciado != null)
             {
-                if (!objetoInstanciado.GetComponent<BaseEntity>().IsCreable())
+                if (!objetoInstanciado.GetComponent<BasicEnemy>().IsCreable())
                 {
                     Destroy(objetoInstanciado);
                 }
 
 
                 objetoInstanciado.GetComponent<BaseEntity>().SetSelected(false);
-                objetoInstanciado.GetComponent<BaseEntity>().SpriteLayerDown();
+                objetoInstanciado.GetComponent<BasicEnemy>().SpriteLayerDown();
+                print("layerBajada");
+
                 objetoInstanciado = null;
             }
             seleccionado = false;
@@ -102,26 +108,35 @@ public class SelectorScript : MonoBehaviour
         if (!instanciado)
         {
             anim.SetBool("MouseIn", false);
-            panelAnim.SetBool("PanelOut", true); 
+            panelAnim.SetBool("PanelOut", true);
+            if (ScriptGameManager.gameMode == ModoJuego.Edit)
+            {
+                CursorScript.SwitchStone(false);
+            }
+
         }
 
-        
+
 
     }
     public void MouseEnter()
     {
-        if (ScriptGameManager.gameMode == ModoJuego.Edit)
+
+        //outLine.gameObject.SetActive(true);
+        if (!instanciado)
         {
-            //outLine.gameObject.SetActive(true);
-            if (!instanciado)
+            cardSound.pitch = Random.Range(1f, 1.2f);
+            cardSound.Play();
+            anim.SetBool("MouseIn", true);
+            panelAnim.SetBool("PanelOut", false);
+            transform.SetAsLastSibling();
+            if (ScriptGameManager.gameMode == ModoJuego.Edit)
             {
-                cardSound.pitch = Random.Range(1f, 1.2f);
-                cardSound.Play();
-                anim.SetBool("MouseIn", true);
-                panelAnim.SetBool("PanelOut", false);
-                transform.SetAsLastSibling();
+                CursorScript.SwitchStone(true);
+
             }
         }
+
     }
 
 }

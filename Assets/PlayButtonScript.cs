@@ -2,14 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayButtonScript : MonoBehaviour
 {
     [SerializeField]
     private ScriptMovimientoHeroe heroMoveScript;
+    
+    private Image playButton;
     [SerializeField]
+    private Sprite playSprite;
+    [SerializeField]
+    private Sprite stopSprite;
 
-    private TextMeshProUGUI goText;
+    private void Start()
+    {
+        playButton = GetComponent<Image>();
+    }
 
     public void preshButton()
     {
@@ -26,14 +35,16 @@ public class PlayButtonScript : MonoBehaviour
     {
         ScriptGameManager.gameMode = ModoJuego.Play;
         heroMoveScript.GoPlayMode();
-        goText.text = "Stop";
+        playButton.sprite = stopSprite;
+
     }
     public void GoStop()
     {
         ScriptGameManager.gameMode = ModoJuego.Edit;
 
         heroMoveScript.GoStopMode();
-        goText.text = "GO !!";
+        playButton.sprite = playSprite;
+
 
     }
 }

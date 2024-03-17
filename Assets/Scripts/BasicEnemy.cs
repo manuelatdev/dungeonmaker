@@ -39,15 +39,38 @@ public class BasicEnemy : BaseEntity
 
     private bool descriptionOn=false;
 
+    private ScriptTinteShader tinteScript;
+
+    [SerializeField]
+    private SpriteRenderer[] renderers;
+
+    [SerializeField]
+    private GameObject outline;
+
+    [SerializeField]
+    private Color originalColor;
     public override void Start()
     {
         base.Start();
-
+        tinteScript = GetComponentInChildren<ScriptTinteShader>();
         healText = GetComponentInChildren<TextMeshProUGUI>();
         initialHealth = health;
         healText.text = health + " / " + initialHealth;
     }
-
+    public void SpriteLayerUp()
+    {
+        foreach (SpriteRenderer render in renderers)
+        {
+            render.sortingOrder += 20;
+        }
+    }
+    public void SpriteLayerDown()
+    {
+        foreach (SpriteRenderer render in renderers)
+        {
+            render.sortingOrder -= 20;
+        }
+    }
     public int getExperience()
     {
         return experience;
@@ -58,6 +81,8 @@ public class BasicEnemy : BaseEntity
     }
     private void OnMouseOver()
     {
+        outline.SetActive(true);
+        CursorScript.SwitchStone(true);
         if (!descriptionOn&&!creatingSelected )
         {
             mouseOverTime += Time.deltaTime;
@@ -70,6 +95,9 @@ public class BasicEnemy : BaseEntity
     }
     private void OnMouseExit()
     {
+        outline.SetActive(false);
+        CursorScript.SwitchStone(false);
+
         if (descriptionOn)
         {
             mouseOverTime = 0;
@@ -79,19 +107,66 @@ public class BasicEnemy : BaseEntity
 
 
     }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (creatingSelected && !CursorScript.denied.activeSelf && collision.gameObject.layer != LayerMask.NameToLayer("Hero"))
+        {
+            if (CursorScript.denied != null)
+            {
+                CursorScript.SwitchDenied(true);
+            }
+            else
+            {
+                StartCoroutine(WaitForSwitch(true));
+            }
+        }
+    }
+    IEnumerator WaitForSwitch(bool boleano)
+    {
+        yield return new WaitForEndOfFrame();
+        CursorScript.SwitchDenied(boleano);
 
+    }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (creatingSelected && collision.gameObject.layer != LayerMask.NameToLayer("Hero"))
+        {
+            if (CursorScript.denied != null)
+            {
+                CursorScript.SwitchDenied(false);
+            }
+            else
+            {
+                StartCoroutine(WaitForSwitch(false));
+            }
+
+        }
+    }
+
+    public bool IsCreable()
+    {
+        if (!CursorScript.denied.activeSelf)
+        {
+            return true;
+        }
+
+        return false;
+    }
 
 
     public override void TakeAttack(int damage)
     {
         base.TakeAttack(damage);
 
-
-        greenHealthBarImage.fillAmount -= (float)damage / initialHealth;
-        healText.text = health + " / " + initialHealth;
-        StopCoroutine(AnimateHealthBarDecrease());
-        StartCoroutine(AnimateHealthBarDecrease());
+        if (health > 0)
+        {
+            tinteScript.TintColor();
+            greenHealthBarImage.fillAmount -= (float)damage / initialHealth;
+            healText.text = health + " / " + initialHealth;
+            StopCoroutine(AnimateHealthBarDecrease());
+            StartCoroutine(AnimateHealthBarDecrease()); 
+        }
     }
     IEnumerator AnimateHealthBarDecrease()
     {

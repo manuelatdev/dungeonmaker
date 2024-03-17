@@ -5,16 +5,46 @@ using UnityEngine.UI;
 
 public class CursorScript : MonoBehaviour
 {
-    private Image cursorImage;
+    [SerializeField]
+    private static GameObject cursor;
+
+    [SerializeField]
+    private  GameObject cursorRef;
+
+    private static GameObject stone;
+
+    [SerializeField]
+    private GameObject stoneRef;
+
+    public static GameObject denied;
+
+    [SerializeField]
+    private GameObject deniedRef;
 
     private void Start()
     {
         Cursor.visible = false;
-        cursorImage = GetComponent<Image>();
+        stone = stoneRef;
+        denied = deniedRef;
+        cursor = cursorRef;
     }
 
     private void Update()
     {
-       cursorImage.rectTransform.position = Input.mousePosition;
+        transform.position = Input.mousePosition;
     }
+    public static void SwitchStone(bool estado)
+    {
+        stone.SetActive(estado);
+    }
+    public static void SwitchDenied(bool estado)
+    {
+
+        denied.SetActive(estado);
+        cursor.SetActive(!estado);
+
+    }
+
+
+
 }
