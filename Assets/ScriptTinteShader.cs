@@ -43,7 +43,7 @@ public class ScriptTinteShader : MonoBehaviour
         }
         material.SetColor("_Tint", new Color(originalColor.r, originalColor.g, originalColor.b,  targetAlpha));
 
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(.05f);
 
         startTime = Time.time;
 

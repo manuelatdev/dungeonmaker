@@ -27,7 +27,7 @@ public class BaseEntity : MonoBehaviour
 
     protected int initialHealth;
 
-    protected bool creatingSelected;
+    
 
     
 
@@ -71,10 +71,7 @@ public class BaseEntity : MonoBehaviour
 
    
 
-    public void SetSelected(bool selected)
-    {
-        creatingSelected = selected;
-    }
+    
 
     
 

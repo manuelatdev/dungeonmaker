@@ -441,6 +441,7 @@ GameObject:
   - component: {fileID: 29117877}
   - component: {fileID: 29117876}
   - component: {fileID: 29117875}
+  - component: {fileID: 29117879}
   m_Layer: 5
   m_Name: GoButton
   m_TagString: Untagged
@@ -605,6 +606,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 29117873}
   m_CullTransparentMesh: 1
+--- !u!114 &29117879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29117873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.7176471}
+  m_EffectDistance: {x: 8, y: -8}
+  m_UseGraphicAlpha: 1
 --- !u!1 &41715477
 GameObject:
   m_ObjectHideFlags: 0
@@ -29365,6 +29381,7 @@ GameObject:
   - component: {fileID: 1731531230770725672}
   - component: {fileID: 1376866850905656049}
   - component: {fileID: 2938034800214185908}
+  - component: {fileID: 6747908367576802105}
   m_Layer: 5
   m_Name: HeroPanel
   m_TagString: Untagged
@@ -29372,6 +29389,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &6747908367576802105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6747908367576802104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.7176471}
+  m_EffectDistance: {x: 8, y: -8}
+  m_UseGraphicAlpha: 1
 --- !u!114 &6937625226111972125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29626,15 +29658,15 @@ PrefabInstance:
     - target: {fileID: 1533039465560739699, guid: d77ec23223aadd341a48e272c7912871, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 01812305a1deb514eb86ead156fe4fc6, type: 2}
+      objectReference: {fileID: 2100000, guid: 69fb9194ae327b14c89360141bb41b60, type: 2}
     - target: {fileID: 1617495221626482239, guid: d77ec23223aadd341a48e272c7912871, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 01812305a1deb514eb86ead156fe4fc6, type: 2}
+      objectReference: {fileID: 2100000, guid: 69fb9194ae327b14c89360141bb41b60, type: 2}
     - target: {fileID: 2358431220606463368, guid: d77ec23223aadd341a48e272c7912871, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 01812305a1deb514eb86ead156fe4fc6, type: 2}
+      objectReference: {fileID: 2100000, guid: 69fb9194ae327b14c89360141bb41b60, type: 2}
     - target: {fileID: 4072252906446603896, guid: d77ec23223aadd341a48e272c7912871, type: 3}
       propertyPath: exit
       value: 
@@ -29642,11 +29674,11 @@ PrefabInstance:
     - target: {fileID: 4456123368625113102, guid: d77ec23223aadd341a48e272c7912871, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 01812305a1deb514eb86ead156fe4fc6, type: 2}
+      objectReference: {fileID: 2100000, guid: 69fb9194ae327b14c89360141bb41b60, type: 2}
     - target: {fileID: 6520823717306220727, guid: d77ec23223aadd341a48e272c7912871, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 01812305a1deb514eb86ead156fe4fc6, type: 2}
+      objectReference: {fileID: 2100000, guid: 69fb9194ae327b14c89360141bb41b60, type: 2}
     - target: {fileID: 6539039237882896246, guid: d77ec23223aadd341a48e272c7912871, type: 3}
       propertyPath: m_Name
       value: Heroe
@@ -29678,7 +29710,7 @@ PrefabInstance:
     - target: {fileID: 8695045784680700366, guid: d77ec23223aadd341a48e272c7912871, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 01812305a1deb514eb86ead156fe4fc6, type: 2}
+      objectReference: {fileID: 2100000, guid: 69fb9194ae327b14c89360141bb41b60, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

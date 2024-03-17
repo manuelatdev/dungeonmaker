@@ -41,6 +41,10 @@ public class BasicEnemy : BaseEntity
 
     private ScriptTinteShader tinteScript;
 
+    protected bool creatingSelected;
+
+    
+
     [SerializeField]
     private SpriteRenderer[] renderers;
 
@@ -56,6 +60,11 @@ public class BasicEnemy : BaseEntity
         healText = GetComponentInChildren<TextMeshProUGUI>();
         initialHealth = health;
         healText.text = health + " / " + initialHealth;
+    }
+
+    public void SetSelected(bool selected)
+    {
+        creatingSelected = selected;
     }
     public void SpriteLayerUp()
     {
@@ -81,8 +90,11 @@ public class BasicEnemy : BaseEntity
     }
     private void OnMouseOver()
     {
-        outline.SetActive(true);
-        CursorScript.SwitchStone(true);
+        if (!SelectorScript.instanciado)
+        {
+            ActivateOutline(true);
+            CursorScript.SwitchStone(true); 
+        }
         if (!descriptionOn&&!creatingSelected )
         {
             mouseOverTime += Time.deltaTime;
@@ -93,11 +105,18 @@ public class BasicEnemy : BaseEntity
             } 
         }
     }
+    public void ActivateOutline(bool active)
+    {
+        outline.SetActive(active);
+
+    }
     private void OnMouseExit()
     {
-        outline.SetActive(false);
-        CursorScript.SwitchStone(false);
-
+        if (!SelectorScript.instanciado)
+        {
+            ActivateOutline(false);
+            CursorScript.SwitchStone(false);
+        }
         if (descriptionOn)
         {
             mouseOverTime = 0;

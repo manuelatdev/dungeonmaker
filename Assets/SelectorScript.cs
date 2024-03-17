@@ -21,8 +21,9 @@ public class SelectorScript : MonoBehaviour
 
     [SerializeField]
     private AudioSource cardSound;
-    private static bool instanciado;
+    public static bool instanciado;
     private Vector3 initialMousePosition;
+    private BasicEnemy enemyScript;
 
 
     private void Start()
@@ -55,8 +56,11 @@ public class SelectorScript : MonoBehaviour
 
                     // Instancia el prefab en la posición del ratón
                     objetoInstanciado = Instantiate(prefab, new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity);
-                    objetoInstanciado.GetComponent<BaseEntity>().SetSelected(true);
-                    objetoInstanciado.GetComponent<BasicEnemy>().SpriteLayerUp();
+                    enemyScript = objetoInstanciado.GetComponent<BasicEnemy>();
+
+                    enemyScript.SetSelected(true);
+                    enemyScript.SpriteLayerUp();
+                    enemyScript.ActivateOutline(true);
                     print("layerlevantada");
                     anim.SetBool("MouseIn", false);
                     panelAnim.SetBool("PanelOut", true);
@@ -84,16 +88,17 @@ public class SelectorScript : MonoBehaviour
         {
             if (objetoInstanciado != null)
             {
-                if (!objetoInstanciado.GetComponent<BasicEnemy>().IsCreable())
+                if (!enemyScript.IsCreable())
                 {
                     Destroy(objetoInstanciado);
                 }
 
+                enemyScript.ActivateOutline(false);
 
-                objetoInstanciado.GetComponent<BaseEntity>().SetSelected(false);
-                objetoInstanciado.GetComponent<BasicEnemy>().SpriteLayerDown();
+                enemyScript.SetSelected(false);
+                enemyScript.SpriteLayerDown();
                 print("layerBajada");
-
+                enemyScript = null;
                 objetoInstanciado = null;
             }
             seleccionado = false;
