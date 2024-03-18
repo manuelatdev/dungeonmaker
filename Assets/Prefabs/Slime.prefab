@@ -425,7 +425,19 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 01812305a1deb514eb86ead156fe4fc6, type: 2}
     - target: {fileID: 3107572010634372082, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 4cead4cf42b5f55408a0f843a5f97c2e, type: 2}
+    - target: {fileID: 3107572010634372082, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3107572010634372082, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8745525855907363727, guid: 4cead4cf42b5f55408a0f843a5f97c2e, type: 2}
+    - target: {fileID: 3272148953184249943, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3884976532814465655, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
@@ -501,6 +513,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: detectionArea
+      value: 
+      objectReference: {fileID: 1249536796101255820}
+    - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: originalColor.a
       value: 1
       objectReference: {fileID: 0}
@@ -553,6 +569,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: renderersUpables.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: disabledOnDead.Array.data[0]
       value: 
       objectReference: {fileID: 542795769004708065}
@@ -560,10 +580,38 @@ PrefabInstance:
       propertyPath: disabledOnDead.Array.data[1]
       value: 
       objectReference: {fileID: 5524884349273824597}
+    - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: renderersUpables.Array.data[0]
+      value: 
+      objectReference: {fileID: 1548455167170892780}
+    - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: renderersUpables.Array.data[1]
+      value: 
+      objectReference: {fileID: 8998699645444682033}
+    - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: renderersUpables.Array.data[2]
+      value: 
+      objectReference: {fileID: 8569578418010061477}
+    - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: renderersUpables.Array.data[3]
+      value: 
+      objectReference: {fileID: 1787034072727981945}
+    - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: renderersUpables.Array.data[4]
+      value: 
+      objectReference: {fileID: 7663465238387545427}
+    - target: {fileID: 5914284406088920747, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 4cead4cf42b5f55408a0f843a5f97c2e, type: 2}
     - target: {fileID: 5914284406088920747, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5914284406088920747, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8745525855907363727, guid: 4cead4cf42b5f55408a0f843a5f97c2e, type: 2}
     - target: {fileID: 7158145120709957416, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -638,6 +686,11 @@ PrefabInstance:
 --- !u!1 &542795769004708065 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4302724187909249594, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+  m_PrefabInstance: {fileID: 4340974411891051227}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1249536796101255820 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3272148953184249943, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
   m_PrefabInstance: {fileID: 4340974411891051227}
   m_PrefabAsset: {fileID: 0}
 --- !u!212 &1548455167170892780 stripped

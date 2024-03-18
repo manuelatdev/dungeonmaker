@@ -37,16 +37,19 @@ public class BasicEnemy : BaseEntity
 
     private float mouseOverTime = 0;
 
-    private bool descriptionOn=false;
+    private bool descriptionOn = false;
 
     private ScriptTinteShader tinteScript;
 
-    protected bool creatingSelected;
+    protected bool enemySelected;
 
-    
+    private Vector3 currentPosition;
 
     [SerializeField]
-    private SpriteRenderer[] renderers;
+    private SpriteRenderer[] renderersUpables;
+
+    [SerializeField]
+    private GameObject detectionArea;
 
     [SerializeField]
     private GameObject outline;
@@ -64,18 +67,22 @@ public class BasicEnemy : BaseEntity
 
     public void SetSelected(bool selected)
     {
-        creatingSelected = selected;
+        enemySelected = selected;
+    }
+    public void ActualizarCurrentPosition()
+    {
+        currentPosition = transform.position;
     }
     public void SpriteLayerUp()
     {
-        foreach (SpriteRenderer render in renderers)
+        foreach (SpriteRenderer render in renderersUpables)
         {
             render.sortingOrder += 20;
         }
     }
     public void SpriteLayerDown()
     {
-        foreach (SpriteRenderer render in renderers)
+        foreach (SpriteRenderer render in renderersUpables)
         {
             render.sortingOrder -= 20;
         }
@@ -90,28 +97,29 @@ public class BasicEnemy : BaseEntity
     }
     private void OnMouseOver()
     {
-        if (!SelectorScript.instanciado)
+        if (!SelectorScript.movingObject)
         {
             ActivateOutline(true);
-            CursorScript.SwitchStone(true); 
+            CursorScript.SwitchStone(true);
         }
-        if (!descriptionOn&&!creatingSelected )
+        if (!descriptionOn && !enemySelected)
         {
             mouseOverTime += Time.deltaTime;
             if (mouseOverTime > 0.5f)
             {
                 descriptionOn = true;
-            } 
+            }
         }
     }
     public void ActivateOutline(bool active)
     {
         outline.SetActive(active);
+        detectionArea.SetActive(active);
 
     }
     private void OnMouseExit()
     {
-        if (!SelectorScript.instanciado)
+        if (!SelectorScript.movingObject)
         {
             ActivateOutline(false);
             CursorScript.SwitchStone(false);
@@ -119,14 +127,54 @@ public class BasicEnemy : BaseEntity
         if (descriptionOn)
         {
             mouseOverTime = 0;
-            descriptionOn = false; 
+            descriptionOn = false;
         }
 
 
     }
+    private void OnMouseDown()
+    {
+        if (ScriptGameManager.gameMode == ModoJuego.Edit)
+        {
+            enemySelected = true;
+            SelectorScript.movingObject = true;
+            ActivateOutline(true);
+            SpriteLayerUp();
+        }
+    }
+    private void OnMouseDrag()
+    {
+        if (enemySelected && ScriptGameManager.gameMode == ModoJuego.Edit)
+        {
+            Vector3 mousePosition = Input.mousePosition;
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+
+            transform.position = new Vector3(worldPosition.x, worldPosition.y, 0);
+
+        }
+    }
+    private void OnMouseUp()
+    {
+        if (ScriptGameManager.gameMode == ModoJuego.Edit)
+        {
+            if (IsCreable())
+            {
+                currentPosition = transform.position;
+            }
+            else
+            {
+                transform.position = currentPosition;
+            }
+            ActivateOutline(false);
+            SpriteLayerDown();
+            CursorScript.SwitchDenied(false);
+            enemySelected = false;
+            SelectorScript.movingObject = false;
+        }
+    }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (creatingSelected && !CursorScript.denied.activeSelf && !collision.gameObject.CompareTag("Hero"))
+        if (enemySelected && !CursorScript.denied.activeSelf && !collision.gameObject.CompareTag("Hero"))
         {
             if (CursorScript.denied != null)
             {
@@ -147,7 +195,7 @@ public class BasicEnemy : BaseEntity
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (creatingSelected && !collision.gameObject.CompareTag("Hero"))
+        if (enemySelected && !collision.gameObject.CompareTag("Hero"))
         {
             if (CursorScript.denied != null)
             {
@@ -182,7 +230,7 @@ public class BasicEnemy : BaseEntity
             greenHealthBarImage.fillAmount -= (float)damage / initialHealth;
             healText.text = health + " / " + initialHealth;
             StopCoroutine(AnimateHealthBarDecrease());
-            StartCoroutine(AnimateHealthBarDecrease()); 
+            StartCoroutine(AnimateHealthBarDecrease());
         }
     }
     protected override void Die()

@@ -21,7 +21,7 @@ public class SelectorScript : MonoBehaviour
 
     [SerializeField]
     private AudioSource cardSound;
-    public static bool instanciado;
+    public static bool movingObject;
     private Vector3 initialMousePosition;
     private BasicEnemy enemyScript;
 
@@ -42,7 +42,7 @@ public class SelectorScript : MonoBehaviour
             objetoInstanciado.transform.position = new Vector3(worldPosition.x, worldPosition.y, 0);
 
         }
-        if (seleccionado && !instanciado)
+        if (seleccionado && !movingObject)
         {
             Vector3 currentMousePosition = Input.mousePosition;
             float dragDistance = Vector3.Distance(initialMousePosition, currentMousePosition);
@@ -50,7 +50,7 @@ public class SelectorScript : MonoBehaviour
             {
                 if (!objetoInstanciado && ScriptGameManager.gameMode == ModoJuego.Edit)
                 {
-                    instanciado = true;
+                    movingObject = true;
                     Vector3 mousePosition = Input.mousePosition;
                     Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
@@ -91,6 +91,10 @@ public class SelectorScript : MonoBehaviour
                 {
                     Destroy(objetoInstanciado);
                 }
+                else
+                {
+                    enemyScript.ActualizarCurrentPosition();
+                }
 
                 enemyScript.ActivateOutline(false);
 
@@ -100,7 +104,7 @@ public class SelectorScript : MonoBehaviour
                 objetoInstanciado = null;
             }
             seleccionado = false;
-            instanciado = false;
+            movingObject = false;
 
         }
 
@@ -108,7 +112,7 @@ public class SelectorScript : MonoBehaviour
     public void MouseExit()
     {
         // outLine.gameObject.SetActive(false);
-        if (!instanciado)
+        if (!movingObject)
         {
             anim.SetBool("MouseIn", false);
             panelAnim.SetBool("PanelOut", true);
@@ -122,11 +126,20 @@ public class SelectorScript : MonoBehaviour
 
 
     }
+    public void MouseOver()
+    {
+        if (!movingObject)
+        {
+            anim.SetBool("MouseIn", true);
+            panelAnim.SetBool("PanelOut", false);
+            CursorScript.SwitchStone(true);
+        }
+    }
     public void MouseEnter()
     {
 
         //outLine.gameObject.SetActive(true);
-        if (!instanciado)
+        if (!movingObject)
         {
             cardSound.pitch = Random.Range(1f, 1.2f);
             cardSound.Play();
