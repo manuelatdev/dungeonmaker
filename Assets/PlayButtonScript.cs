@@ -15,9 +15,12 @@ public class PlayButtonScript : MonoBehaviour
     [SerializeField]
     private Sprite stopSprite;
 
+    private Shadow sombra;
+
     private void Start()
     {
         playButton = GetComponent<Image>();
+        sombra = GetComponent<Shadow>();
     }
 
     public void preshButton()
@@ -30,6 +33,17 @@ public class PlayButtonScript : MonoBehaviour
         {
             GoPlay();
         }
+    }
+    public void ResetLevel()
+    {
+        ScriptGameManager.gameMode = ModoJuego.Edit;
+        heroMoveScript.GoStopMode();
+        DestroyAllEnemys();
+        playButton.sprite = playSprite;
+    }
+    public void ShadowState(bool estado)
+    {
+        sombra.enabled = estado;
     }
     public void GoPlay()
     {
@@ -45,6 +59,17 @@ public class PlayButtonScript : MonoBehaviour
         heroMoveScript.GoStopMode();
         playButton.sprite = playSprite;
         
+    }
+
+    private void DestroyAllEnemys()
+    {
+        BasicEnemy[] enemys = GameObject.FindObjectsOfType<BasicEnemy>();
+
+        // Itera sobre cada entidad y llama a ResetEnemy
+        foreach (BaseEntity enemy in enemys)
+        {
+            Destroy(enemy.gameObject);
+        }
     }
     private void ResetAllEntitys()
     {

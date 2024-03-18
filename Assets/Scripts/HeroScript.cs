@@ -174,13 +174,16 @@ public class HeroScript : MonoBehaviour
     }
     public  void TakeAttack(int damage)
     {
-        tinteScript.TintColor();
-        bloodParticles.Play();
-        greenHealthBarImage.fillAmount -= (float)damage / totalHealth;
-        actualHealth -= damage;
-        healText.text = actualHealth + " / " + totalHealth;
-        StopCoroutine(AnimateHealthBarDecrease());
-        StartCoroutine(AnimateHealthBarDecrease());
+        if (ScriptGameManager.gameMode == ModoJuego.Play)
+        {
+            tinteScript.TintColor();
+            bloodParticles.Play();
+            greenHealthBarImage.fillAmount -= (float)damage / totalHealth;
+            actualHealth -= damage;
+            healText.text = actualHealth + " / " + totalHealth;
+            StopCoroutine(AnimateHealthBarDecrease());
+            StartCoroutine(AnimateHealthBarDecrease()); 
+        }
     }
     IEnumerator AnimateHealthBarDecrease()
     {
