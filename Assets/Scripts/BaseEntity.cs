@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 public class BaseEntity : MonoBehaviour
 {
-    public event Action<GameObject> OnDie;
 
     [SerializeField]
     protected int health;
@@ -27,6 +26,7 @@ public class BaseEntity : MonoBehaviour
 
     protected int initialHealth;
 
+    protected HeroScript scriptHero;
     
 
     
@@ -57,7 +57,7 @@ public class BaseEntity : MonoBehaviour
     protected virtual void Die()
     {
         dieSound.Play();
-        OnDie?.Invoke(gameObject);
+        scriptHero.OnEnemyDied(null,this);
 
         foreach (GameObject obj in disabledOnDead)
         {
@@ -66,7 +66,6 @@ public class BaseEntity : MonoBehaviour
 
         meCollider.enabled = false;
 
-        Destroy(gameObject, 3f);
     }
 
    
@@ -83,7 +82,7 @@ public class BaseEntity : MonoBehaviour
         dieSound = GetComponent<AudioSource>();
         particleEmitter = GetComponent<ParticleSystem>();
         meCollider = GetComponent<Collider2D>();
-
+        scriptHero = FindAnyObjectByType<HeroScript>();
     }
 
     

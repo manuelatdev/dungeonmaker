@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Slime
   - NavMesh
+  - Hero
   layers:
   - Default
   - TransparentFX

@@ -4852,7 +4852,7 @@ RectTransform:
   m_GameObject: {fileID: 1165834230}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.73, y: 0.73, z: 0.73}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 41715478}
@@ -4882,7 +4882,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 56873b06236ba0d4aa42b2ff21cc028f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ec62caeb7f4abdf439d060501c28120f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -22836,7 +22836,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -55}
+  m_AnchoredPosition: {x: 0, y: -39.11}
   m_SizeDelta: {x: 1510.8, y: 132.13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1874308384
@@ -29193,7 +29193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.87058824}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -29381,7 +29381,6 @@ GameObject:
   - component: {fileID: 1731531230770725672}
   - component: {fileID: 1376866850905656049}
   - component: {fileID: 2938034800214185908}
-  - component: {fileID: 6747908367576802105}
   m_Layer: 5
   m_Name: HeroPanel
   m_TagString: Untagged
@@ -29389,21 +29388,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &6747908367576802105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6747908367576802104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.7176471}
-  m_EffectDistance: {x: 8, y: -8}
-  m_UseGraphicAlpha: 1
 --- !u!114 &6937625226111972125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29551,6 +29535,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 624310875766769462, guid: d77ec23223aadd341a48e272c7912871, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 817793153044291134, guid: d77ec23223aadd341a48e272c7912871, type: 3}
       propertyPath: defLabel
       value: 
@@ -29667,6 +29655,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 69fb9194ae327b14c89360141bb41b60, type: 2}
+    - target: {fileID: 3523530503471163057, guid: d77ec23223aadd341a48e272c7912871, type: 3}
+      propertyPath: m_Radius
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4072252906446603896, guid: d77ec23223aadd341a48e272c7912871, type: 3}
       propertyPath: exit
       value: 
@@ -29682,6 +29674,14 @@ PrefabInstance:
     - target: {fileID: 6539039237882896246, guid: d77ec23223aadd341a48e272c7912871, type: 3}
       propertyPath: m_Name
       value: Heroe
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539039237882896246, guid: d77ec23223aadd341a48e272c7912871, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539039237882896246, guid: d77ec23223aadd341a48e272c7912871, type: 3}
+      propertyPath: m_TagString
+      value: Hero
       objectReference: {fileID: 0}
     - target: {fileID: 6849843928718147764, guid: d77ec23223aadd341a48e272c7912871, type: 3}
       propertyPath: m_fontAsset

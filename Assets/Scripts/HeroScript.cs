@@ -93,14 +93,14 @@ public class HeroScript : MonoBehaviour
 
     }
 
-    public void OnEnemyDied(GameObject enemyRef)
+    public void OnEnemyDied(BasicEnemy enemyScript,BaseEntity entityScript)
     {
-        BasicEnemy basicEnemy = enemyRef.GetComponent<BasicEnemy>();
+        
 
-        heroGold += enemyRef.GetComponent<BaseEntity>().getGold();
-        if (basicEnemy != null)
+        heroGold += entityScript.GetComponent<BaseEntity>().getGold();
+        if (enemyScript != null)
         {
-            heroExperience += basicEnemy.getExperience(); 
+            heroExperience += enemyScript.getExperience(); 
         }
         
 

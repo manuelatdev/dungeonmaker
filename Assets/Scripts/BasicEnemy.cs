@@ -100,7 +100,6 @@ public class BasicEnemy : BaseEntity
             mouseOverTime += Time.deltaTime;
             if (mouseOverTime > 0.5f)
             {
-                print("tarjetazo");
                 descriptionOn = true;
             } 
         }
@@ -120,7 +119,6 @@ public class BasicEnemy : BaseEntity
         if (descriptionOn)
         {
             mouseOverTime = 0;
-            print("destarjetazo");
             descriptionOn = false; 
         }
 
@@ -128,7 +126,7 @@ public class BasicEnemy : BaseEntity
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (creatingSelected && !CursorScript.denied.activeSelf && collision.gameObject.layer != LayerMask.NameToLayer("Hero"))
+        if (creatingSelected && !CursorScript.denied.activeSelf && !collision.gameObject.CompareTag("Hero"))
         {
             if (CursorScript.denied != null)
             {
@@ -149,7 +147,7 @@ public class BasicEnemy : BaseEntity
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (creatingSelected && collision.gameObject.layer != LayerMask.NameToLayer("Hero"))
+        if (creatingSelected && !collision.gameObject.CompareTag("Hero"))
         {
             if (CursorScript.denied != null)
             {
@@ -186,6 +184,18 @@ public class BasicEnemy : BaseEntity
             StopCoroutine(AnimateHealthBarDecrease());
             StartCoroutine(AnimateHealthBarDecrease()); 
         }
+    }
+    protected override void Die()
+    {
+        dieSound.Play();
+        scriptHero.OnEnemyDied(this, this);
+
+        foreach (GameObject obj in disabledOnDead)
+        {
+            obj.SetActive(false);
+        }
+
+        meCollider.enabled = false;
     }
     IEnumerator AnimateHealthBarDecrease()
     {

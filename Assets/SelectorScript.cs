@@ -61,7 +61,6 @@ public class SelectorScript : MonoBehaviour
                     enemyScript.SetSelected(true);
                     enemyScript.SpriteLayerUp();
                     enemyScript.ActivateOutline(true);
-                    print("layerlevantada");
                     anim.SetBool("MouseIn", false);
                     panelAnim.SetBool("PanelOut", true);
 
@@ -97,7 +96,6 @@ public class SelectorScript : MonoBehaviour
 
                 enemyScript.SetSelected(false);
                 enemyScript.SpriteLayerDown();
-                print("layerBajada");
                 enemyScript = null;
                 objetoInstanciado = null;
             }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.EditorTools;
+using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -21,10 +22,11 @@ public class ScriptMovimientoHeroe : MonoBehaviour
     private HeroScript scriptHero;
     private RangoAtaqueScript heroAttackScript;
     private Vector3 initialPosition;
-
+    private int layerEnemy;
 
     private void Start()
     {
+        layerEnemy = LayerMask.GetMask("Enemy");
         initialPosition = transform.position;
         heroAttackScript = GetComponentInChildren<RangoAtaqueScript>();
         scriptHero = GetComponent<HeroScript>();
@@ -32,7 +34,6 @@ public class ScriptMovimientoHeroe : MonoBehaviour
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.isStopped = true;
-
     }
 
 
@@ -68,105 +69,84 @@ public class ScriptMovimientoHeroe : MonoBehaviour
     {
 
 
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") && !colaEnemigos.Contains(collision.gameObject))
+        if (ScriptGameManager.gameMode == ModoJuego.Play)
         {
-            collision.gameObject.GetComponent<BasicEnemy>().OnDie += scriptHero.OnEnemyDied;
-
-            colaEnemigos.Enqueue(collision.gameObject); // 
-            if (colaEnemigos.Count + colaCofres.Count < 2)
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") && !colaEnemigos.Contains(collision.gameObject))
             {
-                SetNextDestination();
+
+                colaEnemigos.Enqueue(collision.gameObject); // 
+                if (colaEnemigos.Count + colaCofres.Count < 2)
+                {
+                    SetNextDestination();
+                }
+                else if (targetActual?.layer == LayerMask.NameToLayer("Chest"))
+                {
+                    SetNextDestination();
+
+                }
+
+
             }
-            else if (targetActual?.layer == LayerMask.NameToLayer("Chest"))
+            else if (collision.gameObject.layer == LayerMask.NameToLayer("Chest") && !colaCofres.Contains(collision.gameObject))
             {
-                SetNextDestination();
 
-            }
-
-
-        }
-        else if (collision.gameObject.layer == LayerMask.NameToLayer("Chest") && !colaCofres.Contains(collision.gameObject))
-        {
-            collision.gameObject.GetComponent<BaseEntity>().OnDie += scriptHero.OnEnemyDied;
-
-            colaCofres.Enqueue(collision.gameObject);
-            if (colaEnemigos.Count + colaCofres.Count < 2)
-            {
-                SetNextDestination();
-            }
+                colaCofres.Enqueue(collision.gameObject);
+                if (colaEnemigos.Count + colaCofres.Count < 2)
+                {
+                    SetNextDestination();
+                }
 
 
 
+            } 
         }
 
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    public void OrganizeQueue()
     {
-        if (ScriptGameManager.gameMode == ModoJuego.Edit)
+        List<GameObject> list = new List<GameObject>(colaEnemigos);
+        colaEnemigos.Clear();
+
+        list.Sort((a, b) => Vector3.Distance(transform.position, a.transform.position)
+            .CompareTo(Vector3.Distance(transform.position, b.transform.position)));
+
+        foreach (GameObject obj in list)
         {
-
-            // Si el objeto que sale de la zona de colisión está en la cola de enemigos, lo quitamos de la cola
-            if (colaEnemigos.Contains(collision.gameObject))
-            {
-                collision.gameObject.GetComponent<BasicEnemy>().OnDie -= scriptHero.OnEnemyDied;
-
-                Queue<GameObject> newQueue = new Queue<GameObject>();
-                while (colaEnemigos.Count > 0)
-                {
-                    GameObject currentObject = colaEnemigos.Dequeue();
-                    if (currentObject != collision.gameObject)
-                    {
-                        newQueue.Enqueue(currentObject);
-                    }
-                }
-                colaEnemigos = newQueue;
-
-                Debug.Log(colaEnemigos.Count.ToString());
-            }
-
-            // Si el objeto que sale de la zona de colisión está en la cola de cofres, lo quitamos de la cola
-            if (colaCofres.Contains(collision.gameObject))
-            {
-                collision.gameObject.GetComponent<BasicEnemy>().OnDie -= scriptHero.OnEnemyDied;
-
-                Queue<GameObject> newQueue = new Queue<GameObject>();
-                while (colaCofres.Count > 0)
-                {
-                    GameObject currentObject = colaCofres.Dequeue();
-                    if (currentObject != collision.gameObject)
-                    {
-                        newQueue.Enqueue(currentObject);
-                    }
-                }
-                colaCofres = newQueue;
-
-                Debug.Log(colaCofres.Count.ToString());
-            }
-            targetActual = null;
+            colaEnemigos.Enqueue(obj);
         }
     }
-
     public void GoPlayMode()
     {
+        DetectCollidersIn();
+        OrganizeQueue();
         SetNextDestination();
         agent.isStopped = false;
         heroAttackScript.animatorHero.SetBool("Walk", true);
-
+        
+        
     }
     public void GoStopMode()
     {
         agent.isStopped = true;
-        colaCofres.Clear();
-        colaEnemigos.Clear();
         spriteGameobject.transform.rotation = new Quaternion(0, 0, 0, 1);
         transform.position = initialPosition;
         heroAttackScript.animatorHero.SetTrigger("Stop");
-
         heroAttackScript.animatorHero.SetBool("Walk", false);
-
+        colaCofres.Clear();
+        colaEnemigos.Clear();
+       
+        
     }
-
+    private void DetectCollidersIn()
+    {
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(gameObject.transform.position, 4,layerEnemy);
+        foreach (var hitCollider in hitColliders)
+        {
+                colaEnemigos.Enqueue(hitCollider.gameObject);
+            
+        }
+    }
     public void NextTarget()
     {
         if (targetActual.layer == LayerMask.NameToLayer("Enemy"))
@@ -180,11 +160,10 @@ public class ScriptMovimientoHeroe : MonoBehaviour
 
         }
 
-
         SetNextDestination();
     }
-
-
+   
+    
     public void AttackToEnemy()
     {
         targetActual?.GetComponent<BaseEntity>().TakeAttack(scriptHero.getDamage());
