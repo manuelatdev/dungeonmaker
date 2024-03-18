@@ -67,15 +67,27 @@ public class BaseEntity : MonoBehaviour
         meCollider.enabled = false;
 
     }
+    public virtual void ResetEntity()
+    {
 
-   
+        foreach (GameObject obj in disabledOnDead)
+        {
+            obj.SetActive(true);
+        }
+        health = initialHealth;
 
-    
+        meCollider.enabled = true;
 
-    
+    }
 
 
-    
+
+
+
+
+
+
+
     // Start is called before the first frame update
     public virtual void Start()
     {

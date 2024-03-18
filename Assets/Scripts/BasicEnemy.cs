@@ -56,9 +56,12 @@ public class BasicEnemy : BaseEntity
 
     [SerializeField]
     private Color originalColor;
+
+    private Animator anim;
     public override void Start()
     {
         base.Start();
+        anim = GetComponentInChildren<Animator>();
         tinteScript = GetComponentInChildren<ScriptTinteShader>();
         healText = GetComponentInChildren<TextMeshProUGUI>();
         initialHealth = health;
@@ -233,10 +236,18 @@ public class BasicEnemy : BaseEntity
             StartCoroutine(AnimateHealthBarDecrease());
         }
     }
+    public override void ResetEntity()
+    {
+        base.ResetEntity();
+        redHealthBarImage.fillAmount = 1;
+        greenHealthBarImage.fillAmount = 1;
+        healText.text = health + " / " + initialHealth;
+    }
     protected override void Die()
     {
         dieSound.Play();
         scriptHero.OnEnemyDied(this, this);
+        anim.SetTrigger("Reset");
 
         foreach (GameObject obj in disabledOnDead)
         {

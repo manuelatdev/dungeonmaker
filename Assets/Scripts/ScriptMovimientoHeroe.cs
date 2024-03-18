@@ -131,10 +131,11 @@ public class ScriptMovimientoHeroe : MonoBehaviour
         agent.isStopped = true;
         spriteGameobject.transform.rotation = new Quaternion(0, 0, 0, 1);
         transform.position = initialPosition;
-        heroAttackScript.animatorHero.SetTrigger("Stop");
         heroAttackScript.animatorHero.SetBool("Walk", false);
+        heroAttackScript.animatorHero.SetTrigger("Stop");
         colaCofres.Clear();
         colaEnemigos.Clear();
+        scriptHero.ResetCurrentStats();
        
         
     }

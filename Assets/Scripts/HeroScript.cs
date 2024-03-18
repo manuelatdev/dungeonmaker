@@ -14,7 +14,7 @@ public class HeroScript : MonoBehaviour
     private int actualHealth;
 
     [SerializeField]
-    private int damage;
+    private int heroDamage;
 
     [SerializeField]
     private int def;
@@ -46,6 +46,18 @@ public class HeroScript : MonoBehaviour
 
     private int heroLevel;
 
+    private int initialActualHealth;
+
+    private int initialTotalHealth;
+
+    private int initialHeroLevel;
+
+    private int initialHeroExp;
+
+    private int initialHeroGold;
+
+    private int initialHeroDamage;
+
     // UI
     [SerializeField]
     private TextMeshProUGUI goldLabel;
@@ -72,7 +84,7 @@ public class HeroScript : MonoBehaviour
     private ScriptTinteShader tinteScript;
     public int getDamage()
     {
-        return damage;
+        return heroDamage;
     }
 
     // Start is called before the first frame update
@@ -85,6 +97,31 @@ public class HeroScript : MonoBehaviour
         levelLabel.text = heroLevel.ToString();
         ActualizarMarcador();
         actualHealth = totalHealth;
+        SetInitialStats();
+    }
+    private void SetInitialStats()
+    {
+        initialActualHealth = actualHealth;
+        initialTotalHealth = totalHealth;
+        initialHeroLevel = heroLevel;
+        initialHeroExp = heroExperience;
+        initialHeroGold = heroGold;
+        initialHeroDamage = heroDamage;
+
+    }
+
+    public void ResetCurrentStats()
+    {
+        actualHealth = initialActualHealth;
+        totalHealth = initialTotalHealth;
+        heroLevel = initialHeroLevel;
+        heroExperience = initialHeroExp;
+        heroGold = initialHeroGold;
+        heroDamage = initialHeroDamage;
+        healText.text = actualHealth + " / " + totalHealth;
+        redHealthBarImage.fillAmount = 1;
+        greenHealthBarImage.fillAmount = 1;
+        ActualizarMarcador();
     }
 
     // Update is called once per frame
@@ -120,7 +157,7 @@ public class HeroScript : MonoBehaviour
     {
         heroExperience -= experienceLevels[heroLevel];
         heroLevel++;
-        damage++;
+        heroDamage++;
         actualHealth += 5;
         totalHealth += 5;
     }
@@ -129,7 +166,7 @@ public class HeroScript : MonoBehaviour
         levelLabel.text = heroLevel.ToString();
         experienceBar.fillAmount = (float)((float)heroExperience / (float)experienceLevels[heroLevel]);
         goldLabel.text = "x"+heroGold.ToString();
-        attackLabel.text = "x" + damage.ToString();
+        attackLabel.text = "x" + heroDamage.ToString();
         defLabel.text = "x" + def.ToString();
         speedLabel.text = "x" + attackSpeed.ToString();
         experienceLabel.text = heroExperience + "/" + experienceLevels[heroLevel];

@@ -41,10 +41,19 @@ public class PlayButtonScript : MonoBehaviour
     public void GoStop()
     {
         ScriptGameManager.gameMode = ModoJuego.Edit;
-
+        ResetAllEntitys();
         heroMoveScript.GoStopMode();
         playButton.sprite = playSprite;
+        
+    }
+    private void ResetAllEntitys()
+    {
+        BaseEntity[] entities = GameObject.FindObjectsOfType<BaseEntity>();
 
-
+        // Itera sobre cada entidad y llama a ResetEnemy
+        foreach (BaseEntity entity in entities)
+        {
+            entity.ResetEntity();
+        }
     }
 }
