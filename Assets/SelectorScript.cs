@@ -44,6 +44,7 @@ public class SelectorScript : MonoBehaviour
         }
         if (seleccionado && !movingObject)
         {
+            
             Vector3 currentMousePosition = Input.mousePosition;
             float dragDistance = Vector3.Distance(initialMousePosition, currentMousePosition);
             if (dragDistance >= 20f)
@@ -63,6 +64,8 @@ public class SelectorScript : MonoBehaviour
                     enemyScript.ActivateOutline(true);
                     anim.SetBool("MouseIn", false);
                     panelAnim.SetBool("PanelOut", true);
+                    TrashScript.ShowTrash(true);
+
 
                 }
             }
@@ -87,22 +90,24 @@ public class SelectorScript : MonoBehaviour
         {
             if (objetoInstanciado != null)
             {
-                if (!enemyScript.IsCreable())
+                if (!enemyScript.IsCreable() || TrashScript.mouseOnTrash)
                 {
                     Destroy(objetoInstanciado);
                 }
                 else
                 {
                     enemyScript.ActualizarCurrentPosition();
+                    enemyScript.ActivateOutline(false);
+
+                    enemyScript.SetSelected(false);
+                    enemyScript.SpriteLayerDown();
                 }
 
-                enemyScript.ActivateOutline(false);
-
-                enemyScript.SetSelected(false);
-                enemyScript.SpriteLayerDown();
+                
                 enemyScript = null;
                 objetoInstanciado = null;
             }
+            TrashScript.ShowTrash(false);
             seleccionado = false;
             movingObject = false;
 

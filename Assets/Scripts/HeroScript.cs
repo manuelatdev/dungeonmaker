@@ -134,7 +134,7 @@ public class HeroScript : MonoBehaviour
     {
         
 
-        heroGold += entityScript.GetComponent<BaseEntity>().getGold();
+        heroGold += entityScript.getGold();
         if (enemyScript != null)
         {
             heroExperience += enemyScript.getExperience(); 
@@ -160,6 +160,11 @@ public class HeroScript : MonoBehaviour
         heroDamage++;
         actualHealth += 5;
         totalHealth += 5;
+        StopAllCoroutines();
+        greenHealthBarImage.fillAmount = (float)actualHealth / totalHealth;
+        redHealthBarImage.fillAmount = (float)actualHealth / totalHealth;
+        healText.text = actualHealth + " / " + totalHealth;
+
     }
     private void ActualizarMarcador()
     {

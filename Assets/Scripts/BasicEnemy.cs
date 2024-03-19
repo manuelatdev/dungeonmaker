@@ -9,6 +9,9 @@ using UnityEngine.UI;
 
 public class BasicEnemy : BaseEntity
 {
+    public enum enemyType { slime, skull, archer, wizard};
+
+    public enemyType enemyClass;
 
     private TextMeshProUGUI healText;
 
@@ -43,6 +46,7 @@ public class BasicEnemy : BaseEntity
 
     protected bool enemySelected;
 
+
     private Vector3 currentPosition;
 
     [SerializeField]
@@ -66,8 +70,31 @@ public class BasicEnemy : BaseEntity
         healText = GetComponentInChildren<TextMeshProUGUI>();
         initialHealth = health;
         healText.text = health + " / " + initialHealth;
+        SetAudioRef();
     }
 
+    private void SetAudioRef()
+    {
+        switch (enemyClass)
+        {
+            case enemyType.slime:
+                dieSound = AudioManagerScript.slimeDead;
+                break;
+            case enemyType.skull:
+                dieSound = AudioManagerScript.skullDead;
+
+                break;
+            case enemyType.archer:
+                dieSound = AudioManagerScript.archerDead;
+
+                break;
+            case enemyType.wizard:
+                dieSound = AudioManagerScript.wizardDead;
+
+                break;
+           
+        }
+    }
     public void SetSelected(bool selected)
     {
         enemySelected = selected;
@@ -108,8 +135,9 @@ public class BasicEnemy : BaseEntity
         if (!descriptionOn && !enemySelected)
         {
             mouseOverTime += Time.deltaTime;
-            if (mouseOverTime > 0.5f)
+            if (mouseOverTime > 0.6f)
             {
+                DesplegablesScript.ShowEnemyDescription(damage.ToString(), attackSpeed.ToString(), experience.ToString(), gold.ToString(), "SLIME");
                 descriptionOn = true;
             }
         }
@@ -129,9 +157,11 @@ public class BasicEnemy : BaseEntity
         }
         if (descriptionOn)
         {
-            mouseOverTime = 0;
-            descriptionOn = false;
+            DesplegablesScript.HideAllDescriptions();
         }
+        descriptionOn = false;
+        mouseOverTime = 0;
+
 
 
     }
@@ -143,6 +173,9 @@ public class BasicEnemy : BaseEntity
             SelectorScript.movingObject = true;
             ActivateOutline(true);
             SpriteLayerUp();
+            DesplegablesScript.HideAllDescriptions();
+            TrashScript.ShowTrash(true);
+
         }
     }
     private void OnMouseDrag()
@@ -164,15 +197,24 @@ public class BasicEnemy : BaseEntity
             {
                 currentPosition = transform.position;
             }
+            else if (TrashScript.mouseOnTrash)
+            {
+                Destroy(this.gameObject);
+            }
             else
             {
                 transform.position = currentPosition;
             }
+
             ActivateOutline(false);
             SpriteLayerDown();
             CursorScript.SwitchDenied(false);
             enemySelected = false;
             SelectorScript.movingObject = false;
+            descriptionOn = false;
+            mouseOverTime = 0;
+            TrashScript.ShowTrash(false);
+
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
@@ -253,7 +295,6 @@ public class BasicEnemy : BaseEntity
         {
             obj.SetActive(false);
         }
-
         meCollider.enabled = false;
     }
     IEnumerator AnimateHealthBarDecrease()
