@@ -40,6 +40,7 @@ public class PlayButtonScript : MonoBehaviour
         heroMoveScript.GoStopMode();
         DestroyAllEnemys();
         playButton.sprite = playSprite;
+        EnergyScript.ResetEnergy();
     }
     public void ShadowState(bool estado)
     {

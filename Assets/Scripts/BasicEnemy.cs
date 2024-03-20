@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -60,12 +59,18 @@ public class BasicEnemy : BaseEntity
 
     [SerializeField]
     private Color originalColor;
-
-    private Animator anim;
+    [SerializeField]
+    private Animator spriteAnim;
+    [SerializeField]
+    private Animator numbersAnim;
+    [SerializeField]
+    private TextMeshProUGUI damage1Text;
+    [SerializeField]
+    private TextMeshProUGUI damage2Text;
+    private bool damageNumAnim;
     public override void Start()
     {
         base.Start();
-        anim = GetComponentInChildren<Animator>();
         tinteScript = GetComponentInChildren<ScriptTinteShader>();
         healText = GetComponentInChildren<TextMeshProUGUI>();
         initialHealth = health;
@@ -169,6 +174,8 @@ public class BasicEnemy : BaseEntity
     {
         if (ScriptGameManager.gameMode == ModoJuego.Edit)
         {
+            AudioManagerScript.cardTaken.Play();
+
             enemySelected = true;
             SelectorScript.movingObject = true;
             ActivateOutline(true);
@@ -195,14 +202,21 @@ public class BasicEnemy : BaseEntity
         {
             if (IsCreable())
             {
+                AudioManagerScript.cardPlaced.Play();
+
                 currentPosition = transform.position;
             }
             else if (TrashScript.mouseOnTrash)
             {
+                dieSound.pitch = Random.Range(1f, 1.2f);
+                dieSound.Play();
+                EnergyScript.UseEnergy(cost);
                 Destroy(this.gameObject);
             }
             else
             {
+                AudioManagerScript.cardPlaced.Play();
+
                 transform.position = currentPosition;
             }
 
@@ -264,18 +278,39 @@ public class BasicEnemy : BaseEntity
         return false;
     }
 
-
+    private void NumbersAnimation()
+    {
+        if (damageNumAnim)
+        {
+            numbersAnim.SetTrigger("Damage");
+            damage1Text.text = scriptHero.getDamage().ToString();
+            damageNumAnim = false;
+        }
+        else
+        {
+            numbersAnim.SetTrigger("Damage2");
+            damage2Text.text = scriptHero.getDamage().ToString();
+            damageNumAnim = true;
+        }
+    }
     public override void TakeAttack(int damage)
     {
         base.TakeAttack(damage);
 
         if (health > 0)
         {
+
+            NumbersAnimation();
             tinteScript.TintColor();
             greenHealthBarImage.fillAmount -= (float)damage / initialHealth;
             healText.text = health + " / " + initialHealth;
             StopCoroutine(AnimateHealthBarDecrease());
             StartCoroutine(AnimateHealthBarDecrease());
+        }
+        else
+        {
+            NumbersAnimation();
+
         }
     }
     public override void ResetEntity()
@@ -287,9 +322,10 @@ public class BasicEnemy : BaseEntity
     }
     protected override void Die()
     {
+        dieSound.pitch = Random.Range(1f, 1.2f);
         dieSound.Play();
         scriptHero.OnEnemyDied(this, this);
-        anim.SetTrigger("Reset");
+        spriteAnim.SetTrigger("Reset");
 
         foreach (GameObject obj in disabledOnDead)
         {

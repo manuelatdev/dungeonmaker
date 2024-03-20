@@ -20,6 +20,7 @@ public class ScriptMovimientoHeroe : MonoBehaviour
     private RangoAtaqueScript heroAttackScript;
     private Vector3 initialPosition;
     private int layerEnemy;
+    
 
     private void Start()
     {

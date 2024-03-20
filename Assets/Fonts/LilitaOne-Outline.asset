@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: LilitaOne-shadow
+  m_Name: LilitaOne-Outline
   m_EditorClassIdentifier: 
-  hashCode: 823010362
+  hashCode: 484411900
   material: {fileID: 8745525855907363727}
-  materialHashCode: 2032552410
+  materialHashCode: -848527908
   m_Version: 1.1.0
   m_SourceFontFileGUID: bc09923b7d2c3174a91534102c855300
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: bc09923b7d2c3174a91534102c855300, type: 3}
@@ -55,6 +55,21 @@ MonoBehaviour:
       m_Y: 0
       m_Width: 0
       m_Height: 0
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+  - m_Index: 16
+    m_Metrics:
+      m_Width: 40.9375
+      m_Height: 10.453125
+      m_HorizontalBearingX: 3.15625
+      m_HorizontalBearingY: 27.546875
+      m_HorizontalAdvance: 47.25
+    m_GlyphRect:
+      m_X: 880
+      m_Y: 10
+      m_Width: 42
+      m_Height: 11
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
@@ -538,25 +553,14 @@ MonoBehaviour:
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
-  - m_Index: 16
-    m_Metrics:
-      m_Width: 40.9375
-      m_Height: 10.453125
-      m_HorizontalBearingX: 3.15625
-      m_HorizontalBearingY: 27.546875
-      m_HorizontalAdvance: 47.25
-    m_GlyphRect:
-      m_X: 880
-      m_Y: 10
-      m_Width: 42
-      m_Height: 11
-    m_Scale: 1
-    m_AtlasIndex: 0
-    m_ClassDefinitionType: 0
   m_CharacterTable:
   - m_ElementType: 1
     m_Unicode: 32
     m_GlyphIndex: 3
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 45
+    m_GlyphIndex: 16
     m_Scale: 1
   - m_ElementType: 1
     m_Unicode: 46
@@ -685,10 +689,6 @@ MonoBehaviour:
   - m_ElementType: 1
     m_Unicode: 8230
     m_GlyphIndex: 218
-    m_Scale: 1
-  - m_ElementType: 1
-    m_Unicode: 45
-    m_GlyphIndex: 16
     m_Scale: 1
   m_AtlasTextures:
   - {fileID: 7893033589757811678}
@@ -1156,7 +1156,7 @@ Material:
     - _Reflectivity: 10
     - _ScaleRatioA: 0.9
     - _ScaleRatioB: 0.73125
-    - _ScaleRatioC: 0.47514617
+    - _ScaleRatioC: 0.73125
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
@@ -1172,7 +1172,7 @@ Material:
     - _UnderlayDilate: 1
     - _UnderlayOffsetX: 0
     - _UnderlayOffsetY: 0
-    - _UnderlaySoftness: 0.539
+    - _UnderlaySoftness: 0
     - _VertexOffsetX: 0
     - _VertexOffsetY: 0
     - _WeightBold: 0.75
@@ -1187,5 +1187,5 @@ Material:
     - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
-    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.7176471}
+    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

@@ -9,6 +9,9 @@ using UnityEngine.UI;
 
 public class SelectorScript : MonoBehaviour
 {
+
+    [SerializeField]
+    private int energyValue;
     private bool seleccionado;
     [SerializeField]
     private Image outLine;
@@ -24,6 +27,8 @@ public class SelectorScript : MonoBehaviour
     public static bool movingObject;
     private Vector3 initialMousePosition;
     private BasicEnemy enemyScript;
+
+    
 
 
     private void Start()
@@ -49,8 +54,9 @@ public class SelectorScript : MonoBehaviour
             float dragDistance = Vector3.Distance(initialMousePosition, currentMousePosition);
             if (dragDistance >= 20f)
             {
-                if (!objetoInstanciado && ScriptGameManager.gameMode == ModoJuego.Edit)
+                if (!objetoInstanciado && ScriptGameManager.gameMode == ModoJuego.Edit &&EnergyScript.UseEnergy(-energyValue))
                 {
+                    AudioManagerScript.cardTaken.Play();
                     movingObject = true;
                     Vector3 mousePosition = Input.mousePosition;
                     Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
@@ -67,6 +73,10 @@ public class SelectorScript : MonoBehaviour
                     TrashScript.ShowTrash(true);
 
 
+                }
+                else
+                {
+                    seleccionado = false;
                 }
             }
 
@@ -90,12 +100,21 @@ public class SelectorScript : MonoBehaviour
         {
             if (objetoInstanciado != null)
             {
-                if (!enemyScript.IsCreable() || TrashScript.mouseOnTrash)
+                if (!enemyScript.IsCreable())
                 {
+                    EnergyScript.UseEnergy(energyValue);
                     Destroy(objetoInstanciado);
+                    if (TrashScript.mouseOnTrash)
+                    {
+                        enemyScript.dieSound.pitch = Random.Range(1f, 1.2f);
+
+                        enemyScript.dieSound.Play();
+                    }
                 }
                 else
                 {
+                    AudioManagerScript.cardPlaced.Play();
+
                     enemyScript.ActualizarCurrentPosition();
                     enemyScript.ActivateOutline(false);
 

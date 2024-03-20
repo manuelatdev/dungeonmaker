@@ -81,6 +81,9 @@ public class HeroScript : MonoBehaviour
     [SerializeField]
     private Image experienceBar;
 
+    [SerializeField]
+    private Animator redScreenAnim;
+
     private ScriptTinteShader tinteScript;
     public int getDamage()
     {
@@ -187,7 +190,8 @@ public class HeroScript : MonoBehaviour
             actualHealth -= damage;
             healText.text = actualHealth + " / " + totalHealth;
             StopCoroutine(AnimateHealthBarDecrease());
-            StartCoroutine(AnimateHealthBarDecrease()); 
+            StartCoroutine(AnimateHealthBarDecrease());
+            redScreenAnim.SetTrigger("ScreenHit");
         }
     }
     IEnumerator AnimateHealthBarDecrease()

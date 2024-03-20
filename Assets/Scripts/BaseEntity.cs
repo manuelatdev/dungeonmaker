@@ -19,8 +19,8 @@ public class BaseEntity : MonoBehaviour
 
     [SerializeField]
     protected GameObject[] disabledOnDead;
-
-    protected AudioSource dieSound;
+    [HideInInspector]
+    public AudioSource dieSound;
 
     protected Collider2D meCollider;
 

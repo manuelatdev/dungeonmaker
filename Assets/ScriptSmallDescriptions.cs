@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ScriptSmallDescriptions : MonoBehaviour
+public class ScriptSmallDescriptions : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     
     [SerializeField]
@@ -27,12 +27,12 @@ public class ScriptSmallDescriptions : MonoBehaviour
             } 
         }
     }
-    public void PointerEnter()
+    public void OnPointerEnter(PointerEventData eventData)
     {
         isMouseOver = true;
     }
 
-    public void PointerExit()
+    public void OnPointerExit(PointerEventData eventData)
     {
         isMouseOver = false;
         mouseOverTime = 0;

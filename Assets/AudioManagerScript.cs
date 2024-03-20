@@ -16,13 +16,24 @@ public class AudioManagerScript : MonoBehaviour
     public static AudioSource wizardDead;
     public static AudioSource wizardAttack;
 
+    public static AudioSource cardTaken;
+    public static AudioSource cardPlaced;
+
+
+    [SerializeField]
+    private AudioSource cardTakenRef;
+    [SerializeField]
+    private AudioSource cardPlacedRef;
     [SerializeField]
     private AudioSource slimeAttackRef;
     [SerializeField]
     private AudioSource slimeDeadRef;
-    private void Start()
+    private void Awake()
     {
         slimeAttack = slimeAttackRef;
         slimeDead = slimeDeadRef;
+
+        cardTaken = cardTakenRef;
+        cardPlaced = cardPlacedRef;
     }
 }
