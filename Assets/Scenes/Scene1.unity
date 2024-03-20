@@ -2757,7 +2757,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 35ec5e711e83e0743a9393db487bff6b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.703
+  m_Volume: 0.205
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4078,7 +4078,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 21d62cbac1bb0814bb1031d7d0313332, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.791
   m_Pitch: 1.1
   Loop: 0
   Mute: 0
@@ -7703,10 +7703,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slime
       objectReference: {fileID: 0}
-    - target: {fileID: 708200562556993708, guid: 23d6b461dd1065b488a1f142f85490e4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1813303549333346323, guid: 23d6b461dd1065b488a1f142f85490e4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.57
@@ -9310,7 +9306,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -10
-  m_Sprite: {fileID: 21300000, guid: a49b361bf2cc80444b4cac1a4ad1a24f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f5a4489afb6fa1743bb94b0e40da0956, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

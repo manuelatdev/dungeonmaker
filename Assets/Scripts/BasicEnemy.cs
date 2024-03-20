@@ -67,6 +67,10 @@ public class BasicEnemy : BaseEntity
     private TextMeshProUGUI damage1Text;
     [SerializeField]
     private TextMeshProUGUI damage2Text;
+    [SerializeField]
+    private TextMeshProUGUI goldText;
+    [SerializeField]
+    private TextMeshProUGUI expText;
     private bool damageNumAnim;
     public override void Start()
     {
@@ -326,6 +330,9 @@ public class BasicEnemy : BaseEntity
         dieSound.Play();
         scriptHero.OnEnemyDied(this, this);
         spriteAnim.SetTrigger("Reset");
+        numbersAnim.SetTrigger("Dead");
+        goldText.text = "+"+gold;
+        expText.text = "+" + experience;
 
         foreach (GameObject obj in disabledOnDead)
         {

@@ -73,12 +73,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: aba4467aafe8ddd40af880067a9e731b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9c77ecf8f87577940aca8ce7b751d82d, type: 3}
   m_Color: {r: 0.91171235, g: 0.96594656, b: 0.9811321, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3, y: 3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -241,12 +241,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 418396c1842e225429971b3712779502, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 14898fd3042776843a51b247d4386d06, type: 3}
   m_Color: {r: 0.91171235, g: 0.96594656, b: 0.9811321, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3, y: 3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -374,11 +374,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2671787704201220808, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.87
+      value: -2.57
       objectReference: {fileID: 0}
     - target: {fileID: 2671787704201220808, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.66
+      value: 0.06
       objectReference: {fileID: 0}
     - target: {fileID: 2671787704201220808, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: m_LocalPosition.z
