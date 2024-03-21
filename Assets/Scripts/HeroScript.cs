@@ -85,6 +85,23 @@ public class HeroScript : MonoBehaviour
     private Animator redScreenAnim;
 
     private ScriptTinteShader tinteScript;
+
+    private AudioSource deadSound;
+
+    private ScriptCamera cameraScript;
+
+    [SerializeField]
+    private AudioSource levelUpSound;
+
+    [SerializeField]
+    private Animator damageAnimator;
+
+    private bool damageAnimActive;
+
+    [SerializeField]
+    private TextMeshProUGUI damageText;
+    [SerializeField]
+    private TextMeshProUGUI damageText2;
     public int getDamage()
     {
         return heroDamage;
@@ -93,8 +110,9 @@ public class HeroScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        cameraScript = Camera.main.GetComponent<ScriptCamera>();
         tinteScript = GetComponentInChildren<ScriptTinteShader>();
-
+        deadSound = GetComponent<AudioSource>();
         movimientoScript = GetComponent<ScriptMovimientoHeroe>();
         heroLevel = 1;
         levelLabel.text = heroLevel.ToString();
@@ -158,6 +176,8 @@ public class HeroScript : MonoBehaviour
 
     private void LevelUp()
     {
+        damageAnimator.SetTrigger("LevelUp");
+        levelUpSound.Play();
         heroExperience -= experienceLevels[heroLevel];
         heroLevel++;
         heroDamage++;
@@ -184,10 +204,35 @@ public class HeroScript : MonoBehaviour
     {
         if (ScriptGameManager.gameMode == ModoJuego.Play)
         {
+            if (damageAnimActive)
+            {
+                damageAnimator.SetTrigger("Damage");
+                damageText.text = damage.ToString();
+            }
+            else
+            {
+                damageAnimator.SetTrigger("Damage2");
+                damageText2.text = damage.ToString();
+
+
+            }
             tinteScript.TintColor();
             bloodParticles.Play();
             greenHealthBarImage.fillAmount -= (float)damage / totalHealth;
             actualHealth -= damage;
+            if (actualHealth < 1) 
+            {
+                ScriptGameManager.gameMode = ModoJuego.Menu;
+                actualHealth = 0;
+                Time.timeScale = 0.2f;
+                movimientoScript.heroAttackScript.animatorHero.SetTrigger("Dead");
+                deadSound.Play();
+                AudioManagerScript.music.Stop();
+                cameraScript.DeadCamera();
+                redScreenAnim.SetTrigger("DeadScreen");
+
+                //muerteScreen
+            }
             healText.text = actualHealth + " / " + totalHealth;
             StopCoroutine(AnimateHealthBarDecrease());
             StartCoroutine(AnimateHealthBarDecrease());

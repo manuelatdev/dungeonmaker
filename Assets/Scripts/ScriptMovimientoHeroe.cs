@@ -17,7 +17,7 @@ public class ScriptMovimientoHeroe : MonoBehaviour
     private GameObject spriteGameobject;
     private bool mirandoIzquierda;
     private HeroScript scriptHero;
-    private RangoAtaqueScript heroAttackScript;
+    public RangoAtaqueScript heroAttackScript;
     private Vector3 initialPosition;
     private int layerEnemy;
     

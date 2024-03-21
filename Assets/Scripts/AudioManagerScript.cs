@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AudioManagerScript : MonoBehaviour
 {
+    public static AudioSource music;
+
     public static AudioSource slimeAttack;
     public static AudioSource slimeDead;
 
@@ -21,6 +23,9 @@ public class AudioManagerScript : MonoBehaviour
 
 
     [SerializeField]
+    private AudioSource musicRef;
+
+    [SerializeField]
     private AudioSource cardTakenRef;
     [SerializeField]
     private AudioSource cardPlacedRef;
@@ -30,6 +35,8 @@ public class AudioManagerScript : MonoBehaviour
     private AudioSource slimeDeadRef;
     private void Awake()
     {
+        music = musicRef;
+
         slimeAttack = slimeAttackRef;
         slimeDead = slimeDeadRef;
 

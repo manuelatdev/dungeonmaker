@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DamageText2
+  m_Name: DamageTextHero
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -29,10 +29,10 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.16666667
+        time: 0.18333334
         value: {x: 1, y: 1, z: 1}
-        inSlope: {x: 0.6455059, y: 0.6340169, z: 0.62376547}
-        outSlope: {x: 0.6455059, y: 0.6340169, z: 0.62376547}
+        inSlope: {x: 0.7069777, y: 0.7177554, z: 0.71183175}
+        outSlope: {x: 0.7069777, y: 0.7177554, z: 0.71183175}
         tangentMode: 0
         weightedMode: 2
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
@@ -49,7 +49,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: DamageText2
+    path: DamageText
   m_FloatCurves:
   - serializedVersion: 2
     curve:
@@ -58,15 +58,24 @@ AnimationClip:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 4.230185
-        outSlope: 4.230185
+        inSlope: 2.993709
+        outSlope: 2.993709
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.058058925
+        outWeight: 0.09291544
+      - serializedVersion: 3
+        time: 0.18333334
+        value: -0.3217595
+        inSlope: -1.3940226
+        outSlope: -1.3940226
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.08179967
       - serializedVersion: 3
         time: 0.5833333
-        value: 0.614
+        value: -0.497
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -77,7 +86,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.x
-    path: DamageText2
+    path: DamageText
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -87,16 +96,16 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
-        inSlope: 13.244976
-        outSlope: 13.244976
+        value: 0.004547119
+        inSlope: 13.365399
+        outSlope: 13.365399
         tangentMode: 0
         weightedMode: 2
         inWeight: 0.33333334
-        outWeight: 0.07632127
+        outWeight: 0.10715214
       - serializedVersion: 3
         time: 0.5833333
-        value: 0.25877434
+        value: 0.486
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -107,7 +116,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: DamageText2
+    path: DamageText
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -120,7 +129,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 2356880443
+      path: 2805119050
       attribute: 3
       script: {fileID: 0}
       typeID: 4
@@ -129,7 +138,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 2356880443
+      path: 2805119050
       attribute: 1460864421
       script: {fileID: 0}
       typeID: 224
@@ -138,7 +147,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 2356880443
+      path: 2805119050
       attribute: 538195251
       script: {fileID: 0}
       typeID: 224
@@ -175,66 +184,6 @@ AnimationClip:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 4.230185
-        outSlope: 4.230185
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.058058925
-      - serializedVersion: 3
-        time: 0.5833333
-        value: 0.614
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_AnchoredPosition.x
-    path: DamageText2
-    classID: 224
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 13.244976
-        outSlope: 13.244976
-        tangentMode: 0
-        weightedMode: 2
-        inWeight: 0.33333334
-        outWeight: 0.07632127
-      - serializedVersion: 3
-        time: 0.5833333
-        value: 0.25877434
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_AnchoredPosition.y
-    path: DamageText2
-    classID: 224
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -242,10 +191,10 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.16666667
+        time: 0.18333334
         value: 1
-        inSlope: 0.6455059
-        outSlope: 0.6455059
+        inSlope: 0.7069777
+        outSlope: 0.7069777
         tangentMode: 0
         weightedMode: 2
         inWeight: 0.33333334
@@ -263,7 +212,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.x
-    path: DamageText2
+    path: DamageText
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -281,10 +230,10 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.16666667
+        time: 0.18333334
         value: 1
-        inSlope: 0.6340169
-        outSlope: 0.6340169
+        inSlope: 0.7177554
+        outSlope: 0.7177554
         tangentMode: 0
         weightedMode: 2
         inWeight: 0.33333334
@@ -302,7 +251,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.y
-    path: DamageText2
+    path: DamageText
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -320,10 +269,10 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.16666667
+        time: 0.18333334
         value: 1
-        inSlope: 0.62376547
-        outSlope: 0.62376547
+        inSlope: 0.71183175
+        outSlope: 0.71183175
         tangentMode: 0
         weightedMode: 2
         inWeight: 0.33333334
@@ -341,7 +290,76 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.z
-    path: DamageText2
+    path: DamageText
+    classID: 224
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 2.993709
+        outSlope: 2.993709
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.09291544
+      - serializedVersion: 3
+        time: 0.18333334
+        value: -0.3217595
+        inSlope: -1.3940226
+        outSlope: -1.3940226
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.08179967
+      - serializedVersion: 3
+        time: 0.5833333
+        value: -0.497
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_AnchoredPosition.x
+    path: DamageText
+    classID: 224
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.004547119
+        inSlope: 13.365399
+        outSlope: 13.365399
+        tangentMode: 0
+        weightedMode: 2
+        inWeight: 0.33333334
+        outWeight: 0.10715214
+      - serializedVersion: 3
+        time: 0.5833333
+        value: 0.486
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_AnchoredPosition.y
+    path: DamageText
     classID: 224
     script: {fileID: 0}
     flags: 0

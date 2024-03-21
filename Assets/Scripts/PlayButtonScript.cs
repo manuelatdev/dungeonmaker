@@ -17,8 +17,13 @@ public class PlayButtonScript : MonoBehaviour
 
     private Shadow sombra;
 
+    [SerializeField]
+    private ScreenEffectAnimator screenEffectScript;
+
+    private ScriptCamera cameraScript;
     private void Start()
     {
+        cameraScript = Camera.main.GetComponent<ScriptCamera>();
         playButton = GetComponent<Image>();
         sombra = GetComponent<Shadow>();
     }
@@ -28,19 +33,23 @@ public class PlayButtonScript : MonoBehaviour
         if (ScriptGameManager.gameMode == ModoJuego.Play)
         {
             GoStop();
+
         }
         else if (ScriptGameManager.gameMode == ModoJuego.Edit)
         {
             GoPlay();
+
         }
     }
     public void ResetLevel()
     {
-        ScriptGameManager.gameMode = ModoJuego.Edit;
-        heroMoveScript.GoStopMode();
-        DestroyAllEnemys();
-        playButton.sprite = playSprite;
-        EnergyScript.ResetEnergy();
+        
+            ScriptGameManager.gameMode = ModoJuego.Edit;
+            heroMoveScript.GoStopMode();
+            DestroyAllEnemys();
+            playButton.sprite = playSprite;
+            EnergyScript.ResetEnergy();
+        
     }
     public void ShadowState(bool estado)
     {
@@ -59,7 +68,17 @@ public class PlayButtonScript : MonoBehaviour
         ResetAllEntitys();
         heroMoveScript.GoStopMode();
         playButton.sprite = playSprite;
-        
+       
+
+    }
+    public void GoStopFromDead()
+    {
+        GoStop();
+        screenEffectScript.anim.SetTrigger("ResetScreen");
+        cameraScript.ResetCamera();
+        AudioManagerScript.music.Play();
+        Time.timeScale = 1;
+
     }
 
     private void DestroyAllEnemys()

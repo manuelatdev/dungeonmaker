@@ -136,19 +136,22 @@ public class BasicEnemy : BaseEntity
     }
     private void OnMouseOver()
     {
-        if (!SelectorScript.movingObject)
+        if (ScriptGameManager.gameMode != ModoJuego.Menu)
         {
-            ActivateOutline(true);
-            CursorScript.SwitchStone(true);
-        }
-        if (!descriptionOn && !enemySelected)
-        {
-            mouseOverTime += Time.deltaTime;
-            if (mouseOverTime > 0.6f)
+            if (!SelectorScript.movingObject)
             {
-                DesplegablesScript.ShowEnemyDescription(damage.ToString(), attackSpeed.ToString(), experience.ToString(), gold.ToString(), "SLIME");
-                descriptionOn = true;
+                ActivateOutline(true);
+                CursorScript.SwitchStone(true);
             }
+            if (!descriptionOn && !enemySelected)
+            {
+                mouseOverTime += Time.unscaledDeltaTime;
+                if (mouseOverTime > 0.6f)
+                {
+                    DesplegablesScript.ShowEnemyDescription(damage.ToString(), attackSpeed.ToString(), experience.ToString(), gold.ToString(), "SLIME");
+                    descriptionOn = true;
+                }
+            } 
         }
     }
     public void ActivateOutline(bool active)

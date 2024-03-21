@@ -18,7 +18,7 @@ public class ScriptSmallDescriptions : MonoBehaviour, IPointerEnterHandler, IPoi
         {
             if (!descriptionOn && !SelectorScript.movingObject)
             {
-                mouseOverTime += Time.deltaTime;
+                mouseOverTime += Time.unscaledDeltaTime;
                 if (mouseOverTime > 0.6f)
                 {
                     DesplegablesScript.ShowDescription(descriptionText);
