@@ -21,11 +21,14 @@ public class PlayButtonScript : MonoBehaviour
     private ScreenEffectAnimator screenEffectScript;
 
     private ScriptCamera cameraScript;
+
+    private ModoJuego currentGameMode;
     private void Start()
     {
         cameraScript = Camera.main.GetComponent<ScriptCamera>();
         playButton = GetComponent<Image>();
         sombra = GetComponent<Shadow>();
+        currentGameMode = ModoJuego.Edit;
     }
 
     public void preshButton()
@@ -49,6 +52,7 @@ public class PlayButtonScript : MonoBehaviour
             DestroyAllEnemys();
             playButton.sprite = playSprite;
             EnergyScript.ResetEnergy();
+        Time.timeScale = 1;
         
     }
     public void ShadowState(bool estado)
@@ -61,6 +65,10 @@ public class PlayButtonScript : MonoBehaviour
         heroMoveScript.GoPlayMode();
         playButton.sprite = stopSprite;
 
+    }
+    public void SetCurrentMode()
+    {
+        currentGameMode = ScriptGameManager.gameMode;
     }
     public void GoStop()
     {
@@ -78,6 +86,20 @@ public class PlayButtonScript : MonoBehaviour
         cameraScript.ResetCamera();
         AudioManagerScript.music.Play();
         Time.timeScale = 1;
+
+    }
+    public void GoMenuMode()
+    {
+        currentGameMode = ScriptGameManager.gameMode;
+        ScriptGameManager.gameMode = ModoJuego.Menu;
+        Time.timeScale = 0;
+    }
+    public void GoCurrentMode()
+    {
+
+        ScriptGameManager.gameMode = currentGameMode;
+        Time.timeScale = 1;
+        print("current mode= " + currentGameMode);
 
     }
 

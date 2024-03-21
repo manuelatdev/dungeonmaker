@@ -18,4 +18,9 @@ public class ScreenEffectAnimator : MonoBehaviour
     {
         darkSoulsSound.Play();
     }
+    public void StopDarkSoulsSound()
+    {
+        darkSoulsSound.Stop();
+        print("stop");
+    }
 }
