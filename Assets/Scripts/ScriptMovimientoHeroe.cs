@@ -15,7 +15,8 @@ public class ScriptMovimientoHeroe : MonoBehaviour
     public GameObject targetActual;
     [SerializeField]
     private GameObject spriteGameobject;
-    private bool mirandoIzquierda;
+    [HideInInspector]
+    public bool mirandoIzquierda;
     private HeroScript scriptHero;
     public RangoAtaqueScript heroAttackScript;
     private Vector3 initialPosition;
@@ -39,13 +40,13 @@ public class ScriptMovimientoHeroe : MonoBehaviour
     {
         if (ScriptGameManager.gameMode == ModoJuego.Play)
         {
-            if (agent.velocity.x > 0 && mirandoIzquierda)
+            if (agent.velocity.x > 0f && mirandoIzquierda)
             {
                 spriteGameobject.transform.rotation = new Quaternion(0, 0, 0, 1);
                 mirandoIzquierda = false;
 
             }
-            else if (agent.velocity.x < 0 && !mirandoIzquierda)
+            else if (agent.velocity.x < 0f && !mirandoIzquierda)
             {
                 spriteGameobject.transform.rotation = new Quaternion(0, 1, 0, 0);
                 mirandoIzquierda = true;
@@ -123,6 +124,12 @@ public class ScriptMovimientoHeroe : MonoBehaviour
         heroAttackScript.animatorHero.SetBool("Walk", true);
         
         
+    }
+    public void StopHero()
+    {
+        agent.isStopped = true;
+        heroAttackScript.animatorHero.SetBool("Walk", false);
+        heroAttackScript.animatorHero.SetTrigger("Stop");
     }
     public void GoStopMode()
     {

@@ -6,7 +6,10 @@ using UnityEngine;
 public class DesplegablesScript : MonoBehaviour
 {
     private static GameObject description;
+    private static GameObject descriptionChest;
     private static TextMeshProUGUI descriptionText;
+
+    private static TextMeshProUGUI descriptionTextChest;
 
     private static GameObject enemyDescription;
     private static TextMeshProUGUI attak;
@@ -27,8 +30,11 @@ public class DesplegablesScript : MonoBehaviour
         description = transform.GetChild(0).gameObject;
         enemyDescription = transform.GetChild(1).gameObject;
         enemyPlusDescription = transform.GetChild(2).gameObject;
+        descriptionChest = transform.GetChild(3).gameObject;
 
         descriptionText = description.transform.GetComponentInChildren<TextMeshProUGUI>();
+
+        descriptionTextChest = descriptionChest.transform.GetComponentInChildren<TextMeshProUGUI>();
 
         attak = enemyDescription.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         speed = enemyDescription.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
@@ -49,6 +55,12 @@ public class DesplegablesScript : MonoBehaviour
         description.SetActive(true);
 
         descriptionText.text = descriptionRef;
+    }
+    public static void ShowChestDescription(string descriptionRef)
+    {
+        descriptionChest.SetActive(true);
+
+        descriptionTextChest.text = descriptionRef;
     }
     public static void ShowEnemyDescription(string atkRef, string dpsRef, string expRef, string goldRef, string nameRef)
     {
@@ -75,6 +87,8 @@ public class DesplegablesScript : MonoBehaviour
         description.SetActive(false);
         enemyDescription.SetActive(false);
         enemyPlusDescription.SetActive(false);
+        descriptionChest.SetActive(false);
+
     }
 
 }

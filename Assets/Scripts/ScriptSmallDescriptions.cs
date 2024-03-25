@@ -8,7 +8,7 @@ public class ScriptSmallDescriptions : MonoBehaviour, IPointerEnterHandler, IPoi
 {
     
     [SerializeField]
-    private string descriptionText;
+    public string descriptionText;
     private float mouseOverTime;
     private bool descriptionOn;
     private bool isMouseOver;

@@ -8,6 +8,9 @@ public class RangoAtaqueScript : MonoBehaviour
     public Animator animatorHero;
     private ScriptMovimientoHeroe heroScript;
     public bool atacando;
+    public static bool victory;
+    [SerializeField]
+    private VictoryScript scriptVictory;
 
     private void Start()
     {
@@ -21,11 +24,24 @@ public class RangoAtaqueScript : MonoBehaviour
         {
             if (collision.gameObject == heroScript.targetActual)
             {
-                animatorHero.SetBool("Attack", true);
-                atacando = true;
+                if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy")|| collision.gameObject.layer == LayerMask.NameToLayer("Chest"))
+                {
+                    animatorHero.SetBool("Attack", true);
+                    atacando = true;
+                }
+                
 
             }
             
+        }
+        if (!victory&&ScriptGameManager.gameMode == ModoJuego.Play&&collision.gameObject == heroScript.targetActual&& collision.gameObject.layer == LayerMask.NameToLayer("Exit"))
+        {
+            ScriptGameManager.gameMode = ModoJuego.Menu;
+            scriptVictory.gameObject.SetActive(true);
+            scriptVictory.GoVictory();
+            scriptVictory.GetStats();
+            heroScript.StopHero();
+            victory = true;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

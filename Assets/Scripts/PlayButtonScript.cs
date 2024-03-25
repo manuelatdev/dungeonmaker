@@ -72,11 +72,14 @@ public class PlayButtonScript : MonoBehaviour
     }
     public void GoStop()
     {
+        
         ScriptGameManager.gameMode = ModoJuego.Edit;
         ResetAllEntitys();
         heroMoveScript.GoStopMode();
+        RangoAtaqueScript.victory = false;
         playButton.sprite = playSprite;
-       
+        Time.timeScale = 1;
+
 
     }
     public void GoStopFromDead()
@@ -99,7 +102,6 @@ public class PlayButtonScript : MonoBehaviour
 
         ScriptGameManager.gameMode = currentGameMode;
         Time.timeScale = 1;
-        print("current mode= " + currentGameMode);
 
     }
 

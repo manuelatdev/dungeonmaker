@@ -11,7 +11,8 @@ public class HeroScript : MonoBehaviour
     [SerializeField]
     private int totalHealth;
 
-    private int actualHealth;
+    [HideInInspector]
+    public int actualHealth;
 
     [SerializeField]
     private int heroDamage;
@@ -33,28 +34,48 @@ public class HeroScript : MonoBehaviour
     private Image redHealthBarImage;
 
     [SerializeField]
+    private Image greenHealthBarImagePanel;
+
+    [SerializeField]
+    private Image redHealthBarImagePanel;
+
+    [SerializeField]
     private TextMeshProUGUI healText;
 
     [SerializeField]
+    private TextMeshProUGUI healTextPanel;
+
+    [SerializeField]
     private ParticleSystem bloodParticles;
+    [HideInInspector]
+    public ScriptMovimientoHeroe movimientoScript;
 
-    private ScriptMovimientoHeroe movimientoScript;
+    [HideInInspector] 
+    public int heroGold;
 
-    private int heroGold;
+    [HideInInspector]
+    public int expTotalObtenida;
+
+    [HideInInspector]
+    public int healthTotalRestada=0;
 
     private int heroExperience;
 
-    private int heroLevel;
+    [HideInInspector]
+    public  int heroLevel;
 
-    private int initialActualHealth;
+    [HideInInspector]
+    public int initialActualHealth;
 
     private int initialTotalHealth;
 
-    private int initialHeroLevel;
+    [HideInInspector]
+    public int initialHeroLevel;
 
     private int initialHeroExp;
 
-    private int initialHeroGold;
+    [HideInInspector]
+    public int initialHeroGold;
 
     private int initialHeroDamage;
 
@@ -116,9 +137,11 @@ public class HeroScript : MonoBehaviour
         movimientoScript = GetComponent<ScriptMovimientoHeroe>();
         heroLevel = 1;
         levelLabel.text = heroLevel.ToString();
-        ActualizarMarcador();
+        
+        
         actualHealth = totalHealth;
         SetInitialStats();
+        ActualizarMarcador();
     }
     private void SetInitialStats()
     {
@@ -140,8 +163,14 @@ public class HeroScript : MonoBehaviour
         heroGold = initialHeroGold;
         heroDamage = initialHeroDamage;
         healText.text = actualHealth + " / " + totalHealth;
-        redHealthBarImage.fillAmount = 1;
-        greenHealthBarImage.fillAmount = 1;
+        redHealthBarImage.fillAmount = (float)actualHealth / totalHealth; ;
+        greenHealthBarImage.fillAmount = (float)actualHealth / totalHealth;
+        healTextPanel.text = actualHealth + " / " + totalHealth;
+        redHealthBarImagePanel.fillAmount = (float)actualHealth / totalHealth; ;
+        greenHealthBarImagePanel.fillAmount = (float)actualHealth / totalHealth; ;
+        expTotalObtenida = 0;
+        healthTotalRestada = 0;
+
         ActualizarMarcador();
     }
 
@@ -158,7 +187,8 @@ public class HeroScript : MonoBehaviour
         heroGold += entityScript.getGold();
         if (enemyScript != null)
         {
-            heroExperience += enemyScript.getExperience(); 
+            heroExperience += enemyScript.getExperience();
+            expTotalObtenida += enemyScript.getExperience();
         }
         
 
@@ -188,6 +218,10 @@ public class HeroScript : MonoBehaviour
         redHealthBarImage.fillAmount = (float)actualHealth / totalHealth;
         healText.text = actualHealth + " / " + totalHealth;
 
+        greenHealthBarImagePanel.fillAmount = (float)actualHealth / totalHealth;
+        redHealthBarImagePanel.fillAmount = (float)actualHealth / totalHealth;
+        healTextPanel.text = actualHealth + " / " + totalHealth;
+
     }
     private void ActualizarMarcador()
     {
@@ -198,6 +232,8 @@ public class HeroScript : MonoBehaviour
         defLabel.text = "x" + def.ToString();
         speedLabel.text = "x" + attackSpeed.ToString();
         experienceLabel.text = heroExperience + "/" + experienceLevels[heroLevel];
+        healText.text = actualHealth + " / " + totalHealth;
+        healTextPanel.text = actualHealth + " / " + totalHealth;
 
     }
     public  void TakeAttack(int damage)
@@ -206,20 +242,41 @@ public class HeroScript : MonoBehaviour
         {
             if (damageAnimActive)
             {
-                damageAnimator.SetTrigger("Damage");
+                if (movimientoScript.mirandoIzquierda)
+                {
+                    damageAnimator.SetTrigger("DamageDere");
+                }
+                else
+                {
+                    damageAnimator.SetTrigger("Damage");
+                }
+                
                 damageText.text = damage.ToString();
+                damageAnimActive = false;
             }
             else
             {
-                damageAnimator.SetTrigger("Damage2");
+                if (movimientoScript.mirandoIzquierda)
+                {
+                    damageAnimator.SetTrigger("Damage2Dere");
+
+                }
+                else
+                {
+                    damageAnimator.SetTrigger("Damage2");
+
+                }
                 damageText2.text = damage.ToString();
+                damageAnimActive = true;
 
 
             }
             tinteScript.TintColor();
             bloodParticles.Play();
             greenHealthBarImage.fillAmount -= (float)damage / totalHealth;
+            greenHealthBarImagePanel.fillAmount -= (float)damage / totalHealth;
             actualHealth -= damage;
+            healthTotalRestada -= damage;
             if (actualHealth < 1) 
             {
                 ScriptGameManager.gameMode = ModoJuego.Menu;
@@ -234,6 +291,7 @@ public class HeroScript : MonoBehaviour
                 //muerteScreen
             }
             healText.text = actualHealth + " / " + totalHealth;
+            healTextPanel.text = actualHealth + " / " + totalHealth;
             StopCoroutine(AnimateHealthBarDecrease());
             StartCoroutine(AnimateHealthBarDecrease());
             redScreenAnim.SetTrigger("ScreenHit");
@@ -245,16 +303,19 @@ public class HeroScript : MonoBehaviour
         float startValue = redHealthBarImage.fillAmount;
         float endValue = greenHealthBarImage.fillAmount;
         float duration = 0.5f;
-
+        yield return new WaitForSeconds(0.1f);
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
             redHealthBarImage.fillAmount = Mathf.Lerp(startValue, endValue, elapsedTime / duration);
+            redHealthBarImagePanel.fillAmount = Mathf.Lerp(startValue, endValue, elapsedTime / duration);
             yield return null;
         }
 
         // Asegurarse de que fillAmount es exactamente 0.5 al final de la animación
         redHealthBarImage.fillAmount = endValue;
+        redHealthBarImagePanel.fillAmount = endValue;
+
     }
 
 

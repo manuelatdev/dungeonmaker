@@ -146,7 +146,7 @@ public class BasicEnemy : BaseEntity
             if (!descriptionOn && !enemySelected)
             {
                 mouseOverTime += Time.unscaledDeltaTime;
-                if (mouseOverTime > 0.6f)
+                if (mouseOverTime > 0.5f)
                 {
                     DesplegablesScript.ShowEnemyDescription(damage.ToString(), attackSpeed.ToString(), experience.ToString(), gold.ToString(), "SLIME");
                     descriptionOn = true;
@@ -289,13 +289,31 @@ public class BasicEnemy : BaseEntity
     {
         if (damageNumAnim)
         {
-            numbersAnim.SetTrigger("Damage");
+            if (scriptHero.movimientoScript.mirandoIzquierda)
+            {
+                numbersAnim.SetTrigger("DamageIzq");
+
+            }
+            else
+            {
+                numbersAnim.SetTrigger("Damage");
+
+            }
             damage1Text.text = scriptHero.getDamage().ToString();
             damageNumAnim = false;
         }
         else
         {
-            numbersAnim.SetTrigger("Damage2");
+            if (scriptHero.movimientoScript.mirandoIzquierda)
+            {
+                numbersAnim.SetTrigger("Damage2Izq");
+
+            }
+            else
+            {
+                numbersAnim.SetTrigger("Damage2");
+
+            }
             damage2Text.text = scriptHero.getDamage().ToString();
             damageNumAnim = true;
         }
@@ -349,7 +367,7 @@ public class BasicEnemy : BaseEntity
         float startValue = redHealthBarImage.fillAmount;
         float endValue = greenHealthBarImage.fillAmount;
         float duration = 0.5f;
-
+        yield return new WaitForSeconds(0.1f);
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;

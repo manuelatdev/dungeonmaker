@@ -21,6 +21,5 @@ public class ScreenEffectAnimator : MonoBehaviour
     public void StopDarkSoulsSound()
     {
         darkSoulsSound.Stop();
-        print("stop");
     }
 }
