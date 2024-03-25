@@ -6,26 +6,20 @@ using UnityEngine.UI;
 
 public class HeroScript : MonoBehaviour
 {
-    private int[] experienceLevels = {0, 5, 15, 30};
+    private int[] experienceLevels = { 0, 5, 15, 30 };
 
-    [SerializeField]
     private int totalHealth;
 
     [HideInInspector]
     public int actualHealth;
 
-    [SerializeField]
     private int heroDamage;
 
-    [SerializeField]
     private int def;
 
-    [SerializeField]
-    private int range;
 
-   
-    [SerializeField]
-    private float attackSpeed;
+
+    private int attackSpeed;
 
     [SerializeField]
     private Image greenHealthBarImage;
@@ -50,19 +44,19 @@ public class HeroScript : MonoBehaviour
     [HideInInspector]
     public ScriptMovimientoHeroe movimientoScript;
 
-    [HideInInspector] 
+    [HideInInspector]
     public int heroGold;
 
     [HideInInspector]
     public int expTotalObtenida;
 
     [HideInInspector]
-    public int healthTotalRestada=0;
+    public int healthTotalRestada = 0;
 
     private int heroExperience;
 
     [HideInInspector]
-    public  int heroLevel;
+    public int heroLevel;
 
     [HideInInspector]
     public int initialActualHealth;
@@ -135,11 +129,33 @@ public class HeroScript : MonoBehaviour
         tinteScript = GetComponentInChildren<ScriptTinteShader>();
         deadSound = GetComponent<AudioSource>();
         movimientoScript = GetComponent<ScriptMovimientoHeroe>();
-        heroLevel = 1;
-        levelLabel.text = heroLevel.ToString();
         
-        
-        actualHealth = totalHealth;
+        LoadStatsFromManager();
+       
+    }
+
+    public void SaveStatsToManager()
+    {
+        ScriptGameManager.health = actualHealth;
+        ScriptGameManager.maxHealth = totalHealth;
+        ScriptGameManager.level = heroLevel;
+        ScriptGameManager.exp = heroExperience;
+        ScriptGameManager.gold = heroGold;
+        ScriptGameManager.attack = heroDamage;
+        ScriptGameManager.def = def;
+        ScriptGameManager.speed = attackSpeed;
+    }
+    public void LoadStatsFromManager()
+    {
+        actualHealth = ScriptGameManager.health;
+        totalHealth = ScriptGameManager.maxHealth;
+        heroLevel = ScriptGameManager.level;
+        heroExperience = ScriptGameManager.exp;
+        heroGold = ScriptGameManager.gold;
+        heroDamage = ScriptGameManager.attack;
+        def = ScriptGameManager.def;
+        attackSpeed = ScriptGameManager.speed;
+        movimientoScript.heroAttackScript.animatorHero.SetFloat("AttackSpeed",attackSpeed);
         SetInitialStats();
         ActualizarMarcador();
     }
@@ -180,9 +196,9 @@ public class HeroScript : MonoBehaviour
 
     }
 
-    public void OnEnemyDied(BasicEnemy enemyScript,BaseEntity entityScript)
+    public void OnEnemyDied(BasicEnemy enemyScript, BaseEntity entityScript)
     {
-        
+
 
         heroGold += entityScript.getGold();
         if (enemyScript != null)
@@ -190,14 +206,14 @@ public class HeroScript : MonoBehaviour
             heroExperience += enemyScript.getExperience();
             expTotalObtenida += enemyScript.getExperience();
         }
-        
+
 
         if (heroExperience >= experienceLevels[heroLevel])
         {
             LevelUp();
-                 
+
         }
-        
+
         ActualizarMarcador();
         movimientoScript.NextTarget();
 
@@ -227,7 +243,7 @@ public class HeroScript : MonoBehaviour
     {
         levelLabel.text = heroLevel.ToString();
         experienceBar.fillAmount = (float)((float)heroExperience / (float)experienceLevels[heroLevel]);
-        goldLabel.text = "x"+heroGold.ToString();
+        goldLabel.text = "x" + heroGold.ToString();
         attackLabel.text = "x" + heroDamage.ToString();
         defLabel.text = "x" + def.ToString();
         speedLabel.text = "x" + attackSpeed.ToString();
@@ -236,8 +252,9 @@ public class HeroScript : MonoBehaviour
         healTextPanel.text = actualHealth + " / " + totalHealth;
 
     }
-    public  void TakeAttack(int damage)
+    public void TakeAttack(int damage)
     {
+        damage = Mathf.Max(0, damage - def);
         if (ScriptGameManager.gameMode == ModoJuego.Play)
         {
             if (damageAnimActive)
@@ -250,7 +267,7 @@ public class HeroScript : MonoBehaviour
                 {
                     damageAnimator.SetTrigger("Damage");
                 }
-                
+
                 damageText.text = damage.ToString();
                 damageAnimActive = false;
             }
@@ -277,7 +294,7 @@ public class HeroScript : MonoBehaviour
             greenHealthBarImagePanel.fillAmount -= (float)damage / totalHealth;
             actualHealth -= damage;
             healthTotalRestada -= damage;
-            if (actualHealth < 1) 
+            if (actualHealth < 1)
             {
                 ScriptGameManager.gameMode = ModoJuego.Menu;
                 actualHealth = 0;
