@@ -179,11 +179,11 @@ public class HeroScript : MonoBehaviour
         heroGold = initialHeroGold;
         heroDamage = initialHeroDamage;
         healText.text = actualHealth + " / " + totalHealth;
-        redHealthBarImage.fillAmount = (float)actualHealth / totalHealth; ;
+        redHealthBarImage.fillAmount = (float)actualHealth / totalHealth; 
         greenHealthBarImage.fillAmount = (float)actualHealth / totalHealth;
         healTextPanel.text = actualHealth + " / " + totalHealth;
-        redHealthBarImagePanel.fillAmount = (float)actualHealth / totalHealth; ;
-        greenHealthBarImagePanel.fillAmount = (float)actualHealth / totalHealth; ;
+        redHealthBarImagePanel.fillAmount = (float)actualHealth / totalHealth; 
+        greenHealthBarImagePanel.fillAmount = (float)actualHealth / totalHealth; 
         expTotalObtenida = 0;
         healthTotalRestada = 0;
 
@@ -250,6 +250,8 @@ public class HeroScript : MonoBehaviour
         experienceLabel.text = heroExperience + "/" + experienceLevels[heroLevel];
         healText.text = actualHealth + " / " + totalHealth;
         healTextPanel.text = actualHealth + " / " + totalHealth;
+        greenHealthBarImagePanel.fillAmount = (float)actualHealth / totalHealth;
+        redHealthBarImagePanel.fillAmount = (float)actualHealth / totalHealth;
 
     }
     public void TakeAttack(int damage)

@@ -36,8 +36,30 @@ public class ShopScript : MonoBehaviour
     [SerializeField]
     private HeroScript scriptHero;
 
+    [SerializeField]
+    private AudioSource rainSound;
+
+    [SerializeField]
+    private GameObject parentItems;
+    [SerializeField]
+    private GameObject items;
+
+    [SerializeField]
+    Animator moneyAnim;
+
+    [SerializeField]
+    AudioSource deniedSound;
+
+    private Animator anim;
+
+    [SerializeField]
+    ParticleSystem particulasCompra;
+
+    [SerializeField]
+    AudioSource buySound;
     private void Start()
     {
+        anim = GetComponent<Animator>();
         LoadPrecios();
     }
     private void LoadPrecios()
@@ -56,56 +78,97 @@ public class ShopScript : MonoBehaviour
     }
     public void BuyAttack()
     {
-        if (ScriptGameManager.gold>precioAttack)
+        if (ScriptGameManager.gold>=precioAttack)
         {
             ScriptGameManager.shopAttack++;
             ScriptGameManager.gold -= precioAttack;
             ScriptGameManager.attack++;
             LoadPrecios();
             scriptHero.LoadStatsFromManager();
+            particulasCompra.Play();
+            buySound.Play();
+            anim.SetTrigger("Love");
         }
         else
         {
-            //no se puede comprar
-
+            anim.SetTrigger("Denied");
+            deniedSound.Play();
+            moneyAnim.SetTrigger("Denied");
+            
         }
     }
     public void BuySpeed()
     {
-        if (ScriptGameManager.gold > precioSpeed)
+        if (ScriptGameManager.gold >= precioSpeed)
         {
             ScriptGameManager.shopSpeed++;
+            ScriptGameManager.gold -= precioSpeed;
+            ScriptGameManager.speed++; // Asume que tienes una variable speed en ScriptGameManager
+            LoadPrecios();
+            scriptHero.LoadStatsFromManager();
+            particulasCompra.Play();
+            buySound.Play();
+            anim.SetTrigger("Love");
         }
         else
         {
-            //no se puede comprar
-
+            anim.SetTrigger("Denied");
+            deniedSound.Play();
+            moneyAnim.SetTrigger("Denied");
         }
     }
+
     public void BuyArmor()
     {
-        if (ScriptGameManager.gold > precioArmor)
+        if (ScriptGameManager.gold >= precioArmor)
         {
             ScriptGameManager.shopArmor++;
+            ScriptGameManager.gold -= precioArmor;
+            ScriptGameManager.def++; // Asume que tienes una variable armor en ScriptGameManager
+            LoadPrecios();
+            scriptHero.LoadStatsFromManager();
+            particulasCompra.Play();
+            buySound.Play();
+            anim.SetTrigger("Love");
         }
         else
         {
-            //no se puede comprar
-
+            anim.SetTrigger("Denied");
+            deniedSound.Play();
+            moneyAnim.SetTrigger("Denied");
         }
     }
+
     public void BuyHeal()
     {
-        if (ScriptGameManager.gold > precioHeal)
+        if (ScriptGameManager.gold >= precioHeal)
         {
-            //se puede comprar
+
+            ScriptGameManager.gold -= precioHeal;
+            ScriptGameManager.health = Mathf.Min(ScriptGameManager.health + 10, ScriptGameManager.maxHealth);
+            LoadPrecios();
+            scriptHero.LoadStatsFromManager();
+            particulasCompra.Play();
+            buySound.Play();
+            anim.SetTrigger("Love");
         }
         else
         {
-            //no se puede comprar
-
+            anim.SetTrigger("Denied");
+            deniedSound.Play();
+            moneyAnim.SetTrigger("Denied");
         }
     }
+
+    public void EnterShop()
+    {
+        items.transform.SetParent(parentItems.transform,false);
+        if (rainSound != null)
+        {
+            rainSound.Stop();
+        }
+    }
+    
 
 
 }

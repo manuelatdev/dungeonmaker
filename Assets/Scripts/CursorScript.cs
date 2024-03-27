@@ -21,8 +21,14 @@ public class CursorScript : MonoBehaviour
     [SerializeField]
     private GameObject deniedRef;
 
+    private RectTransform rect;
+
+    [SerializeField]
+    private Camera canvasCamera;
+
     private void Start()
     {
+        rect = GetComponent<RectTransform>();
         Cursor.visible = false;
         stone = stoneRef;
         denied = deniedRef;
@@ -31,7 +37,8 @@ public class CursorScript : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Input.mousePosition;
+        Vector2 pos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(GetComponent<RectTransform>(), Input.mousePosition, canvasCamera, out pos); transform.position = rect.TransformPoint(pos);
     }
     public static void SwitchStone(bool estado)
     {

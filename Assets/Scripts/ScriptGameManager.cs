@@ -23,7 +23,7 @@ public class ScriptGameManager : MonoBehaviour
     public static int maxHealth=10;
     public static int level=1;
     public static int exp=0;
-    public static int gold=0;
+    public static int gold=110;
     public static int attack=1;
     public static int def=0;
     public static int speed=1;

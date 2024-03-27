@@ -15,6 +15,7 @@ public class RangoAtaqueScript : MonoBehaviour
     private void Start()
     {
         heroScript = GetComponentInParent<ScriptMovimientoHeroe>();
+        victory = false;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
