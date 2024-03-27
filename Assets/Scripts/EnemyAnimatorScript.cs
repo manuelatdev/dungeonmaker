@@ -8,6 +8,8 @@ public class EnemyAnimatorScript : MonoBehaviour
     private AudioSource attackSound;
     private BasicEnemy enemyScript;
     private HeroScript scriptHero;
+    [SerializeField]
+    private ParticleSystem attackParticle;
 
     void Start()
     {
@@ -25,7 +27,7 @@ public class EnemyAnimatorScript : MonoBehaviour
             case BasicEnemy.enemyType.slime:
                 attackSound = AudioManagerScript.slimeAttack;
                 break;
-            case BasicEnemy.enemyType.skull:
+            case BasicEnemy.enemyType.skeleton:
                 attackSound = AudioManagerScript.skullAttack;
 
                 break;
@@ -42,8 +44,17 @@ public class EnemyAnimatorScript : MonoBehaviour
     }
     public void AttackToHero()
     {
+        print("ataco");
         attackSound.Play();
         scriptHero.TakeAttack(enemyScript.getDamage());
 
+    }
+    public void PlayParticle()
+    {
+        attackParticle.Play();
+    }
+    public void PlayChargeSound()
+    {
+        AudioManagerScript.wizardCharge.Play();
     }
 }

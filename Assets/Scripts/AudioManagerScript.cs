@@ -18,6 +18,8 @@ public class AudioManagerScript : MonoBehaviour
 
     public static AudioSource wizardDead;
     public static AudioSource wizardAttack;
+    public static AudioSource wizardCharge;
+
 
     public static AudioSource cardTaken;
     public static AudioSource cardPlaced;
@@ -35,6 +37,16 @@ public class AudioManagerScript : MonoBehaviour
     private AudioSource slimeAttackRef;
     [SerializeField]
     private AudioSource slimeDeadRef;
+    [SerializeField]
+    private AudioSource skullAttackRef;
+    [SerializeField]
+    private AudioSource skullDeadRef;
+    [SerializeField]
+    private AudioSource wizardAttackRef;
+    [SerializeField]
+    private AudioSource wizardDeadRef;
+    [SerializeField]
+    private AudioSource wizardChargeRef;
     private void Awake()
     {
         music = musicRef;
@@ -45,5 +57,12 @@ public class AudioManagerScript : MonoBehaviour
 
         cardTaken = cardTakenRef;
         cardPlaced = cardPlacedRef;
+
+        skullDead = skullDeadRef;
+        skullAttack = skullAttackRef;
+
+        wizardDead = wizardDeadRef;
+        wizardAttack = wizardAttackRef;
+        wizardCharge = wizardChargeRef;
     }
 }

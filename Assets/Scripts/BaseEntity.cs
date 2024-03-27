@@ -14,7 +14,7 @@ public class BaseEntity : MonoBehaviour
 
     [SerializeField]
     protected int gold;
-
+    [SerializeField]
     protected ParticleSystem particleEmitter;
 
     [SerializeField]
@@ -24,7 +24,7 @@ public class BaseEntity : MonoBehaviour
 
     protected Collider2D meCollider;
 
-    protected int initialHealth;
+    protected int totalHealth;
 
     protected HeroScript scriptHero;
     
@@ -74,7 +74,7 @@ public class BaseEntity : MonoBehaviour
         {
             obj.SetActive(true);
         }
-        health = initialHealth;
+        health = totalHealth;
 
         meCollider.enabled = true;
 
@@ -92,7 +92,11 @@ public class BaseEntity : MonoBehaviour
     public virtual void Start()
     {
         dieSound = GetComponent<AudioSource>();
-        particleEmitter = GetComponent<ParticleSystem>();
+        if (particleEmitter == null)
+        {
+            particleEmitter = GetComponent<ParticleSystem>();
+
+        }
         meCollider = GetComponent<Collider2D>();
         scriptHero = FindAnyObjectByType<HeroScript>();
     }

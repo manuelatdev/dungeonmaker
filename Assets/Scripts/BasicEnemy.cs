@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class BasicEnemy : BaseEntity
 {
-    public enum enemyType { slime, skull, archer, wizard};
+    public enum enemyType { slime, skeleton, archer, wizard};
 
     public enemyType enemyClass;
 
@@ -72,16 +72,90 @@ public class BasicEnemy : BaseEntity
     [SerializeField]
     private TextMeshProUGUI expText;
     private bool damageNumAnim;
+    public static bool encantados;
+
+    [SerializeField]
+    private Color colorBarCharmed;
+    [SerializeField]
+    private Color colorBarNormal;
+    [SerializeField]
+    private GameObject charmedParticles;
     public override void Start()
     {
         base.Start();
         tinteScript = GetComponentInChildren<ScriptTinteShader>();
         healText = GetComponentInChildren<TextMeshProUGUI>();
-        initialHealth = health;
-        healText.text = health + " / " + initialHealth;
+        totalHealth = health;
+        healText.text = health + " / " + totalHealth;
         SetAudioRef();
     }
 
+    public void GoCharm()
+    {
+        encantados = true;
+        // Obtén todos los scripts BasicEnemy en la escena
+        BasicEnemy[] enemies = GameObject.FindObjectsOfType<BasicEnemy>();
+
+        // Itera sobre cada script BasicEnemy
+        foreach (BasicEnemy enemy in enemies)
+        {
+            // Comprueba si el script BasicEnemy no es el que está usando esta función
+            if (enemy != this)
+            {
+                // Activa la función GetCharmed
+                enemy.GetCharmed();
+            }
+        }
+    }
+    public void GoDesCharm()
+    {
+        encantados = false;
+        // Obtén todos los scripts BasicEnemy en la escena
+        BasicEnemy[] enemies = GameObject.FindObjectsOfType<BasicEnemy>();
+
+        // Itera sobre cada script BasicEnemy
+        foreach (BasicEnemy enemy in enemies)
+        {
+            // Comprueba si el script BasicEnemy no es el que está usando esta función
+            if (enemy != this)
+            {
+                // Activa la función GetCharmed
+                enemy.GetDesCharmed();
+            }
+        }
+    }
+    public void ActualizarBarra()
+    {
+        redHealthBarImage.fillAmount = (float)health/totalHealth;
+        greenHealthBarImage.fillAmount = (float)health / totalHealth;
+        healText.text = health + " / " + totalHealth;
+    }
+    public void GetCharmed()
+    {
+        greenHealthBarImage.color = colorBarCharmed;
+        damage *= 2;
+        health *= 2;
+        experience *= 2;
+        gold *= 2;
+        totalHealth *= 2;
+        charmedParticles.SetActive(true);
+        ActualizarBarra();
+            
+    }
+    public void GetDesCharmed()
+    {
+        greenHealthBarImage.color = colorBarNormal;
+        damage /= 2;
+        totalHealth /= 2;
+        health = Mathf.Min(health, totalHealth);
+        charmedParticles.SetActive(false);
+        experience /= 2;
+        gold /= 2;
+        ActualizarBarra();
+
+
+
+    }
     private void SetAudioRef()
     {
         switch (enemyClass)
@@ -89,7 +163,7 @@ public class BasicEnemy : BaseEntity
             case enemyType.slime:
                 dieSound = AudioManagerScript.slimeDead;
                 break;
-            case enemyType.skull:
+            case enemyType.skeleton:
                 dieSound = AudioManagerScript.skullDead;
 
                 break;
@@ -148,7 +222,7 @@ public class BasicEnemy : BaseEntity
                 mouseOverTime += Time.unscaledDeltaTime;
                 if (mouseOverTime > 0.5f)
                 {
-                    DesplegablesScript.ShowEnemyDescription(damage.ToString(), attackSpeed.ToString(), experience.ToString(), gold.ToString(), "SLIME");
+                    DesplegablesScript.ShowEnemyDescription(damage.ToString(), attackSpeed.ToString(), experience.ToString(), gold.ToString(), enemyClass.ToString().ToUpper());
                     descriptionOn = true;
                 }
             } 
@@ -182,7 +256,10 @@ public class BasicEnemy : BaseEntity
         if (ScriptGameManager.gameMode == ModoJuego.Edit)
         {
             AudioManagerScript.cardTaken.Play();
-
+            if (enemyClass == enemyType.wizard)
+            {
+                GoDesCharm();
+            }
             enemySelected = true;
             SelectorScript.movingObject = true;
             ActivateOutline(true);
@@ -210,8 +287,12 @@ public class BasicEnemy : BaseEntity
             if (IsCreable())
             {
                 AudioManagerScript.cardPlaced.Play();
-
+                
                 currentPosition = transform.position;
+                if (enemyClass == enemyType.wizard)
+                {
+                    GoCharm();
+                }
             }
             else if (TrashScript.mouseOnTrash)
             {
@@ -327,8 +408,8 @@ public class BasicEnemy : BaseEntity
 
             NumbersAnimation();
             tinteScript.TintColor();
-            greenHealthBarImage.fillAmount -= (float)damage / initialHealth;
-            healText.text = health + " / " + initialHealth;
+            greenHealthBarImage.fillAmount -= (float)damage / totalHealth;
+            healText.text = health + " / " + totalHealth;
             StopCoroutine(AnimateHealthBarDecrease());
             StartCoroutine(AnimateHealthBarDecrease());
         }
@@ -343,7 +424,7 @@ public class BasicEnemy : BaseEntity
         base.ResetEntity();
         redHealthBarImage.fillAmount = 1;
         greenHealthBarImage.fillAmount = 1;
-        healText.text = health + " / " + initialHealth;
+        healText.text = health + " / " + totalHealth;
     }
     protected override void Die()
     {
