@@ -120,10 +120,24 @@ public class SelectorScript : MonoBehaviour
 
                     enemyScript.SetSelected(false);
                     enemyScript.SpriteLayerDown();
+                    
+                    if (BasicEnemy.wizardsInGame>0)
+                    {
+                        
+                            enemyScript.GetTotalCharmed();
+                        AudioManagerScript.wizardSpell.Play();
+
+
+                    }
                     if (enemyScript.enemyClass == BasicEnemy.enemyType.wizard)
                     {
+
                         enemyScript.GoCharm();
+                        AudioManagerScript.wizardSpell.Play();
                     }
+
+
+
                 }
 
                 

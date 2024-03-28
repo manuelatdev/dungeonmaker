@@ -19,6 +19,8 @@ public class AudioManagerScript : MonoBehaviour
     public static AudioSource wizardDead;
     public static AudioSource wizardAttack;
     public static AudioSource wizardCharge;
+    public static AudioSource wizardSpell;
+
 
 
     public static AudioSource cardTaken;
@@ -47,6 +49,8 @@ public class AudioManagerScript : MonoBehaviour
     private AudioSource wizardDeadRef;
     [SerializeField]
     private AudioSource wizardChargeRef;
+    [SerializeField]
+    private AudioSource wizardSpellRef;
     private void Awake()
     {
         music = musicRef;
@@ -64,5 +68,6 @@ public class AudioManagerScript : MonoBehaviour
         wizardDead = wizardDeadRef;
         wizardAttack = wizardAttackRef;
         wizardCharge = wizardChargeRef;
+        wizardSpell = wizardSpellRef;
     }
 }

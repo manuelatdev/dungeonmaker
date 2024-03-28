@@ -19,11 +19,11 @@ public class ScriptGameManager : MonoBehaviour
     [SerializeField]
     private PlayButtonScript playScript;
 
-    public static int health=12;
+    public static int health=10;
     public static int maxHealth=10;
     public static int level=1;
     public static int exp=0;
-    public static int gold=110;
+    public static int gold=222;
     public static int attack=4;
     public static int def=0;
     public static int speed=1;

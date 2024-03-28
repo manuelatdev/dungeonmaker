@@ -55,7 +55,7 @@ public class BasicEnemy : BaseEntity
     private GameObject detectionArea;
 
     [SerializeField]
-    private GameObject outline;
+    private GameObject[] outlines;
 
     [SerializeField]
     private Color originalColor;
@@ -72,14 +72,17 @@ public class BasicEnemy : BaseEntity
     [SerializeField]
     private TextMeshProUGUI expText;
     private bool damageNumAnim;
-    public static bool encantados;
+    public static int wizardsInGame;
+
+
+    private bool charmed;
 
     [SerializeField]
     private Color colorBarCharmed;
     [SerializeField]
     private Color colorBarNormal;
     [SerializeField]
-    private GameObject charmedParticles;
+    private ParticleSystem charmedParticles;
     public override void Start()
     {
         base.Start();
@@ -92,7 +95,7 @@ public class BasicEnemy : BaseEntity
 
     public void GoCharm()
     {
-        encantados = true;
+        wizardsInGame ++;
         // Obtén todos los scripts BasicEnemy en la escena
         BasicEnemy[] enemies = GameObject.FindObjectsOfType<BasicEnemy>();
 
@@ -109,7 +112,7 @@ public class BasicEnemy : BaseEntity
     }
     public void GoDesCharm()
     {
-        encantados = false;
+        wizardsInGame --;
         // Obtén todos los scripts BasicEnemy en la escena
         BasicEnemy[] enemies = GameObject.FindObjectsOfType<BasicEnemy>();
 
@@ -132,28 +135,79 @@ public class BasicEnemy : BaseEntity
     }
     public void GetCharmed()
     {
+        charmed = true;
         greenHealthBarImage.color = colorBarCharmed;
         damage *= 2;
         health *= 2;
         experience *= 2;
         gold *= 2;
         totalHealth *= 2;
-        charmedParticles.SetActive(true);
+        charmedParticles.gameObject.SetActive(true);
+        charmedParticles.Play();
         ActualizarBarra();
             
     }
+    public void GetTotalCharmed()
+    {
+        int multipilcador = Mathf.Max((2 * wizardsInGame), 1);
+        charmed = true;
+        greenHealthBarImage.color = colorBarCharmed;
+        damage *= multipilcador;
+        health *= multipilcador;
+        experience *= multipilcador;
+        gold *= multipilcador;
+        totalHealth *= multipilcador;
+        charmedParticles.gameObject.SetActive(true);
+        charmedParticles.Play();
+        ActualizarBarra();
+
+    }
     public void GetDesCharmed()
     {
-        greenHealthBarImage.color = colorBarNormal;
+        if (wizardsInGame==0)
+        {
+            charmed = false;
+            greenHealthBarImage.color = colorBarNormal;
+            charmedParticles.gameObject.SetActive(false);
+            
+        }
+        else if (enemyClass == enemyType.wizard&&wizardsInGame == 1)
+        {
+            charmed = false;
+            greenHealthBarImage.color = colorBarNormal;
+            charmedParticles.gameObject.SetActive(false);
+            
+        }
+        else
+        {
+            charmed = true;
+            greenHealthBarImage.color = colorBarCharmed;
+            charmedParticles.gameObject.SetActive(true);
+            charmedParticles.Play();
+        }
+
         damage /= 2;
         totalHealth /= 2;
         health = Mathf.Min(health, totalHealth);
-        charmedParticles.SetActive(false);
         experience /= 2;
         gold /= 2;
         ActualizarBarra();
 
 
+
+    }
+    public void GetTotalDesCharmed()
+    {
+        int multipilcador = Mathf.Max((2 * wizardsInGame), 1);
+        charmed = false;
+        greenHealthBarImage.color = colorBarNormal;
+        damage /= multipilcador;
+        health /= multipilcador;
+        experience /= multipilcador;
+        gold /= multipilcador;
+        totalHealth /= multipilcador;
+        charmedParticles.gameObject.SetActive(false);
+        ActualizarBarra();
 
     }
     private void SetAudioRef()
@@ -222,7 +276,31 @@ public class BasicEnemy : BaseEntity
                 mouseOverTime += Time.unscaledDeltaTime;
                 if (mouseOverTime > 0.5f)
                 {
-                    DesplegablesScript.ShowEnemyDescription(damage.ToString(), attackSpeed.ToString(), experience.ToString(), gold.ToString(), enemyClass.ToString().ToUpper());
+                    if (charmed)
+                    {
+                        
+                            int damageBase = damage / Mathf.Max(wizardsInGame*2,1);
+                            int experienceBase = experience / Mathf.Max(wizardsInGame * 2, 1);
+                            int goldBase = gold / Mathf.Max(wizardsInGame * 2, 1);
+                           string wizardBonus = (wizardsInGame > 1) ? "++" : "+";
+                        if (enemyClass == enemyType.wizard)
+                        {
+                            wizardBonus = ((wizardsInGame - 1) > 1) ? "++" : "+";
+                            damageBase = damage / Mathf.Max((wizardsInGame-1) * 2, 1);
+                            experienceBase = experience / Mathf.Max((wizardsInGame - 1) * 2, 1);
+                            goldBase = gold / Mathf.Max((wizardsInGame - 1) * 2, 1);
+                        }
+                            DesplegablesScript.ShowEnemyPlusDescription($"{damageBase}<color=#6a17b3>+{damage-damageBase}</color>", attackSpeed.ToString(), $"{experienceBase}<color=#6a17b3>+{experience - experienceBase}</color>", $"{goldBase}<color=#6a17b3>+{gold -goldBase}</color>", enemyClass.ToString().ToUpper() + wizardBonus);
+
+                        
+                       
+                        
+                    }
+                    else
+                    {
+                        DesplegablesScript.ShowEnemyDescription(damage.ToString(), attackSpeed.ToString(), experience.ToString(), gold.ToString(), enemyClass.ToString().ToUpper());
+
+                    }
                     descriptionOn = true;
                 }
             } 
@@ -230,7 +308,10 @@ public class BasicEnemy : BaseEntity
     }
     public void ActivateOutline(bool active)
     {
-        outline.SetActive(active);
+        foreach(GameObject outline in outlines)
+        {
+            outline.SetActive(active);
+                   }
         detectionArea.SetActive(active);
 
     }
@@ -260,6 +341,7 @@ public class BasicEnemy : BaseEntity
             {
                 GoDesCharm();
             }
+           
             enemySelected = true;
             SelectorScript.movingObject = true;
             ActivateOutline(true);
@@ -292,7 +374,10 @@ public class BasicEnemy : BaseEntity
                 if (enemyClass == enemyType.wizard)
                 {
                     GoCharm();
+                    AudioManagerScript.wizardSpell.Play();
+
                 }
+
             }
             else if (TrashScript.mouseOnTrash)
             {
@@ -422,6 +507,11 @@ public class BasicEnemy : BaseEntity
     public override void ResetEntity()
     {
         base.ResetEntity();
+        if (wizardsInGame<1)
+        {
+            charmedParticles.gameObject.SetActive(false);
+            
+        }
         redHealthBarImage.fillAmount = 1;
         greenHealthBarImage.fillAmount = 1;
         healText.text = health + " / " + totalHealth;
@@ -435,6 +525,10 @@ public class BasicEnemy : BaseEntity
         numbersAnim.SetTrigger("Dead");
         goldText.text = "+"+gold;
         expText.text = "+" + experience;
+        if (enemyClass == enemyType.wizard)
+        {
+            GoDesCharm();
+        }
 
         foreach (GameObject obj in disabledOnDead)
         {

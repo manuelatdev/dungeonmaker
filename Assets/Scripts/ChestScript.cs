@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ChestScript : BaseEntity
@@ -9,7 +10,10 @@ public class ChestScript : BaseEntity
     private GameObject outline;
     private float timeMouseOver=0;
     private bool descriptionOn;
-   
+    [SerializeField]
+    private Animator anim;
+    [SerializeField]
+    private TextMeshProUGUI textGold;
 
     public override void TakeAttack(int damage)
     {
@@ -22,6 +26,12 @@ public class ChestScript : BaseEntity
         timeMouseOver = 0;
         descriptionOn = false;
         outline.SetActive(false);
+    }
+    protected override void Die()
+    {
+        base.Die();
+        anim.SetTrigger("Dead");
+        textGold.text = "+"+gold.ToString();
     }
         private void OnMouseEnter()
     {

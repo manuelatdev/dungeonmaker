@@ -11,12 +11,16 @@ public class ShopScript : MonoBehaviour
 
     [SerializeField]
     private Sprite[] armorSprites;
+    [SerializeField]
+    private Sprite[] speedSprites;
 
     [SerializeField]
     private Image attackImg;
 
     [SerializeField]
     private Image armorImg;
+    [SerializeField]
+    private Image speedImg;
 
     [SerializeField]
     private TextMeshProUGUI precioAttackText;
@@ -28,7 +32,7 @@ public class ShopScript : MonoBehaviour
     private TextMeshProUGUI precioHealText;
 
     [SerializeField]
-    private int[] preciosItems= { 15, 30, 60, 100 };
+    private int[] preciosItems= { 15, 30, 60, 100,0 };
     private int precioAttack;
     private int precioSpeed;
     private int precioArmor;
@@ -57,6 +61,7 @@ public class ShopScript : MonoBehaviour
 
     [SerializeField]
     AudioSource buySound;
+    
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -74,6 +79,7 @@ public class ShopScript : MonoBehaviour
         precioHealText.text = "+" + precioHeal;
         armorImg.sprite = armorSprites[ScriptGameManager.shopArmor];
         attackImg.sprite = attackSprites[ScriptGameManager.shopAttack];
+        speedImg.sprite = speedSprites[ScriptGameManager.shopSpeed];
 
     }
     public void BuyAttack()
@@ -88,6 +94,10 @@ public class ShopScript : MonoBehaviour
             particulasCompra.Play();
             buySound.Play();
             anim.SetTrigger("Love");
+            if (ScriptGameManager.shopAttack>3)
+            {
+                attackImg.raycastTarget = false;
+            }
         }
         else
         {
@@ -109,6 +119,10 @@ public class ShopScript : MonoBehaviour
             particulasCompra.Play();
             buySound.Play();
             anim.SetTrigger("Love");
+            if (ScriptGameManager.shopSpeed > 3)
+            {
+                speedImg.raycastTarget = false;
+            }
         }
         else
         {
@@ -130,6 +144,10 @@ public class ShopScript : MonoBehaviour
             particulasCompra.Play();
             buySound.Play();
             anim.SetTrigger("Love");
+            if (ScriptGameManager.shopArmor > 3)
+            {
+                armorImg.raycastTarget = false;
+            }
         }
         else
         {
