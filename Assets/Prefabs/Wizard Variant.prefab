@@ -24925,7 +24925,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: renderersUpables.Array.size
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: disabledOnDead.Array.data[0]
@@ -24947,6 +24947,14 @@ PrefabInstance:
       propertyPath: renderersUpables.Array.data[2]
       value: 
       objectReference: {fileID: 1727505789963487695}
+    - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: renderersUpables.Array.data[3]
+      value: 
+      objectReference: {fileID: 7432861126823790935}
+    - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: renderersUpables.Array.data[4]
+      value: 
+      objectReference: {fileID: 6323077538304025047}
     - target: {fileID: 7158145120709957416, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.3

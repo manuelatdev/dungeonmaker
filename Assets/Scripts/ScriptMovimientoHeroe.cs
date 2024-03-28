@@ -33,6 +33,7 @@ public class ScriptMovimientoHeroe : MonoBehaviour
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.isStopped = true;
+        targetActual = exit;
     }
 
 
@@ -141,8 +142,9 @@ public class ScriptMovimientoHeroe : MonoBehaviour
         colaCofres.Clear();
         colaEnemigos.Clear();
         scriptHero.ResetCurrentStats();
-       
-        
+        targetActual = exit;
+
+
     }
     private void DetectCollidersIn()
     {

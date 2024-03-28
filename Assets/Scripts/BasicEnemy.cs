@@ -183,7 +183,7 @@ public class BasicEnemy : BaseEntity
             charmed = true;
             greenHealthBarImage.color = colorBarCharmed;
             charmedParticles.gameObject.SetActive(true);
-            charmedParticles.Play();
+            //charmedParticles.Play();
         }
 
         damage /= 2;

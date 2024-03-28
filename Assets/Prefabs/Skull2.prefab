@@ -5908,7 +5908,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: renderersUpables.Array.size
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: disabledOnDead.Array.data[0]
@@ -5929,19 +5929,31 @@ PrefabInstance:
     - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: renderersUpables.Array.data[1]
       value: 
-      objectReference: {fileID: 4749515971199492048}
+      objectReference: {fileID: 3839903646233843659}
     - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: renderersUpables.Array.data[2]
       value: 
-      objectReference: {fileID: 3839903646233843659}
+      objectReference: {fileID: 2030847950467633746}
     - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: renderersUpables.Array.data[3]
       value: 
-      objectReference: {fileID: 2030847950467633746}
+      objectReference: {fileID: 6066363726581936890}
     - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: renderersUpables.Array.data[4]
       value: 
-      objectReference: {fileID: 6066363726581936890}
+      objectReference: {fileID: 8928116835309210255}
+    - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: renderersUpables.Array.data[5]
+      value: 
+      objectReference: {fileID: 1139239306086837682}
+    - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: renderersUpables.Array.data[6]
+      value: 
+      objectReference: {fileID: 4118753980190597068}
+    - target: {fileID: 5846872786260245766, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: renderersUpables.Array.data[7]
+      value: 
+      objectReference: {fileID: 6525219953306325309}
     - target: {fileID: 7158145120709957416, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.6
