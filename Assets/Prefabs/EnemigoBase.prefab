@@ -6068,6 +6068,7 @@ MonoBehaviour:
   colorBarCharmed: {r: 0.5372549, g: 0.16078432, b: 0.6039216, a: 1}
   colorBarNormal: {r: 0.5647059, g: 0.105882354, b: 0.105882354, a: 1}
   charmedParticles: {fileID: 725134014311157200}
+  spriteObject: {fileID: 8111660439588788110}
 --- !u!199 &7690367434013564359
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -11183,7 +11184,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 20
+  m_SortingOrder: 40
   m_TargetDisplay: 0
 --- !u!114 &8532738928637079011
 MonoBehaviour:

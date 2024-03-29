@@ -15,11 +15,17 @@ public class AudioManagerScript : MonoBehaviour
 
     public static AudioSource archerDead;
     public static AudioSource archerAttack;
+    public static AudioSource archerCharge;
+    public static AudioSource archerHitWall;
+
 
     public static AudioSource wizardDead;
     public static AudioSource wizardAttack;
     public static AudioSource wizardCharge;
     public static AudioSource wizardSpell;
+
+    public static AudioSource bossDead;
+    public static AudioSource bossAttack;
 
 
 
@@ -51,8 +57,24 @@ public class AudioManagerScript : MonoBehaviour
     private AudioSource wizardChargeRef;
     [SerializeField]
     private AudioSource wizardSpellRef;
+
+    [SerializeField]
+    private AudioSource archerAttackRef;
+    [SerializeField]
+    private AudioSource archerDeadRef;
+    [SerializeField]
+    private AudioSource archerChargeRef;
+    [SerializeField]
+    private AudioSource archerHitWallRef;
+    [SerializeField]
+    private AudioSource bossAttackRef;
+    [SerializeField]
+    private AudioSource bossDeadRef;
     private void Awake()
     {
+        bossDead = bossDeadRef;
+        bossAttack = bossAttackRef;
+
         music = musicRef;
         click = clickRef;
 
@@ -69,5 +91,10 @@ public class AudioManagerScript : MonoBehaviour
         wizardAttack = wizardAttackRef;
         wizardCharge = wizardChargeRef;
         wizardSpell = wizardSpellRef;
+
+        archerAttack = archerAttackRef;
+        archerCharge = archerChargeRef;
+        archerDead = archerDeadRef;
+        archerHitWall = archerHitWallRef;
     }
 }

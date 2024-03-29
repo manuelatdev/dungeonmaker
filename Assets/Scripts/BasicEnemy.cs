@@ -4,11 +4,12 @@ using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 public class BasicEnemy : BaseEntity
 {
-    public enum enemyType { slime, skeleton, archer, wizard};
+    public enum enemyType { slime, skeleton, archer, wizard,boss};
 
     public enemyType enemyClass;
 
@@ -83,14 +84,52 @@ public class BasicEnemy : BaseEntity
     private Color colorBarNormal;
     [SerializeField]
     private ParticleSystem charmedParticles;
+    private ScriptFlecha[] flechasScript;
+    private bool imDead;
+    private bool subido;
+    private bool girado;
+    [SerializeField]
+    private GameObject spriteObject;
     public override void Start()
     {
         base.Start();
+        if (enemyClass == enemyType.archer)
+        {
+            flechasScript = GetComponentsInChildren<ScriptFlecha>(true);
+        }
+        wizardsInGame = 0;
+
         tinteScript = GetComponentInChildren<ScriptTinteShader>();
         healText = GetComponentInChildren<TextMeshProUGUI>();
         totalHealth = health;
         healText.text = health + " / " + totalHealth;
         SetAudioRef();
+    }
+    private void Update()
+    {
+        if (ScriptGameManager.gameMode == ModoJuego.Play)
+        {
+            if (scriptHero.transform.position.y > transform.position.y && !subido)
+            {
+                SpriteLayerUp();
+                subido = true;
+            }
+            else if (scriptHero.transform.position.y < transform.position.y && subido)
+            {
+                SpriteLayerDown();
+                subido = false;
+            }
+            if (scriptHero.transform.position.x > transform.position.x && !girado)
+            {
+                spriteObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+                girado = true;
+            }
+            else if (scriptHero.transform.position.x < transform.position.x && girado)
+            {
+                spriteObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+                girado = false;
+            }
+        }
     }
 
     public void GoCharm()
@@ -334,7 +373,7 @@ public class BasicEnemy : BaseEntity
     }
     private void OnMouseDown()
     {
-        if (ScriptGameManager.gameMode == ModoJuego.Edit)
+        if (ScriptGameManager.gameMode == ModoJuego.Edit&&enemyClass != enemyType.boss)
         {
             AudioManagerScript.cardTaken.Play();
             if (enemyClass == enemyType.wizard)
@@ -353,7 +392,7 @@ public class BasicEnemy : BaseEntity
     }
     private void OnMouseDrag()
     {
-        if (enemySelected && ScriptGameManager.gameMode == ModoJuego.Edit)
+        if (enemySelected && ScriptGameManager.gameMode == ModoJuego.Edit && enemyClass != enemyType.boss)
         {
             Vector3 mousePosition = Input.mousePosition;
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
@@ -364,7 +403,7 @@ public class BasicEnemy : BaseEntity
     }
     private void OnMouseUp()
     {
-        if (ScriptGameManager.gameMode == ModoJuego.Edit)
+        if (ScriptGameManager.gameMode == ModoJuego.Edit && enemyClass != enemyType.boss)
         {
             if (IsCreable())
             {
@@ -394,9 +433,15 @@ public class BasicEnemy : BaseEntity
             }
 
             ActivateOutline(false);
-            SpriteLayerDown();
+            if (enemySelected)
+            {
+                SpriteLayerDown();
+                enemySelected = false;
+
+            }
+
             CursorScript.SwitchDenied(false);
-            enemySelected = false;
+            
             SelectorScript.movingObject = false;
             descriptionOn = false;
             mouseOverTime = 0;
@@ -512,9 +557,33 @@ public class BasicEnemy : BaseEntity
             charmedParticles.gameObject.SetActive(false);
             
         }
+        if (enemyClass == enemyType.wizard&&imDead)
+        {
+            GoCharm();
+        }
+        if (enemyClass == enemyType.archer)
+        {
+            foreach (ScriptFlecha script in flechasScript)
+            {
+                script.ResetArrow();
+            }
+
+        }
+        if (subido)
+        {
+            SpriteLayerDown();
+            subido = false;
+        }
+        if (girado)
+        {
+            spriteObject.transform.rotation = Quaternion.Euler(0,0,0);
+            
+            girado = false;
+        }
         redHealthBarImage.fillAmount = 1;
         greenHealthBarImage.fillAmount = 1;
         healText.text = health + " / " + totalHealth;
+        imDead = false;
     }
     protected override void Die()
     {
@@ -525,6 +594,7 @@ public class BasicEnemy : BaseEntity
         numbersAnim.SetTrigger("Dead");
         goldText.text = "+"+gold;
         expText.text = "+" + experience;
+        imDead = true;
         if (enemyClass == enemyType.wizard)
         {
             GoDesCharm();

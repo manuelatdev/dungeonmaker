@@ -300,6 +300,7 @@ public class HeroScript : MonoBehaviour
                 cameraScript.DeadCamera();
                 redScreenAnim.SetTrigger("DeadScreen");
                 colliderCuerpo.enabled = false;
+                movimientoScript.agent.isStopped = true;
                 
                 
             }

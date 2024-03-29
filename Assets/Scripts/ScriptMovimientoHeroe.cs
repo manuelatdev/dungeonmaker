@@ -7,7 +7,8 @@ public class ScriptMovimientoHeroe : MonoBehaviour
 {
 
     public GameObject exit;
-    private NavMeshAgent agent;
+    [HideInInspector]
+    public NavMeshAgent agent;
     [SerializeField]
     private Queue<GameObject> colaEnemigos = new Queue<GameObject>();
     [SerializeField]

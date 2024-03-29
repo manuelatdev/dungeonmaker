@@ -39,6 +39,10 @@ public class EnemyAnimatorScript : MonoBehaviour
                 attackSound = AudioManagerScript.wizardAttack;
 
                 break;
+            case BasicEnemy.enemyType.boss:
+                attackSound = AudioManagerScript.bossAttack;
+
+                break;
 
         }
     }
