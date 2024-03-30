@@ -74,7 +74,7 @@ public class BasicEnemy : BaseEntity
     private TextMeshProUGUI expText;
     private bool damageNumAnim;
     public static int wizardsInGame;
-
+    public int wizardsInGameRef;
 
     private bool charmed;
 
@@ -97,7 +97,6 @@ public class BasicEnemy : BaseEntity
         {
             flechasScript = GetComponentsInChildren<ScriptFlecha>(true);
         }
-        wizardsInGame = 0;
 
         tinteScript = GetComponentInChildren<ScriptTinteShader>();
         healText = GetComponentInChildren<TextMeshProUGUI>();
@@ -428,13 +427,20 @@ public class BasicEnemy : BaseEntity
             else
             {
                 AudioManagerScript.cardPlaced.Play();
+                if (enemyClass == enemyType.wizard)
+                {
+                    GoCharm();
+                    AudioManagerScript.wizardSpell.Play();
 
+                }
                 transform.position = currentPosition;
             }
 
             ActivateOutline(false);
             if (enemySelected)
             {
+                
+
                 SpriteLayerDown();
                 enemySelected = false;
 

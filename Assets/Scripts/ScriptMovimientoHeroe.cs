@@ -40,6 +40,7 @@ public class ScriptMovimientoHeroe : MonoBehaviour
 
     private void Update()
     {
+        
         if (ScriptGameManager.gameMode == ModoJuego.Play)
         {
             if (agent.velocity.x > 0f && mirandoIzquierda)
@@ -137,7 +138,11 @@ public class ScriptMovimientoHeroe : MonoBehaviour
     {
         agent.isStopped = true;
         spriteGameobject.transform.rotation = new Quaternion(0, 0, 0, 1);
+        agent.enabled = false;
+
         transform.position = initialPosition;
+        agent.enabled = true;
+
         heroAttackScript.animatorHero.SetBool("Walk", false);
         heroAttackScript.animatorHero.SetTrigger("Stop");
         colaCofres.Clear();

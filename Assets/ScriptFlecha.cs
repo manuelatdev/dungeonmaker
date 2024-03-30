@@ -25,6 +25,11 @@ public class ScriptFlecha : MonoBehaviour
     {
         stop = false;
         tiempoVida = 0;
+
+        Vector2 direccion = objetivo.position - transform.position;
+        float angulo = Mathf.Atan2(direccion.y, direccion.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angulo);
+
         colliderArrow.enabled = true;
     }
     void Update()

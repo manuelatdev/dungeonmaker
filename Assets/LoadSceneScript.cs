@@ -28,7 +28,11 @@ public class LoadSceneScript : MonoBehaviour
     public void CargarSiguienteEscena()
     {
         StartCoroutine(LoadSceneAsync());
-        Destroy(items);
+        if (items != null)
+        {
+            Destroy(items);
+
+        }
     }
     IEnumerator LoadSceneAsync()
     {
@@ -39,6 +43,8 @@ public class LoadSceneScript : MonoBehaviour
         {
             yield return null;
         }
+        AudioManagerScript.music.Stop();
+
         anim.SetTrigger("EndTransition");
     }
 }

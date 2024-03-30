@@ -112,8 +112,13 @@ public class PlayButtonScript : MonoBehaviour
         // Itera sobre cada entidad y llama a ResetEnemy
         foreach (BaseEntity enemy in enemys)
         {
-            Destroy(enemy.gameObject);
+            if (!enemy.gameObject.CompareTag("Cofre"))
+            {
+                Destroy(enemy.gameObject);
+
+            }
         }
+        BasicEnemy.wizardsInGame = 0;
     }
     private void ResetAllEntitys()
     {

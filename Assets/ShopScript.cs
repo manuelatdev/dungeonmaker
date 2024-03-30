@@ -73,10 +73,10 @@ public class ShopScript : MonoBehaviour
         precioSpeed = preciosItems[ScriptGameManager.shopSpeed];
         precioArmor = preciosItems[ScriptGameManager.shopArmor];
         precioHeal = 10;
-        precioAttackText.text = "+" + precioAttack;
-        precioSpeedText.text = "+" + precioSpeed;
-        precioArmorText.text = "+" + precioArmor;
-        precioHealText.text = "+" + precioHeal;
+        precioAttackText.text = "x" + precioAttack;
+        precioSpeedText.text = "x" + precioSpeed;
+        precioArmorText.text = "x" + precioArmor;
+        precioHealText.text = "x" + precioHeal;
         armorImg.sprite = armorSprites[ScriptGameManager.shopArmor];
         attackImg.sprite = attackSprites[ScriptGameManager.shopAttack];
         speedImg.sprite = speedSprites[ScriptGameManager.shopSpeed];

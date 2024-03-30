@@ -7,6 +7,7 @@ TagManager:
   - Slime
   - NavMesh
   - Hero
+  - Cofre
   layers:
   - Default
   - TransparentFX

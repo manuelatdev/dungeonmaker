@@ -34,7 +34,9 @@ public class ScriptGameManager : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1;
         gameMode = ModoJuego.Edit;
+        BasicEnemy.wizardsInGame = 0;
     }
     public static void ExitGame()
     {
@@ -42,6 +44,7 @@ public class ScriptGameManager : MonoBehaviour
     }
     private void Update()
     {
+        print(gameMode);
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (!menuESC.activeSelf && gameMode != ModoJuego.Menu)
