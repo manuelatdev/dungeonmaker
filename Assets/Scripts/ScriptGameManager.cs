@@ -34,7 +34,7 @@ public class ScriptGameManager : MonoBehaviour
 
     private void Start()
     {
-        Time.timeScale = 1;
+        ScriptTimeX2.ReiniciarTiempo();
         gameMode = ModoJuego.Edit;
         BasicEnemy.wizardsInGame = 0;
     }
@@ -57,7 +57,7 @@ public class ScriptGameManager : MonoBehaviour
             else if (menuESC.activeSelf)
             {
                 menuESC.SetActive(false);
-                Time.timeScale = 1;
+                ScriptTimeX2.VolverTiempoAnterior();
                 playScript.GoCurrentMode();
                 AudioManagerScript.click.Play();
             }

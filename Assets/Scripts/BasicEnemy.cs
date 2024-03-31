@@ -90,6 +90,8 @@ public class BasicEnemy : BaseEntity
     private bool girado;
     [SerializeField]
     private GameObject spriteObject;
+    [SerializeField]
+    private GameObject buffIcons;
     public override void Start()
     {
         base.Start();
@@ -175,6 +177,7 @@ public class BasicEnemy : BaseEntity
     {
         charmed = true;
         greenHealthBarImage.color = colorBarCharmed;
+        buffIcons.SetActive(true);
         damage *= 2;
         health *= 2;
         experience *= 2;
@@ -190,6 +193,8 @@ public class BasicEnemy : BaseEntity
         int multipilcador = Mathf.Max((2 * wizardsInGame), 1);
         charmed = true;
         greenHealthBarImage.color = colorBarCharmed;
+        buffIcons.SetActive(true);
+
         damage *= multipilcador;
         health *= multipilcador;
         experience *= multipilcador;
@@ -206,6 +211,8 @@ public class BasicEnemy : BaseEntity
         {
             charmed = false;
             greenHealthBarImage.color = colorBarNormal;
+            buffIcons.SetActive(false);
+
             charmedParticles.gameObject.SetActive(false);
             
         }
@@ -213,6 +220,8 @@ public class BasicEnemy : BaseEntity
         {
             charmed = false;
             greenHealthBarImage.color = colorBarNormal;
+            buffIcons.SetActive(false);
+
             charmedParticles.gameObject.SetActive(false);
             
         }
@@ -221,6 +230,8 @@ public class BasicEnemy : BaseEntity
             charmed = true;
             greenHealthBarImage.color = colorBarCharmed;
             charmedParticles.gameObject.SetActive(true);
+            buffIcons.SetActive(true);
+
             //charmedParticles.Play();
         }
 
@@ -239,6 +250,8 @@ public class BasicEnemy : BaseEntity
         int multipilcador = Mathf.Max((2 * wizardsInGame), 1);
         charmed = false;
         greenHealthBarImage.color = colorBarNormal;
+        buffIcons.SetActive(false);
+
         damage /= multipilcador;
         health /= multipilcador;
         experience /= multipilcador;
@@ -350,7 +363,11 @@ public class BasicEnemy : BaseEntity
         {
             outline.SetActive(active);
                    }
-        detectionArea.SetActive(active);
+        if (enemyClass != enemyType.boss)
+        {
+            detectionArea.SetActive(active);
+
+        }
 
     }
     private void OnMouseExit()

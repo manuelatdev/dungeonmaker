@@ -40,6 +40,7 @@ public class RangoAtaqueScript : MonoBehaviour
         {
             ScriptGameManager.gameMode = ModoJuego.Menu;
             scriptVictory.gameObject.SetActive(true);
+            ScriptTimeX2.ReiniciarTiempo();
             scriptVictory.GoVictory();
             scriptVictory.GetStats();
             heroScript.StopHero();

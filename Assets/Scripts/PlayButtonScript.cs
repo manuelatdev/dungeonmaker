@@ -52,8 +52,8 @@ public class PlayButtonScript : MonoBehaviour
             DestroyAllEnemys();
             playButton.sprite = playSprite;
             EnergyScript.ResetEnergy();
-        Time.timeScale = 1;
-        
+        ScriptTimeX2.VolverTiempoAnterior();
+
     }
     public void ShadowState(bool estado)
     {
@@ -78,7 +78,7 @@ public class PlayButtonScript : MonoBehaviour
         heroMoveScript.GoStopMode();
         RangoAtaqueScript.victory = false;
         playButton.sprite = playSprite;
-        Time.timeScale = 1;
+        ScriptTimeX2.VolverTiempoAnterior();
 
 
     }
@@ -88,7 +88,7 @@ public class PlayButtonScript : MonoBehaviour
         screenEffectScript.anim.SetTrigger("ResetScreen");
         cameraScript.ResetCamera();
         AudioManagerScript.music.Play();
-        Time.timeScale = 1;
+        ScriptTimeX2.VolverTiempoAnterior();
 
     }
     public void GoMenuMode()
@@ -101,7 +101,7 @@ public class PlayButtonScript : MonoBehaviour
     {
 
         ScriptGameManager.gameMode = currentGameMode;
-        Time.timeScale = 1;
+        ScriptTimeX2.VolverTiempoAnterior();
 
     }
 

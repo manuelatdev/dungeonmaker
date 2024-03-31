@@ -180,7 +180,11 @@ public class ScriptMovimientoHeroe : MonoBehaviour
     
     public void AttackToEnemy()
     {
-        targetActual?.GetComponent<BaseEntity>().TakeAttack(scriptHero.getDamage());
+        if (targetActual!= exit)
+        {
+            targetActual.GetComponent<BaseEntity>().TakeAttack(scriptHero.getDamage());
+
+        }
     }
 
     public void SetNextDestination()

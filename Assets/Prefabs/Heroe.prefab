@@ -751,6 +751,7 @@ Transform:
   m_LocalScale: {x: 0.42529887, y: 0.42529887, z: 0.42529887}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 5716080156545415170}
   - {fileID: 2777043048909956539}
   - {fileID: 3189380948485827455}
   - {fileID: 2320278259052757816}
@@ -6476,6 +6477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   exit: {fileID: 0}
+  agent: {fileID: 0}
   targetActual: {fileID: 0}
   spriteGameobject: {fileID: 7597247134135156011}
   mirandoIzquierda: 0
@@ -6857,12 +6859,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7381936381076583499}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.009, y: -0.281, z: 0}
-  m_LocalScale: {x: 0.97, y: 0.65, z: 0.97}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.08934827, y: -2.6287396, z: 0}
+  m_LocalScale: {x: 2.2807493, y: 1.528337, z: 2.2807493}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3213124769513009442}
+  m_Father: {fileID: 7231695031248043768}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8022205079697871049
 SpriteRenderer:
@@ -6948,7 +6950,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7231695031248043768}
-  - {fileID: 5716080156545415170}
   m_Father: {fileID: 1529303299628501496}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1782704072768283408
@@ -7173,6 +7174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 622fd50ec1e632a4dadd6496e48bca2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossFigth: 0
   animatorHero: {fileID: 3071512857159161849}
   atacando: 0
   scriptVictory: {fileID: 0}
