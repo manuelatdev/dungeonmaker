@@ -48,7 +48,6 @@ public class EnemyAnimatorScript : MonoBehaviour
     }
     public void AttackToHero()
     {
-        print("ataco");
         attackSound.Play();
         scriptHero.TakeAttack(enemyScript.getDamage());
 

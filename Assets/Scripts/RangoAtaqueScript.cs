@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class RangoAtaqueScript : MonoBehaviour
 {
+    public bool bossFigth;
     public Animator animatorHero;
     private ScriptMovimientoHeroe heroScript;
     public bool atacando;
@@ -43,6 +44,10 @@ public class RangoAtaqueScript : MonoBehaviour
             scriptVictory.GetStats();
             heroScript.StopHero();
             victory = true;
+            if (bossFigth)
+            {
+                AudioManagerScript.music.Stop();
+            }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

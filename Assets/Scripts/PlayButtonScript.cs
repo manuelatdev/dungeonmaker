@@ -107,7 +107,7 @@ public class PlayButtonScript : MonoBehaviour
 
     private void DestroyAllEnemys()
     {
-        BasicEnemy[] enemys = GameObject.FindObjectsOfType<BasicEnemy>();
+        BaseEntity[] enemys = GameObject.FindObjectsOfType<BaseEntity>();
 
         // Itera sobre cada entidad y llama a ResetEnemy
         foreach (BaseEntity enemy in enemys)
@@ -116,6 +116,10 @@ public class PlayButtonScript : MonoBehaviour
             {
                 Destroy(enemy.gameObject);
 
+            }
+            else
+            {
+                enemy.ResetEntity();
             }
         }
         BasicEnemy.wizardsInGame = 0;

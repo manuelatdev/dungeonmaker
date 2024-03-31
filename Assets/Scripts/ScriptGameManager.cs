@@ -44,7 +44,6 @@ public class ScriptGameManager : MonoBehaviour
     }
     private void Update()
     {
-        print(gameMode);
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (!menuESC.activeSelf && gameMode != ModoJuego.Menu)

@@ -24,8 +24,7 @@ public class UpgradeSkins : MonoBehaviour
 
     private void Start()
     {
-        print("nivel armadura " + ScriptGameManager.shopArmor);
-        print("nivel espada " + ScriptGameManager.shopAttack);
+        
        
         head.sprite = heads[ScriptGameManager.shopArmor];
         arm.sprite = arms[ScriptGameManager.shopArmor];

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class HeroScript : MonoBehaviour
 {
-    private int[] experienceLevels = { 0, 5, 20, 50,70,100 };
+    private int[] experienceLevels = { 0, 5, 20, 50,70,100,200,300 };
 
     private int totalHealth;
 

@@ -15,7 +15,6 @@ public class ScriptHeroAnimator : MonoBehaviour
     }
     public void Ataque()
     {
-        print("AtacoHero");
         swordAtackSound.pitch = Random.Range(1f, 1.3f);
         swordAtackSound.Play();
         heroeScript.AttackToEnemy();

@@ -11,6 +11,7 @@ public class LoadSceneScript : MonoBehaviour
     private GameObject destruibleObject;
     [SerializeField]
     private GameObject items;
+    public bool titleScreen;
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -36,7 +37,16 @@ public class LoadSceneScript : MonoBehaviour
     }
     IEnumerator LoadSceneAsync()
     {
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex+1);
+        AsyncOperation asyncOperation;
+
+        if (!titleScreen)
+        {
+            asyncOperation = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else
+        {
+            asyncOperation = SceneManager.LoadSceneAsync(5);
+        }
 
         // Espera a que la escena se haya cargado completamente
         while (!asyncOperation.isDone)

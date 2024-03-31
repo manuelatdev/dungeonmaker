@@ -71,12 +71,10 @@ public class ScriptFlecha : MonoBehaviour
             enemyScript.AttackToHero();
             gameObject.SetActive(false);
             colliderArrow.enabled = false;
-            print("hit on hero");
 
         }
         if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
-            print("hit on wall");
             stop = true;
             AudioManagerScript.archerHitWall.Play();
             colliderArrow.enabled = false;
