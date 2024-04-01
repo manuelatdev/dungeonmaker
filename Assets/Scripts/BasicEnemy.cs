@@ -225,7 +225,7 @@ public class BasicEnemy : BaseEntity
             charmedParticles.gameObject.SetActive(false);
             
         }
-        else
+        else if(!imDead)
         {
             charmed = true;
             greenHealthBarImage.color = colorBarCharmed;
@@ -278,6 +278,9 @@ public class BasicEnemy : BaseEntity
                 break;
             case enemyType.wizard:
                 dieSound = AudioManagerScript.wizardDead;
+                break;
+            case enemyType.boss:
+                dieSound = AudioManagerScript.bossDead;
 
                 break;
            

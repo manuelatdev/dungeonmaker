@@ -36,7 +36,7 @@ public class RangoAtaqueScript : MonoBehaviour
             }
             
         }
-        if (!victory&&ScriptGameManager.gameMode == ModoJuego.Play&&collision.gameObject == heroScript.targetActual&& collision.gameObject.layer == LayerMask.NameToLayer("Exit"))
+        if (!victory&&ScriptGameManager.gameMode == ModoJuego.Play&&collision.gameObject == heroScript.targetActual&& collision.gameObject.CompareTag("Exit"))
         {
             ScriptGameManager.gameMode = ModoJuego.Menu;
             scriptVictory.gameObject.SetActive(true);

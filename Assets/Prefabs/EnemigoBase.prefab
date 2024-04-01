@@ -5822,7 +5822,7 @@ GameObject:
   - component: {fileID: 3844500400407826456}
   - component: {fileID: 4099923482148436667}
   - component: {fileID: 9015067601841103234}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ColliderAtaque
   m_TagString: Untagged
   m_Icon: {fileID: 0}

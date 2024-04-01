@@ -6925,6 +6925,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 01812305a1deb514eb86ead156fe4fc6, type: 2}
+    - target: {fileID: 3094456719223380324, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3884976532814465655, guid: e3d05306fbbdd844291b593960e793cd, type: 3}
       propertyPath: m_Name
       value: Archer Variant
